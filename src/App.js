@@ -1,6 +1,6 @@
 import React,{useEffect} from 'react';
 import './App.css';
-import {initializeCalendar} from './firebase.utils';
+import {addMealToDay} from './firebase.utils';
 
 
 const App = () =>
@@ -8,7 +8,7 @@ const App = () =>
 	useEffect(()=>{
 		const testing = async () =>
 		{
-			await initializeCalendar();
+			await addMealToDay("RXOhMOY4QqpcWOZ01iFb", 1, new Date(), "12:00pm");
 		}
 		testing();
 	},[]);

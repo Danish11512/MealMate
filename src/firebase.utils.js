@@ -102,3 +102,47 @@ export const initializeCalendar = async () =>
 	}
 	return null;
 }
+
+export const getCalendarFull = async (id) =>
+{
+	const calendarRef = firestore.doc(`calendars/${id}`);
+    const snapShot = await calendarRef.get();
+	return snapShot.data();
+}
+
+export const addMealToDay = async (id, recipeId, date, time) =>
+{
+	date = date.toDateString();
+	const calendarRef = firestore.doc(`calendars/${id}`);
+    const snapShot = await calendarRef.get();
+	let calendarData = snapShot.data();
+
+	if(date in calendarData.schedule)
+	{
+		calendarData.schedule[date].meals.push({recipeId, time});
+	}
+	else
+	{
+		let dateObject = {totalCalories:0, totalFat:0, meals:[{recipeId, time}]};
+		calendarData.schedule[date] = dateObject;
+	}
+
+	try{
+		calendarRef.set(calendarData);
+	}
+	catch(error)
+	{
+		console.log("Could not add Meal to Day");
+	}
+
+	return calendarData;
+}
+
+/*
+getCalendarCurrentWeek()
+getCalendarDay()
+getCalendarDateRange()
+addMealToDay()
+removeMealFromDay()
+editMealInDay()
+*/
