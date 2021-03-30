@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {addMealToDay, removeMealFromDay, editMealInDay, getCalendarDay, getCalendarCurrentWeek, getCalendarDateRange} from './firebase.utils';
+import {addMealToDay, removeMealFromDay, editMealInDay, getCalendarDay, getCalendarCurrentWeek, getCalendarDateRange} from './firebase/firebase.utils';
 
 
 const App = () =>

@@ -309,12 +309,3 @@ export const getCalendarDateRange = async (calendarId, startDate, endDate, calen
 
 	return rangeObject;
 }
-
-/*
-getCalendarCurrentWeek()
-getCalendarDay()
-getCalendarDateRange()
-addMealToDay()
-removeMealFromDay()
-editMealInDay()
-*/
