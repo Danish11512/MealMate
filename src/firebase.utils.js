@@ -17,6 +17,11 @@ firebase.initializeApp(firebaseConfig);
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
+const generateId = () => 
+{
+	return Math.random().toString(36).substr(2, 9);
+};
+
 export const createUserProfileDocument = async (userAuth, additionalData) =>
 {
     if(!userAuth) return;
@@ -103,27 +108,35 @@ export const initializeCalendar = async () =>
 	return null;
 }
 
-export const getCalendarFull = async (id) =>
+export const getCalendarFull = async (calendarId) =>
 {
-	const calendarRef = firestore.doc(`calendars/${id}`);
+	const calendarRef = firestore.doc(`calendars/${calendarId}`);
     const snapShot = await calendarRef.get();
 	return snapShot.data();
 }
 
-export const addMealToDay = async (id, recipeId, date, time) =>
+export const addMealToDay = async (calendarId, recipeId, date, time, calendar=null) =>
 {
-	date = date.toDateString();
-	const calendarRef = firestore.doc(`calendars/${id}`);
-    const snapShot = await calendarRef.get();
-	let calendarData = snapShot.data();
+	if(date instanceof Date)
+		date = date.toDateString();
+	
+	const calendarRef = firestore.doc(`calendars/${calendarId}`);
+	let calendarData = calendar
+	const mealId = generateId()
+
+	if(!calendarData)
+	{
+		const snapShot = await calendarRef.get();
+		calendarData = snapShot.data();
+	}
 
 	if(date in calendarData.schedule)
 	{
-		calendarData.schedule[date].meals.push({recipeId, time});
+		calendarData.schedule[date].meals.push({mealId, recipeId, time});
 	}
 	else
 	{
-		let dateObject = {totalCalories:0, totalFat:0, meals:[{recipeId, time}]};
+		let dateObject = {totalCalories:0, totalFat:0, meals:[{mealId, recipeId, time}]};
 		calendarData.schedule[date] = dateObject;
 	}
 
@@ -135,7 +148,166 @@ export const addMealToDay = async (id, recipeId, date, time) =>
 		console.log("Could not add Meal to Day");
 	}
 
-	return calendarData;
+	return [calendarData, mealId];
+}
+
+export const removeMealFromDay = async (calendarId, mealId, date, calendar=null) =>
+{
+	if(date instanceof Date)
+		date = date.toDateString();
+	
+	const calendarRef = firestore.doc(`calendars/${calendarId}`);
+	let calendarData = calendar
+
+	if(!calendarData)
+	{
+		const snapShot = await calendarRef.get();
+		calendarData = snapShot.data();
+	}
+
+	if(date in calendarData.schedule)
+	{
+		for(let i =0; i < calendarData.schedule[date].meals.length;i ++)
+			if(calendarData.schedule[date].meals[i].mealId === mealId)
+			{
+				calendarData.schedule[date].meals.splice(i, 1);
+				break;
+			}
+
+		try{
+			calendarRef.set(calendarData);
+		}
+		catch(error)
+		{
+			console.log("Could not remove Meal from Day");
+		}
+	
+		return calendarData;
+	}
+
+	return null;
+}
+
+export const editMealInDay = async (calendarId, mealId, date, newTime, calendar=null) =>
+{
+	if(date instanceof Date)
+		date = date.toDateString();
+	
+	const calendarRef = firestore.doc(`calendars/${calendarId}`);
+	let calendarData = calendar
+
+	if(!calendarData)
+	{
+		const snapShot = await calendarRef.get();
+		calendarData = snapShot.data();
+	}
+
+	if(date in calendarData.schedule)
+	{
+		for(let i =0; i < calendarData.schedule[date].meals.length;i ++)
+			if(calendarData.schedule[date].meals[i].mealId === mealId)
+			{
+				calendarData.schedule[date].meals[i].time = newTime;
+				break;
+			}
+
+		try{
+			calendarRef.set(calendarData);
+		}
+		catch(error)
+		{
+			console.log("Could not edit Meal In Day");
+		}
+	
+		return calendarData;
+	}
+
+	return null;
+}
+
+export const getCalendarDay = async (calendarId, date, calendar=null) =>
+{
+	if(date instanceof Date)
+		date = date.toDateString();
+	
+	const calendarRef = firestore.doc(`calendars/${calendarId}`);
+	let calendarData = calendar
+
+	if(!calendarData)
+	{
+		const snapShot = await calendarRef.get();
+		calendarData = snapShot.data();
+	}
+
+	if(date in calendarData.schedule)
+	{
+		return calendarData.schedule[date];
+	}
+
+	return null;
+}
+
+export const addDays = (date, days) =>
+{
+	var result = new Date(date);
+	result.setDate(result.getDate() + days);
+	return result;
+}
+
+export const getCalendarCurrentWeek = async (calendarId, date, calendar=null) =>
+{
+	if(date instanceof String)
+		date = Date.parse(date);
+	
+	const calendarRef = firestore.doc(`calendars/${calendarId}`);
+	let calendarData = calendar
+	let weekObject = {}
+
+	if(!calendarData)
+	{
+		const snapShot = await calendarRef.get();
+		calendarData = snapShot.data();
+	}
+
+	for(let i=0; i <= 7;i++)
+	{
+		let newDate = addDays(date, i).toDateString();
+		weekObject[newDate] = calendarData.schedule[newDate] || {totalCalories:0, totalFat:0, meals:{}}
+	}
+
+	return weekObject;
+}
+
+
+export const getCalendarDateRange = async (calendarId, startDate, endDate, calendar=null) =>
+{
+	if(startDate instanceof String)
+		startDate = Date.parse(startDate);
+	
+	if(endDate instanceof String)
+		endDate = Date.parse(endDate);
+
+	if(startDate > endDate)
+		return "INVALID RANGE";
+
+	const calendarRef = firestore.doc(`calendars/${calendarId}`);
+	let calendarData = calendar
+	let rangeObject = {}
+
+	if(!calendarData)
+	{
+		const snapShot = await calendarRef.get();
+		calendarData = snapShot.data();
+	}
+
+	let newDate = startDate.toDateString()
+	for(let i=0; newDate !== endDate.toDateString();i++)
+	{
+		newDate = addDays(startDate, i).toDateString();
+		rangeObject[newDate] = calendarData.schedule[newDate] || {totalCalories:0, totalFat:0, meals:{}}
+	}
+
+	return rangeObject;
 }
 
 /*
