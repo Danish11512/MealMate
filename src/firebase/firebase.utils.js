@@ -18,7 +18,7 @@ export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
 const fetch = require("node-fetch");
-const spoonacular_api_key = "c596eb18f99d49ea8d8895ef5f10840d";
+const SPOONACULAR_API_KEY = "c596eb18f99d49ea8d8895ef5f10840d";
 
 const generateId = () =>
 {
@@ -313,13 +313,85 @@ export const getCalendarDateRange = async (calendarId, startDate, endDate, calen
 	return rangeObject;
 }
 
+// Saves recipe to db
+// Takes: id as string
+export const addRecipe = async (id) =>
+{
+    try
+    {
+        let recipe = await getRecipeById(id);
+
+        await firestore.collection("recipes").doc(id).set({
+            title: recipe["title"],
+            imageUrl: recipe["image"],
+            sourceUrl: recipe["sourceUrl"],
+            // ingredients: recipe[""],
+            servings: recipe["servings"],
+            readyInMinutes: recipe["readyInMinutes"],
+            summary: recipe["summary"],
+            aggregateLikes: recipe["aggregateLikes"],
+            cheap: recipe["cheap"]
+        })
+
+        console.log("Saved recipe successfully :)")
+    }
+    catch(error)
+    {
+        console.log("Error saving recipe :(", error.message);
+    }
+}
+
+// Gets recipe from db
+// Takes: id as string
+export const getRecipe = async (id) =>
+{
+    try
+    {
+        let recipeRef = firestore.collection("recipes").doc(id);
+        let recipe = await recipeRef.get();
+        return recipe.data();
+    }
+    catch(error)
+    {
+        console.log("Error getting recipe :(", error.message);
+    }
+}
+
+// Gets recipe from spoonacular using id
+// Takes: Id as string or numeric type, up to you bb <3
+// Returns: Whole recipe object
 export const getRecipeById = async (id) =>
 {
-	// This only gets recipe picture, name, short description, and link to recipe website
-	queryString = `https://api.spoonacular.com/recipes/${id}/information?apiKey=${spoonacular_api_key}`;
+	let queryString = `https://api.spoonacular.com/recipes/${id}/information?apiKey=${SPOONACULAR_API_KEY}`;
+    let response = await fetch(queryString, { method: "GET" });
 
-	fetch(queryString, { method: "GET" })
-		.then(resp => {
-			return resp.json();
-		})
+    if(response.status === 200) {
+        let response_json = await response.json(); // Doesn't return json object, returns js object
+        return response_json;
+    }
+    else {
+        return "Something went wrong with the search"
+    }
+}
+
+// Searches recipe in spoonacular
+// Takes: query string, diet(only one diet per search, empty string if no diet), intolerances (as array, empty array if no intolerances)
+// Returns: Array of objects with id, title, image, and imageType field
+export const searchRecipe = async (searchQuery, diet, intolerances) =>
+{
+    let intolerance_str = intolerances.join(",");
+    console.log(intolerance_str);
+    let query = searchQuery.split(' ');
+    query = query.join("%20")
+
+    let queryString = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${SPOONACULAR_API_KEY}&query=${query}&intolerances=${intolerance_str}&diet=${diet}&number=30`;
+    let response = await fetch(queryString, { method: "GET" });
+
+    if(response.status === 200) {
+        let response_json = await response.json();
+        return response_json;
+    }
+    else {
+        return "Something went wrong with the search"
+    }
 }
