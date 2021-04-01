@@ -93,4 +93,17 @@ getCalendarDateRange(calendarId, startDate, endDate, calendar=null)
 	- This function will issue its own call to the firestore if the calendar parameter is not provided 
 
 ---------------------------------------------------------------------------------------------------------------------------------
+getRecipe(id)
+	- Returns recipe details from database given the recipe id
+	- Adds recipe to database if it does not exist
+	- Recommended for most cases instead of the functions below
+
+getRecipeFromDatabase(id)
+	- Returns recipe details from database given the recipe id
+	- Returns null if recipe is not in database
+
+addRecipeToDatabase(id)
+	- Adds recipe document to database given recipe id
+
+
 */
