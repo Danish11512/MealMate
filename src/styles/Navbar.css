@@ -1,0 +1,19 @@
+.navbar {
+  background: #ffab73;
+}
+
+.navbar-item > img {
+  border-radius: 10px;
+  margin: 0px;
+  width: 2rem;
+  height: 3rem;
+}
+
+p {
+  margin-left: 10px;
+  color: white;
+}
+
+.navbar-end > a {
+  color: white;
+}
