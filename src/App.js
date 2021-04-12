@@ -1,20 +1,58 @@
-import React from "react";
+import React, {useState, useEffect, useRef} from "react";
 import "./App.css";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import SearchPage from "./pages/SearchPage";
+import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
 const App = () => {
-  return (
-    <Router>
-      <div className="App">
-        <Navbar />
-        <Switch>
-          <Route path="/" component={SearchPage}></Route>
-        </Switch>
-      </div>
-    </Router>
-  );
+	const [currentUser, setCurrentUser] = useState(null);
+	const unsubscribeFromAuth = useRef(null);
+	const unsubscribeFromUser = useRef(null);
+
+	useEffect(() =>
+	{
+		const authHandler = async () =>
+		{
+			unsubscribeFromAuth.current = auth.onAuthStateChanged( async userAuth => {
+				if(unsubscribeFromUser.current !== null)
+					(unsubscribeFromUser.current)();
+
+				if(userAuth)
+				{
+					const userRef = await createUserProfileDocument(userAuth);
+					const snapShot = await userRef.get();
+					setCurrentUser(snapShot.data());
+
+					unsubscribeFromUser.current = userRef.onSnapshot(snapShot =>{
+						setCurrentUser(snapShot.data());
+					});
+				}
+				else
+				{
+					setCurrentUser(null);
+				}
+			});
+		}
+
+		authHandler();
+
+		return () => {
+			(unsubscribeFromAuth.current)();
+			if(unsubscribeFromUser.current !== null)
+				(unsubscribeFromUser.current)();
+		}
+	}
+	,[])
+    
+	return (
+		<div className="App">
+			<Navbar />
+			<Switch>
+				<Route path="/" render={() => (<SearchPage currentUser={currentUser}/>)}></Route>
+			</Switch>
+		</div>
+	);
 };
 
 export default App;
