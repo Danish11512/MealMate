@@ -3,6 +3,7 @@ import "./App.css";
 import { Switch, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import SearchPage from "./pages/SearchPage";
+import ProfilePage from "./pages/ProfilePage";
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
 const App = () => {
@@ -47,10 +48,13 @@ const App = () => {
     
 	return (
 		<div className="App">
+
 			<Navbar />
 			<Switch>
-				<Route path="/" render={() => (<SearchPage currentUser={currentUser}/>)}></Route>
+				<Route exact path="/" render={() => (<SearchPage currentUser={currentUser}/>)}></Route>
+				<Route path="/profile" render={() => (<ProfilePage currentUser={currentUser}/>)}></Route>
 			</Switch>
+
 		</div>
 	);
 };

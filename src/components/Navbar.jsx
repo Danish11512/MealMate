@@ -17,7 +17,7 @@ function Navbar() {
           <a className="navbar-item" href="/">Search</a>
           <a className="navbar-item" href="/">Grocery</a>
           <a className="navbar-item" href="/">Calendar</a>
-          <a className="navbar-item" href="/">Profile</a>
+          <a className="navbar-item" href="/profile">Profile</a>
           <a className="navbar-item" href="/">Logout</a>
         </div>
       </div>

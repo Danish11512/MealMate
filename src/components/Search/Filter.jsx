@@ -5,7 +5,7 @@ function Filter() {
   const [toggle, setToggle] = useState(false);
   return (
     <div className="hamburger">
-      <img src={hamburger}></img>
+      <img src={hamburger} alt='hamburger logo'></img>
     </div>
   );
 }
