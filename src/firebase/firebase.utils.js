@@ -116,7 +116,7 @@ export const getCalendarFull = async (calendarId) =>
 	return snapShot.data();
 }
 
-export const addMealToDay = async (calendarId, recipeId, date, time, calendar=null) =>
+export const addMealToDay = async (calendarId, recipeId, recipeName, date, time, calendar=null) =>
 {
 	if(date instanceof Date)
 		date = date.toDateString();
@@ -133,11 +133,11 @@ export const addMealToDay = async (calendarId, recipeId, date, time, calendar=nu
 
 	if(date in calendarData.schedule)
 	{
-		calendarData.schedule[date].meals.push({mealId, recipeId, time});
+		calendarData.schedule[date].meals.push({date, mealId, recipeId, recipeName, time});
 	}
 	else
 	{
-		let dateObject = {totalCalories:0, totalFat:0, meals:[{mealId, recipeId, time}]};
+		let dateObject = {totalCalories:0, totalFat:0, meals:[{date, mealId, recipeId, recipeName, time}]};
 		calendarData.schedule[date] = dateObject;
 	}
 
@@ -257,8 +257,8 @@ export const addDays = (date, days) =>
 
 export const getCalendarCurrentWeek = async (calendarId, date, calendar=null) =>
 {
-	if(date instanceof String)
-		date = Date.parse(date);
+	if(typeof date === 'string')
+		date = new Date(date);
 
 	const calendarRef = firestore.doc(`calendars/${calendarId}`);
 	let calendarData = calendar
@@ -273,7 +273,7 @@ export const getCalendarCurrentWeek = async (calendarId, date, calendar=null) =>
 	for(let i=0; i <= 7;i++)
 	{
 		let newDate = addDays(date, i).toDateString();
-		weekObject[newDate] = calendarData.schedule[newDate] || {totalCalories:0, totalFat:0, meals:{}}
+		weekObject[newDate] = calendarData.schedule[newDate] || {date:newDate,totalCalories:0, totalFat:0, meals:[]}
 	}
 
 	return weekObject;
@@ -282,12 +282,12 @@ export const getCalendarCurrentWeek = async (calendarId, date, calendar=null) =>
 
 export const getCalendarDateRange = async (calendarId, startDate, endDate, calendar=null) =>
 {
-	if(startDate instanceof String)
-		startDate = Date.parse(startDate);
+	if(typeof startDate === 'string')
+		startDate = new Date(startDate);
 
-	if(endDate instanceof String)
-		endDate = Date.parse(endDate);
-
+	if(typeof endDate === 'string')
+		endDate = new Date(endDate);
+		
 	if(startDate > endDate)
 		return "INVALID RANGE";
 
@@ -305,7 +305,7 @@ export const getCalendarDateRange = async (calendarId, startDate, endDate, calen
 	for(let i=0; newDate !== endDate.toDateString();i++)
 	{
 		newDate = addDays(startDate, i).toDateString();
-		rangeObject[newDate] = calendarData.schedule[newDate] || {totalCalories:0, totalFat:0, meals:{}}
+		rangeObject[newDate] = calendarData.schedule[newDate] || {date:newDate, totalCalories:0, totalFat:0, meals:[]}
 	}
 
 	return rangeObject;

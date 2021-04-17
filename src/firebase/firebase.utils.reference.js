@@ -36,22 +36,24 @@ getCalendarFull(calendarId)
 			{
 				Date (ex. Mon Mar 29, 2021):
 				{
+					date: string,
 					totalCalories: int,
 					totalFat: int,
-					Meals: [{mealId: string, recipeId: string, time: string},{mealId: string, recipeId: string, time: string}, ...]
+					meals: [{mealId: string, recipeId: string, recipeName:string, time: string},{mealId: string, recipeId: string, recipeName:string, time: string}, ...]
 				},
 				Date (ex. Tue Mar 30, 2021):
 				{
+					date: string,
 					totalCalories: int,
 					totalFat: int,
-					Meals: [{mealId: string, recipeId: string, time: string},{mealId: string, recipeId: string, time: string} ...]
+					meals: [{mealId: string, recipeId: string, recipeName:string, time: string},{mealId: string, recipeId: string, recipeName:string, time: string} ...]
 				},
 				...
 			}
 		}
 
-addMealToDay(calendarId, recipeId, date, time, calendar=null)
-	- Adds a meal to a day given the calendarId, recipeId, date, and time
+addMealToDay(calendarId, recipeId, recipeName, date, time, calendar=null)
+	- Adds a meal to a day given the calendarId, recipeId, recipeName, date, and time
 	- calendar is an optional parameter that is the calendar data
 	- It is recommended to provide the calendar parameter if previously retrieved to limit firestore calls
 	- This function will issue its own call to the firestore if the calendar parameter is not provided 
