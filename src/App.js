@@ -3,6 +3,7 @@ import "./App.css";
 import { Switch, Route } from "react-router-dom";
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import Navbar from "./components/NavbarComponent/Navbar";
+import SearchPage from "./pages/SearchPage/SearchPage";
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(null);
@@ -43,7 +44,10 @@ const App = () => {
     <div className="App">
       <Navbar />
       <Switch>
-        <Route path="/" render={() => null}></Route>
+        <Route
+          path="/"
+          render={() => <SearchPage currentUser={currentUser} />}
+        ></Route>
       </Switch>
     </div>
   );
