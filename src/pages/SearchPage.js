@@ -1,5 +1,6 @@
 import React from "react";
 import Filter from "../components/Search/Filter";
+import Search from "../components/Search/Search";
 
 function SearchPage() {
   return (
@@ -7,7 +8,9 @@ function SearchPage() {
       <div className="page__left__filter">
         <Filter />
       </div>
-      <div className="page__right__search"></div>
+      <div className="page__right__search">
+        <Search />
+      </div>
     </div>
   );
 }
