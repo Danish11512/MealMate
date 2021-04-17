@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sacramento&display=swap');
+
+.welcome {
+  font-family: Sacramento;
+}
+
+html {
+   background-color: whitesmoke; 
+}
+
+.form h1 {
+    font-size: 3rem;
+    /* text-align: start; */
+    /* width: 80%; */
+    margin-bottom: 1rem;
+    color: orange;
+    text-align: left;
+  }
+
+  .form-input::placeholder {
+    color: #595959;
+    font-size: 12px;
+  }
+
+  .form-container {
+    display: flex;
+    flex-direction: 'row';
+  }
+
+  .form-content-left {
+    width: 100%;
+  }
+
+  .form-content-right {
+    width: 50%;
+    padding-top: 10rem;
+    padding-left: 10rem;
+  }
+
+  .form-img {
+    width: 60%;
+    height: 100%;
+    position: absolute;
+  }
+
+  #nickname, #email, #password {
+      border-radius: 10rem;
+      border-color: orange;
+      padding: 0.5rem;
+  }
+
+  .form-inputs {
+    padding: 1rem;
+  }
+
+  .submit {
+    color: orange;
+    text-decoration: underline;
+    padding-left: 4.5rem;
+  }
