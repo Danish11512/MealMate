@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
-import { Switch, Route } from "react-router-dom";
-import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
+import { Switch, Route, Redirect } from "react-router-dom";
+import { auth, firestore } from "./firebase/firebase.utils";
 import Navbar from "./components/NavbarComponent/Navbar";
 import SearchPage from "./pages/SearchPage/SearchPage";
+import LoginPage from './pages/LoginPage/LoginPage';
+import SignUpPage from './pages/SignupPage/SignupPage';
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(null);
@@ -18,7 +20,7 @@ const App = () => {
             unsubscribeFromUser.current();
 
           if (userAuth) {
-            const userRef = await createUserProfileDocument(userAuth);
+            const userRef = firestore.doc(`users/${userAuth.uid}`);
             const snapShot = await userRef.get();
             setCurrentUser(snapShot.data());
 
@@ -42,12 +44,11 @@ const App = () => {
 
   return (
     <div className="App">
-      <Navbar />
+      <Navbar currentUser={currentUser} />
       <Switch>
-        <Route
-          path="/"
-          render={() => <SearchPage currentUser={currentUser} />}
-        ></Route>
+        <Route path="/login" render={() => currentUser ? (<Redirect to="/"/>) :(<LoginPage/>)}></Route>
+        <Route path="/signup" render={() => currentUser ? (<Redirect to="/"/>) :(<SignUpPage/>)}></Route>
+        <Route path="/" render={() => null}></Route>
       </Switch>
     </div>
   );
