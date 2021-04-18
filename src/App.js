@@ -3,6 +3,7 @@ import "./App.css";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { auth, firestore } from "./firebase/firebase.utils";
 import Navbar from "./components/NavbarComponent/Navbar";
+import SearchPage from "./pages/SearchPage/SearchPage";
 import LoginPage from './pages/LoginPage/LoginPage';
 import SignUpPage from './pages/SignupPage/SignupPage';
 
