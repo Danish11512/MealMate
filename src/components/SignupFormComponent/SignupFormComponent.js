@@ -1,43 +1,66 @@
-import React from 'react';
-import validate from '../ValidateSubmitComponent/ValidateSubmitComponent';
-import useSignupForm from '../UseSignupFormComponent/UseSignupComponent';
-import "../pages/SignupPage/SignupPage.css";
+import React, {useState} from 'react';
+import "../../pages/SignupPage/SignupPage.css";
+import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
 
-const SignupFormComponent = ({submitForm}) => {
-    const {handleChange, values, handleSubmit, errors } = useSignupForm(validate);
+const SignupFormComponent = () => {
+
+    const signUpObject = {
+        nickname: '',
+        email: '',
+        password: ''
+    };
+
+    const [values, setValues] = useState({...signUpObject});
+
+    const handleChange = e => {
+        const { name, value} = e.target
+        setValues({
+            ...values,
+            [name]: value
+        });
+    };
+    
+    const handleSubmit = async (e) =>
+    {
+        e.preventDefault();
+
+        try{
+            const tempValues = {...values};
+            setValues({...signUpObject});
+            const { user } = await auth.createUserWithEmailAndPassword(tempValues.email, tempValues.password);
+            await createUserProfileDocument(user, { displayName: tempValues.nickname });
+        }
+        catch(error)
+        {
+            alert(error.message);
+        }
+    }
 
     return (
-        // class name is whatever you want
         <div className="form-content-right">
             <form className="form" onSubmit={handleSubmit}>
                 <h1 className="welcome">
                     Welcome!
                 </h1>
                 <div className="form-inputs">
-                    <input id="nickname" type="text" name="nickname" className="form-input" placeholder="Nick name" 
+                    <input id="nickname" type="text" name="nickname" className="form-input" placeholder="Nick name" autoComplete="on" required
                     value={values.nickname} onChange={handleChange} />
-                    {errors.nickname && <p>{errors.nickname}</p>}
                 </div>
 
                 <div className="form-inputs">
-                    <input id="email" type="email" name="email" className="form-input" placeholder="Email"
+                    <input id="email" type="email" name="email" className="form-input" placeholder="Email" autoComplete="on" required
                     value={values.email} onChange={handleChange} />
-                     {errors.email && <p>{errors.email}</p>}
                 </div>
 
                 <div className="form-inputs">
-                    <input id="password" type="password" name="password" className="form-input" placeholder="Password"
+                    <input id="password" type="password" name="password" className="form-input" placeholder="Password" autoComplete="on" required
                     value={values.password} onChange={handleChange} />
-                    {errors.password && <p>{errors.password}</p>}
                 </div>
 
-                {/* <button className="form-input-btn" type="submit">
+                <button className="form-input-btn submit" type="submit">
                     Sign up
-                </button> */}
+                </button>
             </form>
-            <div class="submit">
-                Sign up
-            </div>
         </div>
     )
 }
