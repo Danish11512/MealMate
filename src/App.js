@@ -47,10 +47,11 @@ const App = () => {
     <div className="App">
       <Navbar currentUser={currentUser} />
       <Switch>
-        <Route path="/login" render={() => currentUser ? (<Redirect to="/"/>) :(<LoginPage/>)}></Route>
-        <Route path="/signup" render={() => currentUser ? (<Redirect to="/"/>) :(<SignUpPage/>)}></Route>
-        <Route path="/profile" render={() => currentUser ? (<ProfilePage/>) :(<Redirect to="/"/>)}></Route>
-        <Route path="/" render={() => null}></Route>
+        <Route path="/login" render={() => currentUser ? (<Redirect to="/"/>) :(<LoginPage/>)}/>
+        <Route path="/signup" render={() => currentUser ? (<Redirect to="/"/>) :(<SignUpPage/>)}/>
+        <Route path="/profile" render={() => currentUser ? (<ProfilePage currentUser={currentUser}/>): (<Redirect to="/"/>) }/>
+        <Route path="/search" render={() => currentUser ? (<SearchPage currentUser={currentUser}/>) : (<Redirect to="/"/>)}/>
+        <Route path="/" render={() => null}/>
       </Switch>
     </div>
   );

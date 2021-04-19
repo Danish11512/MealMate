@@ -2,30 +2,32 @@ import React from "react";
 
 import logo from "../../assets/mealLogo.png";
 import { auth } from "../../firebase/firebase.utils";
+import { Link } from 'react-router-dom';
 import "./Navbar.css";
+
 
 const Navbar = (props) => {
 	return (
 		<nav className="navbar" role="navigation" aria-label="main navigation">
 			<div className="navbar-brand">
-				<a className="navbar-item" href="/">
+				<Link className="navbar-item" to="/">
 					<img src={logo} alt="logo" />
 					<p>Meal Mate</p>
-				</a>
+				</Link>
 			</div>
 
 			<div id="navbarBasicExample" className="navbar-menu">
 				<div className="navbar-end">
 					{props.currentUser ?
 						<React.Fragment>
-							<a className="navbar-item" href="/search">Search</a>
-							<a className="navbar-item" href="/grocery">Grocery</a>
-							<a className="navbar-item" href="/calendar">Calendar</a>
-							<a className="navbar-item" href="/profile">Profile</a>
-							<a className="navbar-item" href="/" onClick={() => auth.signOut()}>Logout</a>
+							<Link className="navbar-item" to="/search">Search</Link>
+							<Link className="navbar-item" to="/grocery">Grocery</Link>
+							<Link className="navbar-item" to="/calendar">Calendar</Link>
+							<Link className="navbar-item" to="/profile">Profile</Link>
+							<Link className="navbar-item" to="/" onClick={() => auth.signOut()}>Logout</Link>
 						</React.Fragment>
 						:
-						<a className="navbar-item" href="/login">Login</a>
+						<Link className="navbar-item" to="/login">Login</Link>
 					}
 				</div>
 			</div>

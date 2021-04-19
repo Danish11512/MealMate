@@ -15,7 +15,7 @@ function Filter() {
           ></button>
           <div className="filter__alignment">
             <p className="filter__micros">Diet: </p>
-            <div class="select">
+            <div className="select">
               <select>
                 <option value="low carb">Low Carb</option>
                 <option value="high protien">High Protien</option>

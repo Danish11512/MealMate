@@ -34,10 +34,10 @@ function Search() {
   return (
     <div className="search__side">
       <div className="search__bar">
-        <div class="control has-icons-right">
-          <input class="input is-medium" type="text" placeholder="Search" />
-          <span class="icon is-right">
-            <i class="fas fa-search"></i>
+        <div className="control has-icons-right">
+          <input className="input is-medium" type="text" placeholder="Search" />
+          <span className="icon is-right">
+            <i className="fas fa-search"></i>
           </span>
         </div>
       </div>

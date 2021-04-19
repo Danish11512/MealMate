@@ -1,13 +1,12 @@
-import { render } from '@testing-library/react';
-import React, { useState } from 'react';
+import React from 'react';
 import ReactRoundedImage from "react-rounded-image";
 import "./ProfilePage.css";
 import logo from "../../assets/mealLogo.png";
 import demonslayer from "../../assets/demonslayer.jpg";
 import random from "../../assets/random.jpg";
 import unlimitedbladeworks from "../../assets/unlimitedbladeworks.jpg";
-const ProfilePage = (props) =>{
-    // props.currentUser
+
+const ProfilePage = () =>{
 
     return (
         <div>
@@ -15,8 +14,8 @@ const ProfilePage = (props) =>{
             <div className="top_row" >
 
                 <div className="greeting">
-                    <ReactRoundedImage class="img-valign" image= {logo} roundedSize="0" imageWidth="110" imageHeight="110" />
-                    <h1 class="username"> Hi, Farhan </h1>
+                    <ReactRoundedImage className="img-valign" image= {logo} roundedSize="0" imageWidth="110" imageHeight="110" />
+                    <h1 className="username"> Hi, Farhan </h1>
                 </div>
 
                 <div className="vertical_line"></div>
