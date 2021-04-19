@@ -6,6 +6,7 @@ import Navbar from "./components/NavbarComponent/Navbar";
 import SearchPage from "./pages/SearchPage/SearchPage";
 import LoginPage from './pages/LoginPage/LoginPage';
 import SignUpPage from './pages/SignupPage/SignupPage';
+import ProfilePage from './pages/ProfilePage/ProfilePage';
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(null);
@@ -48,6 +49,7 @@ const App = () => {
       <Switch>
         <Route path="/login" render={() => currentUser ? (<Redirect to="/"/>) :(<LoginPage/>)}></Route>
         <Route path="/signup" render={() => currentUser ? (<Redirect to="/"/>) :(<SignUpPage/>)}></Route>
+        <Route path="/profile" render={() => currentUser ? (<ProfilePage/>) :(<Redirect to="/"/>)}></Route>
         <Route path="/" render={() => null}></Route>
       </Switch>
     </div>
