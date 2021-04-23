@@ -1,6 +1,6 @@
-import React, { Fragment, useEffect, useState } from "react"
-import "../../pages/CalendarPage/CalendarPage.css"
-import CalendarMeal from './CalendarMeal'
+import React, { useEffect, useState } from "react";
+import * as firebase from '../../firebase/firebase.utils';
+import "../../pages/CalendarPage/CalendarPage.css";
 
 const CalendarDay = (props) =>{
 	let dayInfo = null
@@ -34,6 +34,7 @@ const CalendarDay = (props) =>{
 			// ))
 		}
 
+    console.log(dayInfo)
 
 		// [
 		//     "recipeName",
