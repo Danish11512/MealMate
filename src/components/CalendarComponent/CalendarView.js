@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from "react";
-import * as firebase from '../../firebase/firebase.utils';
-import CalendarDay from './CalendarDay'
-import "../../pages/CalendarPage/CalendarPage.css";
 
 const CalenderView = (props) =>{
 	const [calendarDays, setCalendarDays] = useState([])
