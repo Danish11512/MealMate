@@ -4,29 +4,28 @@ import "./CalendarPage.css";
 import CalendarView from '../../components/CalendarComponent/CalendarView'
 
 const CalendarPage = (props) =>{
-    const [calendarId, setCalendarId] = useState(props.currentUser.calendarId);
-    const [startDate, setStartDate] = useState(new Date());
-    const [nextDate, setNextDate] = useState(new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + 5));
-    let calendarInfo = {}
+    const [calendarId, setCalendarId] = useState(props.currentUser.calendarId)
+    const [startDate, setStartDate] = useState(new Date())
+    // const [nextDate, setNextDate] = useState(new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + 5))
+    // const [calendarInfo, setCalendarInfo] = useState({})
 
-    useEffect(() => {
-        // async function getCalendarInfo(){
-        //     calendarInfo = await firebase.getCalendarDateRange(calendarId, startDate, nextDate)
-        // }
-        // getCalendarInfo()
+    // useEffect(() => {
+    //     const getCalenderInfo = async () => {
+    //         setCalendarInfo(await firebase.getCalendarDateRange(calendarId, startDate, nextDate))
+    //     }
+    //     getCalenderInfo()
+    // }, [startDate])
 
-        // console.log(calendarInfo)
-        // setNextDate(new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()+5))
-    }, [startDate])
+    // console.log(calendarInfo)
 
     function decreaseDate(event){
         setStartDate(new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()-5))
-        setNextDate(new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()+5))
+        // setNextDate(new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()+5))
     }
 
     function increaseDate(event){
         setStartDate(new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()+5))
-        setNextDate(new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()+5))
+        // setNextDate(new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()+5))
     }
 
     return (
@@ -43,11 +42,7 @@ const CalendarPage = (props) =>{
                         <button onClick={e => decreaseDate(e)}> back </button>
                     </div>
                     <div className="column is-10.5">
-                        {nextDate.toString()}
-                        <br></br>
-                        <br></br>
-                        <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
-                         <CalendarView calenderinfo={calendarInfo}></CalendarView>
+                         <CalendarView calendarId = {calendarId} startDate={startDate}></CalendarView>
                     </div>
                     <div id="button-right" className="column is-narrow has-background-light">
                         <button onClick={e => increaseDate(e)}> forward </button>
