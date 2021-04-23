@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import * as firebase from '../../firebase/firebase.utils';
-import "../../pages/CalendarPage/CalendarPage.css";
+import React, { useEffect, useState } from "react"
+import "../../pages/CalendarPage/CalendarPage.css"
+import CalendarMeal from './CalendarMeal'
 
 const CalendarDay = (props) =>{
 	let dayInfo = null
