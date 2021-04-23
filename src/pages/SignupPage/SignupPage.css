@@ -1,8 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=PT+Sans&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Sacramento&display=swap');
 
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 .welcome {
   font-family: Sacramento;
+  display: inline;
 }
 
 html {
@@ -11,8 +19,6 @@ html {
 
 .form h1 {
     font-size: 3rem;
-    /* text-align: start; */
-    /* width: 80%; */
     margin-bottom: 1rem;
     color: orange;
     text-align: left;
@@ -33,9 +39,46 @@ html {
   }
 
   .form-content-right {
-    width: 50%;
+    width: 55%;
     padding-top: 10rem;
-    padding-left: 10rem;
+    padding-left: 4rem;
+  }
+
+  #nickname, #email, #password {
+    border-radius: 10rem;
+    border-color: orange;
+    padding: 0.5rem;
+    width: 8rem;
+  } 
+
+  .form-input-btn {
+    margin-left: 3.5rem;
+  }
+  
+  @media only screen and (min-width: 750px) {
+    .form-content-right {
+      width: 60%;
+      padding-top: 10rem;
+      padding-left: 10rem;
+    }
+
+    .form h1 {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      color: orange;
+      text-align: left;
+    }
+
+    #nickname, #email, #password {
+      border-radius: 10rem;
+      border-color: orange;
+      padding: 0.5rem;
+      width: 14rem;
+    }
+
+    .form-input-btn {
+      margin-left: 6rem;
+    }
   }
 
   .form-img {
@@ -44,18 +87,6 @@ html {
     position: absolute;
   }
 
-  #nickname, #email, #password {
-      border-radius: 10rem;
-      border-color: orange;
-      padding: 0.5rem;
-  }
-
   .form-inputs {
     padding: 1rem;
-  }
-
-  .submit {
-    color: orange;
-    text-decoration: underline;
-    padding-left: 4.5rem;
   }

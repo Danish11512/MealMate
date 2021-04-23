@@ -31,13 +31,13 @@ const SignupFormComponent = ({submitForm}) => {
                     {errors.password && <p>{errors.password}</p>}
                 </div>
 
-                {/* <button className="form-input-btn" type="submit">
+                <button className="form-input-btn" type="submit">
                     Sign up
-                </button> */}
+                </button>
             </form>
-            <div class="submit">
+            {/* <div class="submit">
                 Sign up
-            </div>
+            </div> */}
         </div>
     )
 }
