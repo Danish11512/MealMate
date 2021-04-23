@@ -7,7 +7,6 @@
 
 #list {
     margin-right: 1%;
-    padding-top: 2%;
 }
 
 .columns h1{
@@ -32,21 +31,3 @@
 #button-right{
     padding-top: 20%;
 }
-
-.test{
-    border-color: black;
-    border-width: 100ch;
-}
-
-.has-text-left {
-	float: left;
-}
-
-.list{
-    list-style-type: none;
-}
-
-nav ul{
-    height:200px;
-    overflow:hidden;
-    overflow-y:scroll;}
