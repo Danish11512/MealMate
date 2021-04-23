@@ -31,3 +31,8 @@ h1{
 #button-right{
     padding-top: 20%;
 }
+
+.test{
+    border-color: black;
+    border-width: 100ch;
+}
