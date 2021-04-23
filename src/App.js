@@ -11,7 +11,6 @@ import ResultsPage from "./pages/ResultPage/SearchResultPage";
 import RecipeDetailsPage from "./pages/RecipeDetailsPage/RecipeDetailsPage";
 import CalendarPage from "./pages/CalendarPage/CalendarPage";
 
-
 const App = () => {
 	const [currentUser, setCurrentUser] = useState("wait");
 	const unsubscribeFromAuth = useRef(null);
@@ -92,14 +91,18 @@ const App = () => {
 				/>
 
         <Route
-					path="/calendar"
-					render={() => (currentUser ? <CalendarPage currentUser={currentUser} /> : <Redirect to="/" />)}
-				/>
+          path="/results"
+          render={() => (currentUser ? <ResultsPage /> : <Redirect to="/" />)}
+        />
 
-				<Route path="/" render={() => currentUser ? <SearchPage currentUser={currentUser}/> : <LandingPage currentUser={currentUser}/>} />
-			</Switch>
-		</div>
-	);
+        <Route 
+          path="/calendar"
+          render={() => currentUser ? (<CalendarPage currentUser={currentUser}/>): (<Redirect to="/calendar"/>) }/>
+
+        <Route path="/" render={() => null} />
+      </Switch>
+    </div>
+  );
 };
 
 export default App;
