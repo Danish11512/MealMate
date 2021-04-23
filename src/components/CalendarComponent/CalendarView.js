@@ -4,24 +4,32 @@ import CalendarDay from './CalendarDay'
 import "../../pages/CalendarPage/CalendarPage.css";
 
 const CalenderView = (props) =>{
-    const [nextDate, setNextDate] = useState(new Date(props.startDate.getFullYear(), props.startDate.getMonth(), props.startDate.getDate() + 5))
+    const [endDate, setEndDate] = useState(new Date(props.startDate.getFullYear(), props.startDate.getMonth(), props.startDate.getDate() + 5))
     const [calendarInfo, setCalendarInfo] = useState({})
-    const [calendarDays, setCalendarDays] = useState()
+    const [calendarDays, setCalendarDays] = useState([])
 
     useEffect(() => {
-        setNextDate(new Date(props.startDate.getFullYear(), props.startDate.getMonth(), props.startDate.getDate() + 5))
+        setEndDate(new Date(props.startDate.getFullYear(), props.startDate.getMonth(), props.startDate.getDate() + 5))
 
         const getCalenderInfo = async () => {
-            setCalendarInfo(await firebase.getCalendarDateRange(props.calendarId, props.startDate, nextDate))
+            setCalendarInfo(await firebase.getCalendarDateRange(props.calendarId, props.startDate, endDate))
         }
-        getCalenderInfo()
-
-        setCalendarDays(Object.keys(calendarInfo).map(k=> [k, calendarInfo[k]]));
         
+        const getCalendarDays = async () => {
+            setCalendarDays(Object.keys(calendarInfo).map(k=> [k, calendarInfo[k]]))
+            // console.log(calendarDays)
+        }
 
+        getCalenderInfo().then(getCalendarDays())
+        //.then(setCalendarDays(Object.keys(calendarInfo).map(k=> [k, calendarInfo[k]])))
+                        //.then(console.log(calendarDays))
+
+        
+        
+        
+        // console.log(calendarDays)
     } ,[props.startDate])
 
-    // console.log(calendarDays[0])
     return(
         <div className="columns">
             <div className="column is-4">
