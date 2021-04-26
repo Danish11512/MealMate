@@ -61,6 +61,9 @@ const SignupFormComponent = () => {
                     Sign up
                 </button>
             </form>
+            <a className="login" href="/login">
+                Already have an account? Login :)
+            </a>
         </div>
     )
 }
