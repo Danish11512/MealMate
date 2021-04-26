@@ -1,7 +1,6 @@
 import React from "react";
 
 function CircleView({ image, text }) {
-  console.log(text);
   return (
     <div className="circle__view">
       <img className="circle__view__img" src={image} />
