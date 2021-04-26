@@ -1,16 +1,31 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter } from 'react-router-dom'
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+import { combineReducers } from "redux";
+import SearchReducer from "./redux/reducers/SearchReducer";
+import FilterReducer from "./redux/reducers/FilterReducer";
+import { BrowserRouter } from "react-router-dom";
+
+const Reducers = combineReducers({
+  search: SearchReducer,
+  filter: FilterReducer,
+});
+
+const store = createStore(
+  Reducers,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
+  <BrowserRouter>
+    <Provider store={store}>
       <App />
-    </BrowserRouter>
-  </React.StrictMode>,
+    </Provider>
+  </BrowserRouter>,
   document.getElementById("root")
 );
 

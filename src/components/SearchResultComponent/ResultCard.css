@@ -1,0 +1,32 @@
+.card__body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.card__image {
+  width: 300px;
+  height: 250px;
+  padding-right: 20px;
+  padding-left: 20px;
+  margin-top: 20px;
+  object-fit: cover;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.card__image:hover {
+  opacity: 0.3;
+  filter: alpha(opacity=30);
+}
+
+.card__body > p {
+  color: black;
+  margin-top: 10px;
+  margin-left: 20px;
+  font-weight: bold;
+}

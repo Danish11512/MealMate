@@ -4,9 +4,10 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import { auth, firestore } from "./firebase/firebase.utils";
 import Navbar from "./components/NavbarComponent/Navbar";
 import SearchPage from "./pages/SearchPage/SearchPage";
-import LoginPage from './pages/LoginPage/LoginPage';
-import SignUpPage from './pages/SignupPage/SignupPage';
-import ProfilePage from './pages/ProfilePage/ProfilePage';
+import LoginPage from "./pages/LoginPage/LoginPage";
+import SignUpPage from "./pages/SignupPage/SignupPage";
+import ProfilePage from "./pages/ProfilePage/ProfilePage";
+import ResultsPage from "./pages/ResultPage/SearchResultPage";
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(null);
@@ -47,11 +48,40 @@ const App = () => {
     <div className="App">
       <Navbar currentUser={currentUser} />
       <Switch>
-        <Route path="/login" render={() => currentUser ? (<Redirect to="/"/>) :(<LoginPage/>)}/>
-        <Route path="/signup" render={() => currentUser ? (<Redirect to="/"/>) :(<SignUpPage/>)}/>
-        <Route path="/profile" render={() => currentUser ? (<ProfilePage currentUser={currentUser}/>): (<Redirect to="/"/>) }/>
-        <Route path="/search" render={() => currentUser ? (<SearchPage currentUser={currentUser}/>) : (<Redirect to="/"/>)}/>
-        <Route path="/" render={() => null}/>
+        <Route
+          path="/login"
+          render={() => (currentUser ? <Redirect to="/" /> : <LoginPage />)}
+        />
+        <Route
+          path="/signup"
+          render={() => (currentUser ? <Redirect to="/" /> : <SignUpPage />)}
+        />
+        <Route
+          path="/profile"
+          render={() =>
+            currentUser ? (
+              <ProfilePage currentUser={currentUser} />
+            ) : (
+              <Redirect to="/" />
+            )
+          }
+        />
+        <Route
+          path="/search"
+          render={() =>
+            currentUser ? (
+              <SearchPage currentUser={currentUser} />
+            ) : (
+              <Redirect to="/" />
+            )
+          }
+        />
+
+        <Route
+          path="/results"
+          render={() => (currentUser ? <ResultsPage /> : <Redirect to="/" />)}
+        />
+        <Route path="/" render={() => null} />
       </Switch>
     </div>
   );
