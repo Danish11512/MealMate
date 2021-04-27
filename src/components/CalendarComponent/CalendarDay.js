@@ -11,28 +11,13 @@ const CalendarDay = (props) =>{
 
 
     useEffect(() => {
-        dayInfo = props.dayInfo
-
-      
-        if (dayInfo == null){
-            setDate("")
-            setTotalCalories(0)
-            meals = []
-        }else{
-            setDate(dayInfo[0])
-            setTotalCalories(dayInfo[1].totalCalories)
-            dayInfo[1].meals.forEach(i => meals.push({"recipeName":i.recipeName, 
-                                                        "time": i.time, 
-                                                        "recipeId": i.recipeId,
-                                                        "mealId": i.mealId,
-                                                        "date": i.date}))
-            // Object.keys(i).map(k => [k, i[k]])
-            // meals = dayInfo[1].meals
-            console.log(meals)
-            // meals.map(k =>(
-                // console.log(k.time)
-            // ))
-        }
+        // const getDayInfo = async () => {
+        //     setDayInfo(await props.dayInfo)
+        // }
+        // getDayInfo().then(console.log(dayInfo))
+        //             // .then(setDay(dayInfo[0]))
+        //             .then(setMeals[1])
+            
 
 
         // [
@@ -109,13 +94,12 @@ const CalendarDay = (props) =>{
 
             <div className="card-content">
                 <div className="content">
-                <ul>
-                    {mealContainer}
-                {/* {meals.map(meal => (
-                        <li><CalendarMeal meal={meal}></CalendarMeal></li>
-                    ))} */}
-                </ul>
-                    
+                    Meal
+                    <br></br>
+                    meal
+                    <br></br>
+                    Meal
+                    {/* <CalendarMeal></CalendarMeal> */}
                 </div>
               
             </div>
