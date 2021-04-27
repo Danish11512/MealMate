@@ -3,8 +3,8 @@ import "./CalendarPage.css";
 import CalendarView from '../../components/CalendarComponent/CalendarView'
 
 const CalendarPage = (props) =>{
-    const [calendarId, setCalendarId] = useState(props.currentUser.calendarId)
     const [startDate, setStartDate] = useState(new Date())
+    const calendarId = props.currentUser.calendarId
 
     useEffect(() => {
         setStartDate(startDate)
@@ -17,7 +17,7 @@ const CalendarPage = (props) =>{
     }
 
     function increaseDate(event){
-        setStartDate(new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()+5))
+        setStartDate(new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()+6))
     }
 
     return (

@@ -9,12 +9,12 @@ const CalendarDay = (props) =>{
     const [day, setDay] = useState("")
 
     useEffect(() => {
-        const getDayInfo = async () => {
-            setDayInfo(await props.dayInfo)
-        }
-        getDayInfo().then(console.log(dayInfo))
-                    // .then(setDay(dayInfo[0]))
-                    .then(setMeals[1])
+        // const getDayInfo = async () => {
+        //     setDayInfo(await props.dayInfo)
+        // }
+        // getDayInfo().then(console.log(dayInfo))
+        //             // .then(setDay(dayInfo[0]))
+        //             .then(setMeals[1])
             
 
         
@@ -45,8 +45,9 @@ const CalendarDay = (props) =>{
                     meal
                     <br></br>
                     Meal
+                    {/* <CalendarMeal></CalendarMeal> */}
                 </div>
-                {/* <CalendarMeal></CalendarMeal> */}
+              
             </div>
 
             <footer className="card-footer">
