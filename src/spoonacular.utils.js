@@ -48,8 +48,21 @@ export const searchRecipe = async (searchQuery, filters) => {
   }
 
   if("mealType" in filters) {
-    let type = filters["mealType"].split(" ");
-    type = type.join("%20");
+    // let type = filters["mealType"].split(" ");
+    // type = type.join("%20");
+
+    let type = "";
+
+    if(filters["mealType"] == "breakfast") {
+      type = "breakfast"
+    }
+    else if(filters["mealType"] == "brunch") {
+      type = "salad,bread,soup,fingerfood,appetizer"
+    }
+    else if(filters["mealType"] == "lunch" || filters["mealType"] == "dinner") {
+      type = "main%20course,soup,salad";
+    }
+
     queryString += `&type=${type}`;
   }
 
