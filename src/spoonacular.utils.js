@@ -20,13 +20,47 @@ export const getRecipeById = async (id) => {
 };
 
 // Searches recipe in spoonacular
-// Takes: query string, diet(only one diet per search, empty string if no diet), intolerances (as array, empty array if no intolerances)
-// Returns: Array of objects with id, title, image, and imageType field or null
-export const searchRecipe = async (searchQuery, diet, intolerances) => {
+// Takes: query string, filter object in the below form, leave out any filters not entered by user
+//  {
+//    intolerances: [],
+//    diet: ,
+//    maxCarbs: ,
+//    mealType: ,
+//    cuisine: ,
+//    prepTime: , // in minutes
+//  }
+// Returns: Array of objects with id, title, image, and imageType field or null if there was an error with search
+export const searchRecipe = async (searchQuery, filters) => {
   let query = searchQuery.split(" ");
   query = query.join("%20");
 
-  let queryString = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${SPOONACULAR_API_KEY}&query=${query}&intolerances=${intolerances}&diet=${diet}&number=30`;
+  let queryString = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${SPOONACULAR_API_KEY}&query=${query}&number=30`;
+  if("intolerances" in filters) {
+    queryString += `&intolerances=${filters["intolerances"]}`;
+  }
+
+  if("diet" in filters) {
+    queryString += `&diet=${filters["diet"]}`;
+  }
+
+  if("maxCarbs" in filters) {
+    queryString += `&maxCarbs=${filters["maxCarbs"]}`;
+  }
+
+  if("mealType" in filters) {
+    let type = filters["mealType"].split(" ");
+    type = type.join("%20");
+    queryString += `&type=${type}`;
+  }
+
+  if("cuisine" in filters) {
+    queryString += `&cuisine=${filters["cuisine"]}`;
+  }
+
+  if("prepTime" in filters) {
+    queryString += `&maxReadyTime=${filters["prepTime"]}`;
+  }
+
   let response = await fetch(queryString, { method: "GET" });
 
   if (response.status === 200) {
