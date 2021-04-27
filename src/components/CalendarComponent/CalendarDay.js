@@ -3,29 +3,41 @@ import "../../pages/CalendarPage/CalendarPage.css"
 import CalendarMeal from './CalendarMeal'
 
 const CalendarDay = (props) =>{
-    const [dayInfo, setDayInfo] = useState(props.dayInfo)
+    let dayInfo = null
+    const [mealContainer, setMealContainer] = useState(null)
     const [meals, setMeals] = useState([])
-    const [totalCalories, seTotalCalories] = useState(0)
-    const [day, setDay] = useState("")
+    const [totalCalories, setTotalCalories] = useState(0)
+    const [date, setDate] = useState("")
+
 
     useEffect(() => {
-        // const getDayInfo = async () => {
-        //     setDayInfo(await props.dayInfo)
-        // }
-        // getDayInfo().then(console.log(dayInfo))
-        //             // .then(setDay(dayInfo[0]))
-        //             .then(setMeals[1])
-            
+        dayInfo = props.dayInfo
 
-        
-        
-        // const getMeals = async () =>{
-        //     setMeals(await dayInfo[1])
-        // }
+        if (dayInfo == null){
+            setDate("")
+            setTotalCalories(0)
+            setMeals([])
+        }else{
+            setDate(dayInfo[0])
+            setTotalCalories(dayInfo[1].totalCalories)
+            setMeals(dayInfo[1].meals)
+        }
 
-        // getMeals()
-        
-        
+        if(meals.length == 0){
+            setMealContainer(
+                <div>
+                    <br></br>
+                    <br></br>
+                    <p className="has-text-black">
+                        No Meals for this day &#128577;
+                    </p>
+                    <br></br>
+                    <br></br>
+                </div>
+            )
+        }else{
+            meals.forEach(i => setMealContainer(mealContainer + <CalendarMeal meal={i}></CalendarMeal>))
+        }
         
     }, [props.dayInfo])
 
@@ -34,18 +46,13 @@ const CalendarDay = (props) =>{
         <div className="card mb-6">
             <header className="card-header">
                 <p className="card-header-title">
-                Date
+                {date}
                 </p>
             </header>
 
             <div className="card-content">
                 <div className="content">
-                    Meal
-                    <br></br>
-                    meal
-                    <br></br>
-                    Meal
-                    {/* <CalendarMeal></CalendarMeal> */}
+                    {mealContainer}
                 </div>
               
             </div>
