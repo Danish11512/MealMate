@@ -13,7 +13,7 @@ const CalendarPage = (props) =>{
 
 
     function decreaseDate(event){
-        setStartDate(new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()-5))
+        setStartDate(new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()-6))
     }
 
     function increaseDate(event){
