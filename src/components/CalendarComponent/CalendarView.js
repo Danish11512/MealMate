@@ -4,21 +4,21 @@ import CalendarDay from './CalendarDay'
 import "../../pages/CalendarPage/CalendarPage.css";
 
 const CalenderView = (props) =>{
-	const [calendarDays, setCalendarDays] = useState([])
-	let endDate = null
+    const [calendarDays, setCalendarDays] = useState([])
+    let endDate = null
     
 	useEffect(() => {
 		endDate = new Date(props.startDate.getFullYear(), props.startDate.getMonth(), props.startDate.getDate() + 5)
         
-		const getCalenderInfo = async () => {
-			let calendarInfo = await firebase.getCalendarDateRange(props.calendarId, props.startDate, endDate)
-			setCalendarDays(Object.keys(calendarInfo).map(k=> [k, calendarInfo[k]]))
-			// console.log(calendarDays[0])
-		}
+        const getCalenderInfo = async () => {
+            let calendarInfo = await firebase.getCalendarDateRange(props.calendarId, props.startDate, endDate)
+             setCalendarDays(Object.keys(calendarInfo).map(k=> [k, calendarInfo[k]]))
+            // console.log(calendarDays[0])
+        }
         
 		getCalenderInfo()
         
-	} ,[props.startDate])
+    } ,[props.startDate])
 
 	return(
 		<div className="columns">
