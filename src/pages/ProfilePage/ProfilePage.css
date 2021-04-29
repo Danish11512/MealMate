@@ -19,6 +19,16 @@
     margin-top: 20px;
 }
 
+/*
+.vertical_line{
+    border-left: 6px black;
+    height: 500px;
+    position: absolute;
+    left: 50%;
+    margin-left:20px
+}
+*/
+
 .user_info{
     margin-top: 40px;
     margin-left: 400px;
@@ -29,15 +39,20 @@ pre{
     padding: 0px;
 }
 
-/*
-.vertical_line{
-    border-left: 6px black;
-    height: 500px;
-    position: absolute;
-    left: 50%;
-    margin-left:20px
+button{
+    background-color: #F5F5F5; /* Green */
+    text-decoration: none;
+    border: none;
 }
-*/
+
+.survey_info p{
+    color:black;
+}
+
+
+label{
+    display: block;
+}
 
 .bottom_row{
     font-size: 30px;
