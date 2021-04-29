@@ -2,3 +2,28 @@
   display: flex;
   flex-wrap: wrap;
 }
+
+.your__results {
+  font-weight: bold;
+  font-size: 50px;
+  font-family: "Sacramento";
+  text-align: center;
+  color: #ffab73;
+  margin-top: 50px;
+}
+
+#load__chef {
+}
+
+.svg__load {
+  width: 20%;
+  height: 20%;
+  position: absolute;
+  top: 50vh;
+  left: 40%;
+  margin-top: -50px;
+  margin-left: -50px;
+}
+
+#fork {
+}
