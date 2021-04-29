@@ -39,7 +39,7 @@ function SearchResultPage() {
       <div className={"search___result"}>
         {result.length > 0 ? (
           result.map((el) => {
-            return <ResultCard image={el.image} text={el.title} />;
+            return <ResultCard image={el.image} text={el.title} id={el.id}/>;
           })
         ) : (
           <p>{emptySet}</p>
