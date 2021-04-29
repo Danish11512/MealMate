@@ -8,6 +8,7 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import SignUpPage from "./pages/SignupPage/SignupPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import ResultsPage from "./pages/ResultPage/SearchResultPage";
+import RecipeDetailsPage from "./pages/RecipeDetailsPage/RecipeDetailsPage";
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(null);
@@ -48,6 +49,10 @@ const App = () => {
     <div className="App">
       <Navbar currentUser={currentUser} />
       <Switch>
+        <Route
+          path="/recipe/:id"
+          render={() => currentUser ? (<RecipeDetailsPage currentUser={currentUser} />) : (<Redirect to="/" />)}
+        />
         <Route
           path="/login"
           render={() => (currentUser ? <Redirect to="/" /> : <LoginPage />)}
