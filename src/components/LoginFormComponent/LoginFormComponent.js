@@ -22,7 +22,7 @@ const LoginFormComponent = ({submitForm}) => {
 
             </form>
             <button className="button is-primary is-large forminputbtn" type="submit">
-                Sign up
+                Sign in
             </button>
     
             <div class="signup">
