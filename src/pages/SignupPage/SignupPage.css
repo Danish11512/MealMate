@@ -2,21 +2,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Sacramento&display=swap');
 
 
-/* * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-} */
-
 .form-content-right {
-  /* width: 55%;
-  padding-top: 10rem;
-  padding-left: 4rem; */
-
-  /* border: 1px #ccc solid; */
   padding-left: 6rem;
   padding-top: 8rem;
-
 
   flex:1;
   order:2;
@@ -33,28 +21,15 @@
 @media screen and (max-width:750px) {
   
   .form-content-right {
-    /* width: 55%;
-    padding-top: 10rem;
-    padding-left: 4rem; */
-
-    /* border: 1px #ccc solid; */
-    
-
     padding-top: 1rem;
     padding-left:0px;
     margin:auto;
     width: 50%;
-    
 
     flex:1;
     order:2;
   }
 
-  /* .form {
-    margin:0 auto;
-    width: 50%;
-  } */
-  
 }
 
 .form-img {
@@ -83,40 +58,11 @@ html {
     color: #595959;
     font-size: 12px;
   }
-
-  /* .form-container {
-    display: flex;
-    flex-direction: 'row';
-  } */
   
-
   .form-content-left {
-    /* border: 1px #ccc solid; */
-   
     flex:2.25;
     order:1;
   }
-
-  
-
-  /* #nickname, #email, #password {
-    border-radius: 10rem;
-    border-color: orange;
-    padding: 0.5rem;
-    width: 8rem;
-  } 
-
-  .form-input-btn {
-    margin-left: 3.5rem;
-  } */
-  
-  /* @media only screen and (min-width: 750px) { */
-
-    /* .form-content-right {
-      width: 60%;
-      padding-top: 10rem;
-      padding-left: 10rem;
-    } */
 
     .form h1 {
       font-size: 4rem;
@@ -136,10 +82,6 @@ html {
       margin-left: 4rem;
       background-color:coral !important;
     }
-
-  /* } */
-
-  
 
   .form-inputs {
     padding: 1rem;

@@ -48,8 +48,8 @@ const App = () => {
 	return (
 		<div className="App">
 			<Switch>
-				<Route path="/" render={() => (<LoginPage />)}></Route>
-				{/* <Route path="/login" render={() => (<LoginPage />)}></Route> */}
+				<Route exact path="/" render={() => (<SignupPage />)}></Route>
+				<Route path="/login" render={() => (<LoginPage />)}></Route>
 			</Switch>
 		</div>
 	);

@@ -4,7 +4,6 @@ import "../../pages/LoginPage/LoginPage.css";
 const LoginFormComponent = ({submitForm}) => {
     
     return (
-        // class name is whatever you want
         <div className="form-content-right">
             <form className="form">
                 <h1 className="welcome">
@@ -22,9 +21,10 @@ const LoginFormComponent = ({submitForm}) => {
                 </div>
 
             </form>
-            <div class="submit">
-                Sign in
-            </div>
+            <button className="button is-primary is-large forminputbtn" type="submit">
+                Sign up
+            </button>
+    
             <div class="signup">
                 Don't have an account? Sign up :)
             </div>
