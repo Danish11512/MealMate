@@ -22,8 +22,6 @@ const CalendarPage = (props) =>{
                 </div>
             )
             
-        }else{
-            setPreviousRecipes()
         }
 
     }, [startDate])
@@ -41,7 +39,7 @@ const CalendarPage = (props) =>{
         <div className="columns">
             <div id="list" className="column is-2">
             <div className="title is-5 has-text-centered"> Add to Calendar</div>
-                <div className="card has-background-warning">
+                <div className="card">
                     <div className="card-content has-text-centered">
                         <div className="field">
                             <div className="control">
@@ -54,7 +52,7 @@ const CalendarPage = (props) =>{
                 </div>
                 <br></br>
                 <div className="title is-5 has-text-centered"> Your Recent Recipes</div>
-                <div className="card has-background-info">
+                <div className="card">
                     <div className="card-content">
                         {previousRecipes}
                     </div>
