@@ -4,23 +4,37 @@ import CalendarMeal from './CalendarMeal'
 
 const CalendarDay = (props) =>{
     let dayInfo = null
-    const [mealContainer, setMealContainer] = useState(null)
-    const [meals, setMeals] = useState([])
+    let meals = [0]
+    const [mealContainer, setMealContainer] = useState(<div></div>)
     const [totalCalories, setTotalCalories] = useState(0)
     const [date, setDate] = useState("")
 
+    // const assignMeals = () =>{
+    //     let html = []
+
+    //     for(let i = 0; i<meals.length; i++){
+    //         html.push(<CalendarMeal meal={meals[i]}></CalendarMeal>)
+    //     }
+
+    //     return html
+    // }
 
     useEffect(() => {
         dayInfo = props.dayInfo
 
+      
         if (dayInfo == null){
             setDate("")
             setTotalCalories(0)
-            setMeals([])
+            meals = []
         }else{
             setDate(dayInfo[0])
             setTotalCalories(dayInfo[1].totalCalories)
-            setMeals(dayInfo[1].meals)
+            meals = dayInfo[1].meals
+            console.log(meals)
+            // meals.map(k =>(
+                // console.log(k.time)
+            // ))
         }
 
         if(meals.length == 0){
@@ -36,7 +50,31 @@ const CalendarDay = (props) =>{
                 </div>
             )
         }else{
+
             meals.forEach(i => setMealContainer(mealContainer + <CalendarMeal meal={i}></CalendarMeal>))
+            // setMealContainer(
+                // <div>
+                // <Fragment>
+                //     {meals.map(meal=>(
+                //         <CalendarMeal key={meal.time}>{meal.recipeName}</CalendarMeal>
+                //     ))}
+                //     </Fragment>
+                // </div>
+                // <CalendarMeals meals={meals}></CalendarMeals>
+            // )
+
+            setMealContainer(
+                <div>
+                    {meals.map(meal => {
+                        <CalendarMeal key={meal.mealId} 
+                                    date={meal.date} 
+                                    recipeId={meal.recipeId} 
+                                    recipeName={meal.recipeName} 
+                                    time = {meal.time}>
+                        </CalendarMeal>
+                    })}
+                </div>
+            )
         }
         
     }, [props.dayInfo])
