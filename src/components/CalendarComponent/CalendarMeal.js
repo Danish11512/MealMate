@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import "../../pages/CalendarPage/CalendarPage.css"
 
-const CalendarMeal = async (key, props) =>{
+const CalendarMeal = async (props) =>{
     let mealId = null
     let date = null
     let recipeId = null
@@ -9,13 +9,13 @@ const CalendarMeal = async (key, props) =>{
     let time = null
 
     useEffect(() => {
-        mealId = key.mealId
-        date = props.date
-        recipeId = props.recipeId
-        recipeName = props.recipeName
-        time = props.time
+        // mealId = key.mealId
+        // date = props.date
+        // recipeId = props.recipeId
+        // recipeName = props.recipeName
+        // time = props.time
         
-    }, [props, key])
+    }, [props.meal])
     
 
     return(
