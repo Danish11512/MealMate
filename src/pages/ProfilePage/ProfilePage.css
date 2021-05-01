@@ -49,11 +49,6 @@ button{
     color:black;
 }
 
-
-label{
-    display: block;
-}
-
 .bottom_row{
     font-size: 30px;
     margin-left: 40px;
@@ -63,4 +58,8 @@ label{
     height: 300px;
     width: 350px;
     margin-right: 20px;
+}
+
+.previous_recipes{
+    display:flex;
 }
