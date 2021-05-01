@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import searchAction from "../../redux/actions/SearchActions";
 import { useHistory } from "react-router-dom";
 
-function Search(props) {
+function Search() {
   //To control whats typed in the searchbar
   const [searchVal, setSearchVal] = useState([]);
 
@@ -19,7 +19,7 @@ function Search(props) {
         <div className="control has-icons-right">
           <form
             onSubmit={() => {
-              history.push("/results");
+              history.push("/results", { searchQuery: true });
             }}
           >
             <input
