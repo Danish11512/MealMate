@@ -13,7 +13,7 @@
   padding-top: 10rem;
   padding-left: 4rem; */
 
-  border: 1px #ccc solid;
+  /* border: 1px #ccc solid; */
   padding-left: 6rem;
   padding-top: 8rem;
 
@@ -37,7 +37,7 @@
     padding-top: 10rem;
     padding-left: 4rem; */
 
-    border: 1px #ccc solid;
+    /* border: 1px #ccc solid; */
     
 
     padding-top: 1rem;
@@ -91,7 +91,7 @@ html {
   
 
   .form-content-left {
-    border: 1px #ccc solid;
+    /* border: 1px #ccc solid; */
    
     flex:2.25;
     order:1;

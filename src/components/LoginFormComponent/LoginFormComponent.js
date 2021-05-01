@@ -1,5 +1,5 @@
 import React from 'react';
-import "../pages/LoginPage/LoginPage.css";
+import "../../pages/LoginPage/LoginPage.css";
 
 const LoginFormComponent = ({submitForm}) => {
     

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import "./LoginPage.css";
-import side_pic from "../assets/image 5.png";
-import LoginFormComponent from '../components/LoginFormComponent/LoginFormComponent';
+import LoginFormComponent from '../../components/LoginFormComponent/LoginFormComponent';
+import side_pic from "../../assets/image 5.png";
+
 
 const LoginPage = (props) =>{
     return (
