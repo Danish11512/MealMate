@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import "./SignupPage.css";
-import side_pic from "../assets/image 6.png";
-import SignupFormComponent from '../components/SignupForm/SignupFormComponent';
+import SignupFormComponent from '../../components/SignupFormComponent/SignupFormComponent';
+import side_pic from "../../assets/image 6.png";;
+
 
 const SignupPage = (props) =>{
     return (

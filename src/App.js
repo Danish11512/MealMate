@@ -2,6 +2,7 @@ import React, {useState, useEffect, useRef} from "react";
 import "./App.css";
 import { Switch, Route } from "react-router-dom";
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
+import SignupPage from "./pages/SignupPage/SignupPage";
 
 const App = () => {
 	const [currentUser, setCurrentUser] = useState(null);
@@ -46,7 +47,7 @@ const App = () => {
 	return (
 		<div className="App">
 			<Switch>
-				<Route path="/" render={() => (null)}></Route>
+				<Route path="/" render={() => (<SignupPage />)}></Route>
 			</Switch>
 		</div>
 	);
