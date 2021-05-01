@@ -9,15 +9,6 @@ const CalendarDay = (props) =>{
     const [totalCalories, setTotalCalories] = useState(0)
     const [date, setDate] = useState("")
 
-    // const assignMeals = () =>{
-    //     let html = []
-
-    //     for(let i = 0; i<meals.length; i++){
-    //         html.push(<CalendarMeal meal={meals[i]}></CalendarMeal>)
-    //     }
-
-    //     return html
-    // }
 
     useEffect(() => {
         dayInfo = props.dayInfo
@@ -65,31 +56,31 @@ const CalendarDay = (props) =>{
         //     "Sat May 01 2021"
         // ]
 
-        // if(meals.length == 0){
-        //     setMealContainer(
-        //         <div>
-        //             <br></br>
-        //             <br></br>
-        //             <p className="has-text-black">
-        //                 No Meals for this day &#128577;
-        //             </p>
-        //             <br></br>
-        //             <br></br>
-        //         </div>
-        //     )
-        // }else{
+        if(meals.length == 0){
+            setMealContainer(
+                <div>
+                    <br></br>
+                    <br></br>
+                    <p className="has-text-black ">
+                        No Meals for this day &#129368;
+                    </p>
+                    <br></br>
+                    <br></br>
+                </div>
+            )
+        }else{
 
-        //     meals.forEach(i => setMealContainer(mealContainer + <CalendarMeal meal={i}></CalendarMeal>))
-        //     // setMealContainer(
-        //         // <div>
-        //         // <Fragment>
-        //         //     {meals.map(meal=>(
-        //         //         <CalendarMeal key={meal.time}>{meal.recipeName}</CalendarMeal>
-        //         //     ))}
-        //         //     </Fragment>
-        //         // </div>
-        //         // <CalendarMeals meals={meals}></CalendarMeals>
-        //     // )
+            meals.forEach(i => setMealContainer(mealContainer + <CalendarMeal meal={i}></CalendarMeal>))}
+            // setMealContainer(
+                // <div>
+                // <Fragment>
+                //     {meals.map(meal=>(
+                //         <CalendarMeal key={meal.time}>{meal.recipeName}</CalendarMeal>
+                //     ))}
+                //     </Fragment>
+                // </div>
+                // <CalendarMeals meals={meals}></CalendarMeals>
+            // )
 
         //     setMealContainer(
         //         <div>
@@ -119,9 +110,10 @@ const CalendarDay = (props) =>{
             <div className="card-content">
                 <div className="content">
                 <ul>
-                {meals.map(meal => (
+                    {mealContainer}
+                {/* {meals.map(meal => (
                         <li><CalendarMeal meal={meal}></CalendarMeal></li>
-                    ))}
+                    ))} */}
                 </ul>
                     
                 </div>
