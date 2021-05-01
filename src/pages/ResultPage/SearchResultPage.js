@@ -66,7 +66,7 @@ function SearchResultPage() {
       <div id="load__chef">
         <Chef className="svg__load" />
         <div className="svg__text">
-          <p>Fetching Your Reciepes</p>
+          <p>Fetching Your Recipes</p>
           <img src={Cooking} alt="cook_img" />
         </div>
       </div>

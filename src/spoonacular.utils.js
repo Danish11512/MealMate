@@ -3,7 +3,6 @@
 const fetch = require("node-fetch");
 const SPOONACULAR_API_KEY1 = "c596eb18f99d49ea8d8895ef5f10840d";
 const SPOONACULAR_API_KEY2 = "46aecb3dc8b54eedaa242d3ca5a6b33d";
-const axios = require("axios");
 
 // Gets recipe from spoonacular using id
 // Takes: Id as string or numeric type, up to you bb <3
@@ -73,13 +72,13 @@ export const searchRecipe = async (searchQuery, filters) => {
 
       let type = "";
 
-      if (filters["mealType"] == "breakfast") {
+      if (filters["mealType"] === "breakfast") {
         type = "breakfast";
-      } else if (filters["mealType"] == "brunch") {
+      } else if (filters["mealType"] === "brunch") {
         type = "salad,bread,soup,fingerfood,appetizer";
       } else if (
-        filters["mealType"] == "lunch" ||
-        filters["mealType"] == "dinner"
+        filters["mealType"] === "lunch" ||
+        filters["mealType"] === "dinner"
       ) {
         type = "main%20course,soup,salad";
       }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import hamburger from "../../assets/hamburgericon.png";
+import hamburger from "../../assets/hamburgericon.jpg";
 import { useDispatch } from "react-redux";
 import FilterActions from "../../redux/actions/FilterActions";
 
@@ -109,7 +109,7 @@ function Filter() {
           </div>
 
           <div className="filter__alignment">
-            <p className="filter__micros">Cusine:</p>
+            <p className="filter__micros">Cuisine:</p>
             <input
               id="cusine"
               className="input input__intolerances"

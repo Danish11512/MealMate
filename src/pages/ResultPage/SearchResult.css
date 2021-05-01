@@ -1,6 +1,7 @@
 .search___result {
   display: flex;
   flex-wrap: wrap;
+  margin-left: 100px;
 }
 
 .your__results {

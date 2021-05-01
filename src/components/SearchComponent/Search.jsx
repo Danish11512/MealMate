@@ -18,7 +18,7 @@ function Search() {
       <div className="search__bar">
         <div className="control has-icons-right">
           <form
-            onSubmit={() => {
+            onSubmit={(e) => {
               history.push("/results", { searchQuery: true });
             }}
           >
