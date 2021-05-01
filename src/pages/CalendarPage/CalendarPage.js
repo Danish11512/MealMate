@@ -5,10 +5,25 @@ import CalendarView from '../../components/CalendarComponent/CalendarView'
 const CalendarPage = (props) =>{
     const [startDate, setStartDate] = useState(new Date())
     const calendarId = props.currentUser.calendarId
+    const previousRecipesArray = props.currentUser.previousRecipes
+    const [previousRecipes, setPreviousRecipes] = useState(null)
 
     useEffect(() => {
         setStartDate(startDate)
-        
+
+        if(previousRecipesArray.length < 1){
+            setPreviousRecipes(
+                <div>
+                    <p className="has-text-black">
+                        <br></br><br></br><br></br><br></br><br></br>
+                        Looks like you dont have any recent meals &#129370;
+                        <br></br><br></br><br></br><br></br><br></br>
+                    </p>
+                </div>
+            )
+            
+        }
+
     }, [startDate])
 
 
@@ -22,8 +37,26 @@ const CalendarPage = (props) =>{
 
     return (
         <div className="columns">
-            <div id="list" className="column is-2 has-background-dark">
-                style for side component 
+            <div id="list" className="column is-2">
+            <div className="title is-5 has-text-centered"> Add to Calendar</div>
+                <div className="card">
+                    <div className="card-content has-text-centered">
+                        <div className="field">
+                            <div className="control">
+                                <input className="input" type="text" placeholder="Recipe"></input>
+                            </div>
+                        </div>
+                    <div className="subtitle is-6 has-text-centered"> Satisfy your cravings</div>
+                    <br></br><br></br><br></br><br></br><br></br><br></br><br></br>
+                    </div>
+                </div>
+                <br></br>
+                <div className="title is-5 has-text-centered"> Your Recent Recipes</div>
+                <div className="card">
+                    <div className="card-content">
+                        {previousRecipes}
+                    </div>
+                </div>
             </div>
             <div className="column">
                 <div className="column">
