@@ -118,9 +118,12 @@ const CalendarDay = (props) =>{
 
             <div className="card-content">
                 <div className="content">
-                    {meals.map(meal => (
-                        <CalendarMeal></CalendarMeal>
+                <ul>
+                {meals.map(meal => (
+                        <li><CalendarMeal meal={meal}></CalendarMeal></li>
                     ))}
+                </ul>
+                    
                 </div>
               
             </div>
