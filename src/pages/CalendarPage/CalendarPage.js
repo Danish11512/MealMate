@@ -41,7 +41,7 @@ const CalendarPage = (props) =>{
         <div className="columns">
             <div id="list" className="column is-2">
             <div className="title is-5 has-text-centered"> Add to Calendar</div>
-                <div className="card">
+                <div className="card has-background-warning">
                     <div className="card-content has-text-centered">
                         <div className="field">
                             <div className="control">
@@ -54,7 +54,7 @@ const CalendarPage = (props) =>{
                 </div>
                 <br></br>
                 <div className="title is-5 has-text-centered"> Your Recent Recipes</div>
-                <div className="card">
+                <div className="card has-background-info">
                     <div className="card-content">
                         {previousRecipes}
                     </div>
@@ -66,13 +66,13 @@ const CalendarPage = (props) =>{
                 </div>
                 <div id="calendar" className="columns">
                     <div id="button-left" className="column is-narrow has-background-light">
-                        <button onClick={e => decreaseDate(e)}> back </button>
+                        <button onClick={e => decreaseDate(e)}> &#8592; </button>
                     </div>
                     <div className="column is-10.5">
                          <CalendarView calendarId = {calendarId} startDate={startDate}></CalendarView>
                     </div>
                     <div id="button-right" className="column is-narrow has-background-light">
-                        <button onClick={e => increaseDate(e)}> forward </button>
+                        <button onClick={e => increaseDate(e)}> &#8594; </button>
                     </div>
                 </div>
 
