@@ -22,6 +22,8 @@ const CalendarPage = (props) =>{
                 </div>
             )
             
+        }else{
+            setPreviousRecipes()
         }
 
     }, [startDate])
