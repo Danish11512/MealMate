@@ -54,6 +54,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) =>
 				calendarId,
 				...additionalData
 			});
+			
 		}
 		catch(error)
 		{

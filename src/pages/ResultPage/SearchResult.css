@@ -1,0 +1,165 @@
+.search___result {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.your__results {
+  font-weight: bold;
+  font-size: 50px;
+  font-family: "Sacramento";
+  text-align: center;
+  color: #ffab73;
+  margin-top: 50px;
+}
+
+#watch_tick {
+  animation: rotation 1s linear infinite;
+  transform-origin: bottom;
+  transform-box: fill-box;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotateZ(0deg);
+  }
+  to {
+    transform: rotateZ(360deg);
+  }
+}
+
+#salt_right,
+#salt_left {
+  animation: shake 1s linear infinite;
+  transform-origin: bottom;
+  transform-box: fill-box;
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-10px);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(10px);
+  }
+}
+
+#fork {
+  animation: dial 7s linear infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+@keyframes dial {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  10%,
+  50%,
+  70%,
+  90% {
+    transform: rotate(-10deg);
+  }
+  20%,
+  60%,
+  80% {
+    transform: rotate(10deg);
+  }
+}
+
+#spoon {
+  animation: spoondial 7s linear infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+@keyframes spoondial {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  30%,
+  70%,
+  90% {
+    transform: rotate(10deg);
+  }
+  20%,
+  60%,
+  80% {
+    transform: rotate(-10deg);
+  }
+}
+
+#load__chef {
+  position: absolute;
+  top: 40vh;
+  left: 40%;
+  margin-top: -50px;
+  margin-left: -50px;
+}
+
+.svg__load {
+  width: 30vw;
+  height: 30vh;
+}
+
+.svg__text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.svg__text > p {
+  color: black;
+  font-weight: bold;
+  align-items: center;
+  justify-content: center;
+}
+
+.svg__text > img {
+  width: 5vw;
+}
+
+.result__not__found {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+.result__not__found__svg {
+  width: 30%;
+  height: 60%;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.result__not__found__text {
+  color: black;
+  font-size: 1.2rem;
+  font-weight: bold;
+  display: flex;
+  text-align: center;
+  margin-top: 5px;
+  padding: 10px;
+}
+
+.result__try__again {
+  background-color: #ffab73;
+  font-weight: bold;
+  margin-top: 20px;
+  color: white;
+}

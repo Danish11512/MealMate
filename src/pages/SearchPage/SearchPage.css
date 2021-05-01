@@ -1,0 +1,125 @@
+@import url("https://fonts.googleapis.com/css2?family=Sacramento&display=swap");
+
+/* Parent Styles */
+.search__page {
+  display: flex;
+}
+
+.page__left__filter {
+  flex: 0.35;
+}
+
+.page__right__search {
+  flex: 0.65;
+}
+
+/* Left Filters styles */
+.hamburger {
+  width: 4rem;
+  margin-left: 15px;
+  margin-top: 15px;
+}
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+.filters {
+  background-color: #ffe9d6;
+  width: 30vw;
+  padding-bottom: 40px;
+  position: relative;
+  animation: 1s ease-out 0s 1 slideInFromLeft;
+}
+
+.delete__postion {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+.filter__micros {
+  font-size: 1.5rem;
+  margin-top: 20px;
+  color: black;
+  font-weight: bold;
+}
+
+.input__intolerances {
+  width: 30% !important;
+  border-radius: 11px !important ;
+}
+
+.filter__alignment {
+  display: flex;
+  align-items: baseline;
+}
+.filter__alignment > p {
+  margin-right: 10px;
+  padding: 12px;
+  font-size: 1rem;
+}
+
+/* Right Search Page styles */
+.search__bar {
+  margin-top: 30px;
+}
+
+.input {
+  width: 70%;
+  border-radius: 20px;
+  border: 1px solid #ffab73;
+}
+
+.is-right {
+  left: 64%;
+}
+
+.below__search__text {
+  font-family: "Sacramento", cursive;
+  font-size: 50px;
+  margin-top: 50px;
+  margin-left: 10px;
+  color: #ffab73;
+}
+
+.circle__alignment {
+  padding: 10px;
+}
+
+/* Circle Page Styles */
+
+.circle__view {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.circle__view__img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 100px;
+  cursor: pointer;
+}
+
+.circle__view__img:hover {
+  width: 180px;
+  height: 180px;
+}
+
+.circle__position {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.circle__view__text {
+  color: black;
+  text-align: center;
+  margin-top: 20px;
+  font-weight: bold;
+  font-size: 20px;
+}

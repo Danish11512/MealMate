@@ -1,0 +1,65 @@
+.top_row{
+    display:flex;
+}
+
+.greeting {
+    display:flex;
+    margin-top: 40px;
+    margin-left: 40px;
+
+}
+
+.img-valign {
+    vertical-align: middle;
+}
+
+.username {
+    font-size: 44px;
+    margin-left: 40px;
+    margin-top: 20px;
+}
+
+/*
+.vertical_line{
+    border-left: 6px black;
+    height: 500px;
+    position: absolute;
+    left: 50%;
+    margin-left:20px
+}
+*/
+
+.user_info{
+    margin-top: 40px;
+    margin-left: 400px;
+    display:block;
+}
+
+pre{
+    padding: 0px;
+}
+
+button{
+    background-color: #F5F5F5; /* Green */
+    text-decoration: none;
+    border: none;
+}
+
+.survey_info p{
+    color:black;
+}
+
+.bottom_row{
+    font-size: 30px;
+    margin-left: 40px;
+}
+
+.bottom_row img{
+    height: 300px;
+    width: 350px;
+    margin-right: 20px;
+}
+
+.previous_recipes{
+    display:flex;
+}
