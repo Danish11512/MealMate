@@ -8,6 +8,7 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import SignUpPage from "./pages/SignupPage/SignupPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import ResultsPage from "./pages/ResultPage/SearchResultPage";
+import LandingPage from "./pages/LandingPage/LandingPage";
 import RecipeDetailsPage from "./pages/RecipeDetailsPage/RecipeDetailsPage";
 
 const App = () => {
@@ -86,7 +87,7 @@ const App = () => {
           path="/results"
           render={() => (currentUser ? <ResultsPage /> : <Redirect to="/" />)}
         />
-        <Route path="/" render={() => null} />
+        <Route path="/" render={() => (<LandingPage />)} />
       </Switch>
     </div>
   );
