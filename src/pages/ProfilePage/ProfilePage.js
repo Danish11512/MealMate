@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactRoundedImage from "react-rounded-image";
-import Collapsible from 'react-collapsible';
 import "./ProfilePage.css";
 import logo from "../../assets/mealLogo.png";
 import { getRecipeById } from "../../spoonacular.utils";
+import SurveyForm  from "../../components/ProfileComponent/Survey";
+
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
@@ -14,11 +15,32 @@ import random from "../../assets/random.jpg";
 import unlimitedbladeworks from "../../assets/unlimitedbladeworks.jpg";
 
 const ProfilePage = (props) =>{
-    
-    function handleSubmit(e) {
-        alert('Submitted Survey Response');
-        e.preventDefault();
-      }
+    const [recipes, setRecipes] = useState([]);
+
+     // Random Data to display
+     const recipeId = [
+        "659463",
+        "638626",
+        "634873"
+    ]
+
+    const recipeObject = []
+
+    const fetchData = async () => {
+        for(const [index, value] of recipeId.entries()){
+            console.log(value)
+            let queryString = `https://api.spoonacular.com/recipes/${value}/information?apiKey=baa7a2e369eb42599d83a5e79692bb15`;
+            let response = await fetch(queryString, { method: "GET" });
+
+            let response_json = await response.json(); // Doesn't return json object, returns js object
+
+            console.log("this is the id of recipe",response_json.id)
+            console.log("this is the image url  of recipe",response_json.image)
+            recipeObject.push(response_json)
+            setRecipes(recipes => [...recipes,response_json]);
+        }
+        console.log(recipeObject)
+    };
 
     function ChangePassword(e){
         e.preventDefault();
@@ -34,12 +56,7 @@ const ProfilePage = (props) =>{
         alert("Here is the error that occured:" + error)
         });
     }
-    // Random Data to display
-    const recipeId = [
-        "659463",
-        "638626",
-        "634873"
-    ]
+   
 
     return (
         <div>
@@ -75,155 +92,45 @@ const ProfilePage = (props) =>{
                     <br/>
                     <br/>
 
-                    <Collapsible trigger = "Review Survey Information" classParentString = "survey_info" >
-                       {/* 
-                            It should be a dropdown to specify their diet and then a bunch of checkboxes for common intolerances
-                       */}
-                       <br/>
-                       <form onSubmit={handleSubmit}>
-                            
-                            <div className = "survey_diet">
-                                
-                                <h1>Diet Types</h1>
-                                <br/>
-                                <label for = "gluten_free"> 
-                                    <input type="checkbox" name = "gluten_free" />
-                                    Gluten Free 
-                                </label>
-
-                                
-                                <label for = "ketogenic"> 
-                                    <input type="checkbox" name = "ketogenic"/>
-                                    Ketogenic 
-                                </label>
-
-                                
-                                <label for = "vegetarian"> 
-                                    <input type="checkbox" name = "vegetarian" />
-                                    Vegetarian 
-                                </label>
-
-                                
-                                <label for = "vegan"> 
-                                    <input type="checkbox" name = "vegan"/>
-                                    Vegan 
-                                </label>
-
-                                
-                                <label for = "pescetarian"> 
-                                    <input type="checkbox" name = "pescetarian"/>
-                                    Pescetarian 
-                                </label>
-
-                                
-                                <label for = "paleo"> 
-                                    <input type="checkbox" name = "paleo" />
-                                    Paleo 
-                                </label>
-                            </div>
-                            
-
-                            <div className = "survey_intolerances">
-
-                                <br/>
-                                <h1>Intolerances</h1>
-                                <br/>
-
-                                <label for = "dairy"> 
-                                    <input type="checkbox" name = "dairy" />
-                                    Dairy
-                                </label>
-
-                                
-                                <label for = "egg"> 
-                                    <input type="checkbox" name = "egg"/>
-                                    Egg
-                                </label>
-
-                                
-                                <label for = "gluten"> 
-                                    <input type="checkbox" name = "gluten" />
-                                    Gluten
-                                </label>
-
-                                
-                                <label for = "grain"> 
-                                    <input type="checkbox" name = "grain"/>
-                                    Grain 
-                                </label>
-
-                                
-                                <label for = "peanut"> 
-                                    <input type="checkbox" name = "peanut"/>
-                                    Peanut
-                                </label>
-
-                                
-                                <label for = "seafood"> 
-                                    <input type="checkbox" name = "seafood" />
-                                    Seafood
-                                </label>
-
-                                <label for = "sesame"> 
-                                    <input type="checkbox" name = "Sesame" />
-                                    Sesame
-                                </label>
-
-                                
-                                <label for = "shellfish"> 
-                                    <input type="checkbox" name = "shellfish"/>
-                                    Shellfish
-                                </label>
-
-                                
-                                <label for = "soy"> 
-                                    <input type="checkbox" name = "soy" />
-                                    Soy
-                                </label>
-
-                                
-                                <label for = "sulfite"> 
-                                    <input type="checkbox" name = "sulfite"/>
-                                    Sulfite 
-                                </label>
-
-                                
-                                <label for = "Tree Nut"> 
-                                    <input type="checkbox" name = "Tree Nut"/>
-                                    Tree Nut
-                                </label>
-
-                                
-                                <label for = "wheat"> 
-                                    <input type="checkbox" name = "wheat" />
-                                    Wheat
-                                </label>
-
-                            </div>
-                            
-                            <br/>
-                            <input type = "submit" value = "Save"/>
-                        </form>
-                            
-
-
-                    </Collapsible>
+                    <SurveyForm/>
                 </div>
 
             </div>
 
             <div className="bottom_row">
                 <h1><strong>Previous Recipes</strong></h1>
+                <button onClick={fetchData}>Get Recipes</button>
                 <br/>
                 <div className="previous_recipes">
                     {/* 
                     <img src={demonslayer} alt='random awdwae'></img>
                     <img src={random} alt='random adwa'></img>
                     <img src={unlimitedbladeworks} alt='random adw'></img>
+                    
+
+                    {recipeId.length > 0 ? (
+                        recipeId.map((Id) => {
+                            
+                            return(
+                                <div>
+                                    <h1> {Id} </h1>
+                                    <img src ={ recipeId.image }></img>
+                                </div>
+                            );
+                        })
+                        ) : (
+                        <p>"No previous recipes"</p>
+                        )}
                     */}
-                    {recipeId.map((Id) => {
+
+                    
+
+                    {recipes.map((el) => {
                         return(
-                            <h1> {Id} </h1>
+                            <div>
+                                <h1> {el.id} </h1>
+                                <img src = { el.image } ></img>
+                            </div>
                         );
                     })}
                 </div>
