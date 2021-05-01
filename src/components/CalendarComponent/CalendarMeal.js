@@ -31,7 +31,7 @@ const CalendarMeal = async (key, props) =>{
         //     </div>
         // </div>
         <div>
-            {mealId}
+            hi
         </div>
     )
 
