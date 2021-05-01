@@ -32,13 +32,8 @@ function Recommendation() {
     <div className="circle__position">
       {cusines.map((el) => {
         return (
-          <div className="circle__alignment">
-            <CircleView
-              key={el.text}
-              image={el.image}
-              text={el.text}
-              id={el.text}
-            />{" "}
+          <div className="circle__alignment" key={el.text}>
+            <CircleView image={el.image} text={el.text} id={el.text} />{" "}
           </div>
         );
       })}
