@@ -38,9 +38,6 @@ const SignupFormComponent = ({submitForm}) => {
                     Sign up
                 </button>
             </form>
-            {/* <div class="submit">
-                Sign up
-            </div> */}
         </div>
     )
 }
