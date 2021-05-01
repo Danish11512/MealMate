@@ -46,7 +46,11 @@ function Filter() {
   return (
     <div className="hamburger">
       {!toggle ? (
-        <img src={hamburger} onClick={() => setToggle(true)}></img>
+        <img
+          src={hamburger}
+          onClick={() => setToggle(true)}
+          alt="hamburger__img"
+        ></img>
       ) : (
         <div className="filters">
           <button

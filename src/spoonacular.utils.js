@@ -16,24 +16,24 @@ export const getRecipeById = async (id) => {
     if (response.status === 200) {
       let response_json = await response.json(); // Doesn't return json object, returns js object
       return response_json;
-    }
-    else if (response.status === 402) { // If api limit is reached, use 2nd api key
-      queryString = queryString.replace(SPOONACULAR_API_KEY1, SPOONACULAR_API_KEY2);
+    } else if (response.status === 402) {
+      // If api limit is reached, use 2nd api key
+      queryString = queryString.replace(
+        SPOONACULAR_API_KEY1,
+        SPOONACULAR_API_KEY2
+      );
       let response2 = await fetch(queryString, { method: "GET" });
 
       if (response2 === 200) {
         let response_json2 = await response2.json();
         return response_json2;
-      }
-      else {
+      } else {
         return null;
       }
-    }
-    else {
+    } else {
       return null;
     }
-  }
-  catch(error) {
+  } catch (error) {
     console.log("Error getting recipe", error.message);
   }
 };
@@ -55,42 +55,43 @@ export const searchRecipe = async (searchQuery, filters) => {
     query = query.join("%20");
 
     let queryString = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${SPOONACULAR_API_KEY1}&query=${query}&number=30`;
-    if("intolerances" in filters) {
+    if ("intolerances" in filters) {
       queryString += `&intolerances=${filters["intolerances"]}`;
     }
 
-    if("diet" in filters) {
+    if ("diet" in filters) {
       queryString += `&diet=${filters["diet"]}`;
     }
 
-    if("maxCarbs" in filters) {
+    if ("maxCarbs" in filters) {
       queryString += `&maxCarbs=${filters["maxCarbs"]}`;
     }
 
-    if("mealType" in filters) {
+    if ("mealType" in filters) {
       // let type = filters["mealType"].split(" ");
       // type = type.join("%20");
 
       let type = "";
 
-      if(filters["mealType"] == "breakfast") {
-        type = "breakfast"
-      }
-      else if(filters["mealType"] == "brunch") {
-        type = "salad,bread,soup,fingerfood,appetizer"
-      }
-      else if(filters["mealType"] == "lunch" || filters["mealType"] == "dinner") {
+      if (filters["mealType"] == "breakfast") {
+        type = "breakfast";
+      } else if (filters["mealType"] == "brunch") {
+        type = "salad,bread,soup,fingerfood,appetizer";
+      } else if (
+        filters["mealType"] == "lunch" ||
+        filters["mealType"] == "dinner"
+      ) {
         type = "main%20course,soup,salad";
       }
 
       queryString += `&type=${type}`;
     }
 
-    if("cuisine" in filters) {
+    if ("cuisine" in filters) {
       queryString += `&cuisine=${filters["cuisine"]}`;
     }
 
-    if("prepTime" in filters) {
+    if ("prepTime" in filters) {
       queryString += `&maxReadyTime=${filters["prepTime"]}`;
     }
 
@@ -99,24 +100,23 @@ export const searchRecipe = async (searchQuery, filters) => {
     if (response.status === 200) {
       let response_json = await response.json();
       return response_json;
-    }
-    else if (response.status === 402) {
-      queryString = queryString.replace(SPOONACULAR_API_KEY1, SPOONACULAR_API_KEY2);
+    } else if (response.status === 402) {
+      queryString = queryString.replace(
+        SPOONACULAR_API_KEY1,
+        SPOONACULAR_API_KEY2
+      );
       let response2 = await fetch(queryString, { method: "GET" });
 
       if (response2 === 200) {
-        let response_json2= await response2.json();
+        let response_json2 = await response2.json();
         return response_json2;
-      }
-      else {
+      } else {
         return null;
       }
-    }
-    else {
+    } else {
       return null;
     }
-  }
-  catch(error) {
+  } catch (error) {
     console.log("Error with search :(", error.message);
   }
 };
@@ -132,24 +132,24 @@ export const searchRecipeByCuisine = async (cuisine) => {
     if (response.status === 200) {
       let response_json = await response.json();
       return response_json;
-    }
-    else if (response.status === 402) { // If api limit is reached, use 2nd api key
-      queryString = queryString.replace(SPOONACULAR_API_KEY1, SPOONACULAR_API_KEY2);
+    } else if (response.status === 402) {
+      // If api limit is reached, use 2nd api key
+      queryString = queryString.replace(
+        SPOONACULAR_API_KEY1,
+        SPOONACULAR_API_KEY2
+      );
       let response2 = await fetch(queryString, { method: "GET" });
 
       if (response2 === 200) {
         let response_json2 = await response2.json();
         return response_json2;
-      }
-      else {
+      } else {
         return null;
       }
-    }
-    else {
+    } else {
       return null;
     }
-  }
-  catch(error) {
+  } catch (error) {
     console.log("Error with cuisine search :(", error.message);
   }
-}
+};
