@@ -4,7 +4,7 @@ import CalendarMeal from './CalendarMeal'
 
 const CalendarDay = (props) =>{
     let dayInfo = null
-    let meals = [0]
+    let meals = []
     const [mealContainer, setMealContainer] = useState(<div></div>)
     const [totalCalories, setTotalCalories] = useState(0)
     const [date, setDate] = useState("")
@@ -30,52 +30,80 @@ const CalendarDay = (props) =>{
         }else{
             setDate(dayInfo[0])
             setTotalCalories(dayInfo[1].totalCalories)
-            meals = dayInfo[1].meals
+            dayInfo[1].meals.forEach(i => meals.push({"recipeName":i.recipeName, 
+                                                        "time": i.time, 
+                                                        "recipeId": i.recipeId,
+                                                        "mealId": i.mealId,
+                                                        "date": i.date}))
+            // Object.keys(i).map(k => [k, i[k]])
+            // meals = dayInfo[1].meals
             console.log(meals)
             // meals.map(k =>(
                 // console.log(k.time)
             // ))
         }
 
-        if(meals.length == 0){
-            setMealContainer(
-                <div>
-                    <br></br>
-                    <br></br>
-                    <p className="has-text-black">
-                        No Meals for this day &#128577;
-                    </p>
-                    <br></br>
-                    <br></br>
-                </div>
-            )
-        }else{
 
-            meals.forEach(i => setMealContainer(mealContainer + <CalendarMeal meal={i}></CalendarMeal>))
-            // setMealContainer(
-                // <div>
-                // <Fragment>
-                //     {meals.map(meal=>(
-                //         <CalendarMeal key={meal.time}>{meal.recipeName}</CalendarMeal>
-                //     ))}
-                //     </Fragment>
-                // </div>
-                // <CalendarMeals meals={meals}></CalendarMeals>
-            // )
+        // [
+        //     "recipeName",
+        //     "sample recipe"
+        // ],
+        // [
+        //     "time",
+        //     "3:00pm"
+        // ],
+        // [
+        //     "recipeId",
+        //     "gfu5cfmke"
+        // ],
+        // [
+        //     "mealId",
+        //     "wysric9hk"
+        // ],
+        // [
+        //     "date",
+        //     "Sat May 01 2021"
+        // ]
 
-            setMealContainer(
-                <div>
-                    {meals.map(meal => {
-                        <CalendarMeal key={meal.mealId} 
-                                    date={meal.date} 
-                                    recipeId={meal.recipeId} 
-                                    recipeName={meal.recipeName} 
-                                    time = {meal.time}>
-                        </CalendarMeal>
-                    })}
-                </div>
-            )
-        }
+        // if(meals.length == 0){
+        //     setMealContainer(
+        //         <div>
+        //             <br></br>
+        //             <br></br>
+        //             <p className="has-text-black">
+        //                 No Meals for this day &#128577;
+        //             </p>
+        //             <br></br>
+        //             <br></br>
+        //         </div>
+        //     )
+        // }else{
+
+        //     meals.forEach(i => setMealContainer(mealContainer + <CalendarMeal meal={i}></CalendarMeal>))
+        //     // setMealContainer(
+        //         // <div>
+        //         // <Fragment>
+        //         //     {meals.map(meal=>(
+        //         //         <CalendarMeal key={meal.time}>{meal.recipeName}</CalendarMeal>
+        //         //     ))}
+        //         //     </Fragment>
+        //         // </div>
+        //         // <CalendarMeals meals={meals}></CalendarMeals>
+        //     // )
+
+        //     setMealContainer(
+        //         <div>
+        //             {meals.map(meal => {
+        //                 <CalendarMeal key={meal.mealId} 
+        //                             date={meal.date} 
+        //                             recipeId={meal.recipeId} 
+        //                             recipeName={meal.recipeName} 
+        //                             time = {meal.time}>
+        //                 </CalendarMeal>
+        //             })}
+        //         </div>
+        //     )
+        // }
         
     }, [props.dayInfo])
 
@@ -90,7 +118,9 @@ const CalendarDay = (props) =>{
 
             <div className="card-content">
                 <div className="content">
-                    {mealContainer}
+                    {meals.map(meal => (
+                        <CalendarMeal></CalendarMeal>
+                    ))}
                 </div>
               
             </div>
