@@ -11,6 +11,7 @@ import ResultsPage from "./pages/ResultPage/SearchResultPage";
 import RecipeDetailsPage from "./pages/RecipeDetailsPage/RecipeDetailsPage";
 import CalendarPage from "./pages/CalendarPage/CalendarPage";
 
+
 const App = () => {
 	const [currentUser, setCurrentUser] = useState("wait");
 	const unsubscribeFromAuth = useRef(null);
