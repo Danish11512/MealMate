@@ -4,11 +4,18 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import { auth, firestore } from "./firebase/firebase.utils";
 import Navbar from "./components/NavbarComponent/Navbar";
 import SearchPage from "./pages/SearchPage/SearchPage";
+<<<<<<< HEAD
 import LoginPage from "./pages/LoginPage/LoginPage";
 import SignUpPage from "./pages/SignupPage/SignupPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import ResultsPage from "./pages/ResultPage/SearchResultPage";
 import RecipeDetailsPage from "./pages/RecipeDetailsPage/RecipeDetailsPage";
+=======
+import LoginPage from './pages/LoginPage/LoginPage';
+import SignUpPage from './pages/SignupPage/SignupPage';
+import ProfilePage from './pages/ProfilePage/ProfilePage';
+import CalendarPage from './pages/CalendarPage/CalendarPage';
+>>>>>>> 1171424 (Skeleton complete)
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(null);
@@ -49,6 +56,7 @@ const App = () => {
     <div className="App">
       <Navbar currentUser={currentUser} />
       <Switch>
+<<<<<<< HEAD
         <Route
           path="/recipe/:id"
           render={() => currentUser ? (<RecipeDetailsPage currentUser={currentUser} />) : (<Redirect to="/" />)}
@@ -87,6 +95,14 @@ const App = () => {
           render={() => (currentUser ? <ResultsPage /> : <Redirect to="/" />)}
         />
         <Route path="/" render={() => null} />
+=======
+        <Route path="/login" render={() => currentUser ? (<Redirect to="/"/>) :(<LoginPage/>)}/>
+        <Route path="/signup" render={() => currentUser ? (<Redirect to="/"/>) :(<SignUpPage/>)}/>
+        <Route path="/profile" render={() => currentUser ? (<ProfilePage currentUser={currentUser}/>): (<Redirect to="/"/>) }/>
+        <Route path="/search" render={() => currentUser ? (<SearchPage currentUser={currentUser}/>) : (<Redirect to="/"/>)}/>
+        <Route path="/calendar" render={() => currentUser ? (<CalendarPage currentUser={currentUser}/>): (<Redirect to="/calendar"/>) }/>
+        <Route path="/" render={() => null}/>
+>>>>>>> 1171424 (Skeleton complete)
       </Switch>
     </div>
   );
