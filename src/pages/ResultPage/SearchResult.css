@@ -1,3 +1,7 @@
+.result__body {
+  background: #eef2f7;
+}
+
 .search___result {
   display: flex;
   flex-wrap: wrap;

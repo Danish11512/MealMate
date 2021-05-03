@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import CircleView from "./CircleView";
 
 function Recommendation() {
-  const cusine = [
+  const cusines = [
     {
       text: "Indian",
       image: "https://miro.medium.com/max/2400/1*UegPuEE-nV5Nv_M734AVng.jpeg",
@@ -24,10 +24,6 @@ function Recommendation() {
     },
   ];
 
-  const [cusines, setCusines] = useState([]);
-  useEffect(() => {
-    setCusines(cusine);
-  }, []);
   return (
     <div className="circle__position">
       {cusines.map((el) => {

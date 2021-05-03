@@ -37,6 +37,7 @@
 .filters {
   background-color: #ffe9d6;
   width: 30vw;
+  min-height: 60vh;
   padding-bottom: 40px;
   position: relative;
   animation: 1s ease-out 0s 1 slideInFromLeft;
@@ -70,6 +71,23 @@
   font-size: 1rem;
 }
 
+.chip {
+  font-size: 1rem;
+  background: #ffab73;
+  color: black;
+}
+
+.search-wrapper {
+  background: #fff;
+  max-width: 300px;
+}
+
+.filter__unit {
+  margin: 0px;
+  color: black;
+  font-weight: bold;
+}
+
 /* Right Search Page styles */
 .search__bar {
   margin-top: 30px;
@@ -95,6 +113,12 @@
 
 .circle__alignment {
   padding: 10px;
+}
+
+#error {
+  margin-top: 10px;
+  color: red;
+  font-weight: bold;
 }
 
 /* Circle Page Styles */
