@@ -9,6 +9,7 @@ import SignUpPage from "./pages/SignupPage/SignupPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import ResultsPage from "./pages/ResultPage/SearchResultPage";
 import RecipeDetailsPage from "./pages/RecipeDetailsPage/RecipeDetailsPage";
+import LandingPage from './pages/LandingPage/LandingPage';
 
 const App = () => {
 	const [currentUser, setCurrentUser] = useState(null);
@@ -86,7 +87,7 @@ const App = () => {
 					path="/results"
 					render={() => (currentUser ? <ResultsPage /> : <Redirect to="/" />)}
 				/>
-				<Route path="/" render={() => null} />
+				<Route path="/" render={() => currentUser ? <SearchPage currentUser={currentUser}/> : <LandingPage currentUser={currentUser}/>} />
 			</Switch>
 		</div>
 	);
