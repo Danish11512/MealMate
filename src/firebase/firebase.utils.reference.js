@@ -19,6 +19,7 @@ getUserDetails(uid)
 			diet: string,
 			preferredCuisineType: string,
 			previousRecipes: string[],
+			favorites: string[],
 			calendarId: string
 		}
 
@@ -52,8 +53,8 @@ getCalendarFull(calendarId)
 			}
 		}
 
-addMealToDay(calendarId, recipeId, recipeName, date, time, calendar=null)
-	- Adds a meal to a day given the calendarId, recipeId, recipeName, date, and time
+addMealToDay(user, recipeId, recipeName, date, time, calendar=null)
+	- Adds a meal to a day given the user object, recipeId, recipeName, date, and time
 	- calendar is an optional parameter that is the calendar data
 	- It is recommended to provide the calendar parameter if previously retrieved to limit firestore calls
 	- This function will issue its own call to the firestore if the calendar parameter is not provided 
@@ -70,6 +71,8 @@ editMealInDay(calendarId, mealId, date, newTime, calendar=null)
 	- It is recommended to provide the calendar parameter if previously retrieved to limit firestore calls
 	- This function will issue its own call to the firestore if the calendar parameter is not provided 
 
+toggleFavorite(user, recipeId)
+	- Toggles whether or not a recipe is favorited given user Object and recipeId
 ---------------------------------------------------------------------------------------------------------------------------------
 The following functions are helper functions and everything returned from them can easily be recreated by using the data returned by
 the getCalendarFull(calendarId) function. They only exist for convienence and do not require firebase knowledge to recreate.

@@ -11,7 +11,7 @@ const firebaseConfig = {
 	messagingSenderId: "432171471215",
 	appId: "1:432171471215:web:2339487e26433ad62e589a",
 	measurementId: "G-FXYLT3YYJY"
-  };
+};
 
 firebase.initializeApp(firebaseConfig);
 
@@ -36,6 +36,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) =>
 		const diet = "";
 		const preferredCuisineType = "";
 		const previousRecipes = [];
+		const favorites = [];
 		const calendarId = await initializeCalendar()
 
 		try
@@ -51,6 +52,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) =>
 				diet,
 				preferredCuisineType,
 				previousRecipes,
+				favorites,
 				calendarId,
 				...additionalData
 			});
@@ -117,12 +119,14 @@ export const getCalendarFull = async (calendarId) =>
 	return snapShot.data();
 }
 
-export const addMealToDay = async (calendarId, recipeId, recipeName, date, time, calendar=null) =>
+export const addMealToDay = async (user, recipeId, recipeName, date, time, calendar=null) =>
 {
 	if(date instanceof Date)
 		date = date.toDateString();
 
-	const calendarRef = firestore.doc(`calendars/${calendarId}`);
+	const userRef = firestore.doc(`users/${user.uid}`);
+	const previousRecipes = user.previousRecipes;
+	const calendarRef = firestore.doc(`calendars/${user.calendarId}`);
 	let calendarData = calendar
 	const mealId = generateId()
 
@@ -143,11 +147,20 @@ export const addMealToDay = async (calendarId, recipeId, recipeName, date, time,
 	}
 
 	try{
-		calendarRef.set(calendarData);
+		await calendarRef.set(calendarData);
 	}
 	catch(error)
 	{
 		console.log("Could not add Meal to Day");
+	}
+
+	try{
+		previousRecipes.push(recipeId);
+		await userRef.update({previousRecipes});
+	}
+	catch(error)
+	{
+		console.log("Could not add to previous recipes")
 	}
 
 	return [calendarData, mealId];
@@ -177,7 +190,7 @@ export const removeMealFromDay = async (calendarId, mealId, date, calendar=null)
 			}
 
 		try{
-			calendarRef.set(calendarData);
+			await calendarRef.set(calendarData);
 		}
 		catch(error)
 		{
@@ -214,7 +227,7 @@ export const editMealInDay = async (calendarId, mealId, date, newTime, calendar=
 			}
 
 		try{
-			calendarRef.set(calendarData);
+			await calendarRef.set(calendarData);
 		}
 		catch(error)
 		{
@@ -225,6 +238,32 @@ export const editMealInDay = async (calendarId, mealId, date, newTime, calendar=
 	}
 
 	return null;
+}
+
+export const toggleFavorite = async (user, recipeId) =>
+{
+	const userRef = firestore.doc(`users/${user.uid}`);
+	console.log("inside utils")
+	console.log("recipeid: "+recipeId)
+	console.log(user)
+	let favorites = user.favorites;
+	console.log(favorites)
+
+	const index = favorites.indexOf(String(recipeId))
+	try
+	{
+		if(index === -1)
+			favorites.push(String(recipeId))
+		else
+			favorites.splice(index, 1)
+		
+		await userRef.update({favorites});
+	}
+	catch(error)
+	{
+		console.log("Error toggling favorite")
+	}
+
 }
 
 export const getCalendarDay = async (calendarId, date, calendar=null) =>
@@ -315,9 +354,9 @@ export const getCalendarDateRange = async (calendarId, startDate, endDate, calen
 
 export const addRecipeToDatabase = async (id) =>
 {
-    try
-    {
-        let recipe = await getRecipeById(id);
+	try
+	{
+		let recipe = await getRecipeById(id);
 
 		/*
         await firestore.collection("recipes").doc(id).set({
@@ -336,31 +375,31 @@ export const addRecipeToDatabase = async (id) =>
 		
 		await firestore.collection("recipes").doc(id).set(recipe);
 
-        console.log("Saved recipe successfully :)")
+		console.log("Saved recipe successfully :)")
 		return recipe;
-    }
-    catch(error)
-    {
-        console.log("Error saving recipe :(", error.message);
-    }
+	}
+	catch(error)
+	{
+		console.log("Error saving recipe :(", error.message);
+	}
 }
 
 
 export const getRecipeFromDatabase = async (id) =>
 {
-    try
-    {
-        let recipeRef = firestore.collection("recipes").doc(id);
-        let recipe = await recipeRef.get();
+	try
+	{
+		let recipeRef = firestore.collection("recipes").doc(id);
+		let recipe = await recipeRef.get();
 		if(!recipe.exists)
 			return null;
 			
-        return recipe.data();
-    }
-    catch(error)
-    {
-        console.log("Error getting recipe :(", error.message);
-    }
+		return recipe.data();
+	}
+	catch(error)
+	{
+		console.log("Error getting recipe :(", error.message);
+	}
 
 	return null;
 }
@@ -368,17 +407,17 @@ export const getRecipeFromDatabase = async (id) =>
 export const getRecipe = async (id) =>
 {
 	try
-    {
-        let recipeRef = firestore.collection("recipes").doc(id);
-        let recipe = await recipeRef.get();
+	{
+		let recipeRef = firestore.collection("recipes").doc(id);
+		let recipe = await recipeRef.get();
 		if(!recipe.exists)
 			return addRecipeToDatabase(id);
 			
-        return recipe.data();
-    }
-    catch(error)
-    {
-        console.log("Error getting recipe :(", error.message);
-    }
+		return recipe.data();
+	}
+	catch(error)
+	{
+		console.log("Error getting recipe :(", error.message);
+	}
 
 }
