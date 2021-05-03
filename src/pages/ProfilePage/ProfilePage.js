@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ReactRoundedImage from "react-rounded-image";
 import "./ProfilePage.css";
 import logo from "../../assets/mealLogo.png";
-import { getRecipeById } from "../../spoonacular.utils";
+import { getRecipe } from "../../firebase/firebase.utils";
 import SurveyForm  from "../../components/ProfileComponent/Survey";
 
 import firebase from 'firebase/app';

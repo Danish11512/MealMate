@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
-import { getRecipe, addMealToDay } from '../../firebase/firebase.utils';
+import { getRecipe, addMealToDay, toggleFavorite } from '../../firebase/firebase.utils';
 import ReactHtmlParser from 'react-html-parser';
 
 import './RecipeDetailsPage.css';
@@ -10,8 +10,10 @@ const RecipeDetailsPage = (props) =>
     const [recipe, setRecipe] = useState(null)
     const [modalClass, setModalClass] = useState("");
     const [dateValue, setDateValue] = useState(new Date().toISOString().slice(0, 10));
-    const [timeValue, setTimeValue] = useState(null);
+    const [timeValue, setTimeValue] = useState("");
+    let isFavorited = (props.currentUser && recipe) ? props.currentUser.favorites.includes(String(recipe.id)) : false;
 
+    console.log(isFavorited)
     useEffect(() =>{
         const initialize = async () =>
         {
@@ -30,6 +32,13 @@ const RecipeDetailsPage = (props) =>
         
     }
 
+    const toggleFavoriteLocal = async () =>
+    {
+        console.log("Inside Component")
+        console.log(props.currentUser)
+        await toggleFavorite(props.currentUser, recipe.id);
+    }
+
     console.log(recipe);
     if(!recipe || !props.currentUser)
         return null;
@@ -40,11 +49,15 @@ const RecipeDetailsPage = (props) =>
                 <img src={recipe.image} alt={recipe.title}/>
             </div>
             <div className="recipe-details-right-panel">
-                <h1>{recipe.title}</h1>
-                <p>
+                <h1>{recipe.title} </h1>
+                <div className="recipe-link"><a href={recipe.spoonacularSourceUrl} target="_blank" rel="noopener noreferrer">Link: {recipe.spoonacularSourceUrl}</a></div>
+                <p className="recipe-summary">
                     { ReactHtmlParser(recipe.summary)}
                 </p>
-                <button onClick={toggleModal}>Add to Calendar</button>
+                <div className="button-container">
+                    <button className="add-button" onClick={toggleModal}>Add to Calendar</button>
+                    <i onClick={toggleFavoriteLocal} className={isFavorited ? "fas fa-star" : "far fa-star"}></i>
+                </div>
             </div>
 
             <div className={`modal ${modalClass}`}>
@@ -59,7 +72,7 @@ const RecipeDetailsPage = (props) =>
                         Time: <input type="time" id="time" name="time" value={timeValue} onChange={(e) => setTimeValue(e.target.value)} required/>
                     </section>
                     <footer className="modal-card-foot">
-                        <button className="button is-success" onClick = {() => {addMealToDay(props.currentUser.calendarId, recipe.id, recipe.title, dateValue, timeValue); toggleModal()}}>Add</button>
+                        <button className="button is-success" onClick = {() => {addMealToDay(props.currentUser, recipe.id, recipe.title, dateValue, timeValue); toggleModal()}}>Add</button>
                         <button className="button" onClick={toggleModal}>Cancel</button>
                     </footer>
                 </div>
