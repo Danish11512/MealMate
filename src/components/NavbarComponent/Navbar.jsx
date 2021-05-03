@@ -12,7 +12,7 @@ const Navbar = (props) => {
 			<div className="navbar-brand">
 				<Link className="navbar-item" to="/">
 					<img src={logo} alt="logo" />
-					<p>Meal Mate</p>
+					<p className="navbar__brand">Meal Mate</p>
 				</Link>
 			</div>
 
