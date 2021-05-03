@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sacramento&display=swap');
+
+
+@media screen and (min-width:850px) {
+    .container-1 {
+        display:flex;
+    }
+}
+
+html {
+    background-color: whitesmoke; 
+ }
+
+
+
+.container-1 div {
+    padding-left: 2rem;
+    padding-top: 3rem;
+}
+
+.box-1 {
+    flex: 1;
+    order: 1;
+}
+
+.box-2 {
+    flex: 1;
+    order: 2;
+    padding-top: 2rem;
+}
+
+.chef {
+    font-family: Sacramento;
+    font-size: 4rem;
+    color:black;
+}
+
+.hit {
+    font-family: Sacramento;
+    font-size: 4rem;
+    padding-left: 3rem;
+    color:black;
+}
+
+.access1 {
+    padding-left: 3rem;
+    padding-top: 1rem;
+    font-weight: bold;
+    color:black;
+}
+
+.access2 {
+    padding-left: 3rem;
+    font-weight: bold;
+    color:black;
+}
+
+.box-2 a {
+    margin-left: 3.5rem;
+    margin-top: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    font-size: large;
+}
+
+.myButton {
+    background-color:coral !important;
+}
+
+.box-img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
