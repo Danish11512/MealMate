@@ -1,40 +1,39 @@
 //import axios from 'axios';
 
 const fetch = require("node-fetch");
-const SPOONACULAR_API_KEY1 = "c596eb18f99d49ea8d8895ef5f10840d";
-const SPOONACULAR_API_KEY2 = "46aecb3dc8b54eedaa242d3ca5a6b33d";
+const SPOONACULAR_API_KEYS = ["c596eb18f99d49ea8d8895ef5f10840d", "46aecb3dc8b54eedaa242d3ca5a6b33d", "6a37f4e32e674edf86796454ce8dc8b7", "46aecb3dc8b54eedaa242d3ca5a6b33d"];
 
 // Gets recipe from spoonacular using id
 // Takes: Id as string or numeric type, up to you bb <3
 // Returns: Whole recipe object or null
 export const getRecipeById = async (id) => {
-  try {
-    let queryString = `https://api.spoonacular.com/recipes/${id}/information?apiKey=${SPOONACULAR_API_KEY1}`;
-    let response = await fetch(queryString, { method: "GET" });
+	try {
+		let randomNum = Math.floor(Math.random() * SPOONACULAR_API_KEYS.length);
+		let apiKey = SPOONACULAR_API_KEYS[randomNum];
+		let queryString = `https://api.spoonacular.com/recipes/${id}/information?apiKey=${apiKey}`;
+		let response = await fetch(queryString, { method: "GET" });
 
-    if (response.status === 200) {
-      let response_json = await response.json(); // Doesn't return json object, returns js object
-      return response_json;
-    } else if (response.status === 402) {
-      // If api limit is reached, use 2nd api key
-      queryString = queryString.replace(
-        SPOONACULAR_API_KEY1,
-        SPOONACULAR_API_KEY2
-      );
-      let response2 = await fetch(queryString, { method: "GET" });
+		if (response.status === 200) {
+			let response_json = await response.json(); // Doesn't return json object, returns js object
+			return response_json;
+		} else if (response.status === 402) { // If first chose api key is at its point limit try every single api key until one works
+			for (const key of SPOONACULAR_API_KEYS) {
+				queryString = queryString.replace(SPOONACULAR_API_KEYS[randomNum], key);
 
-      if (response2 === 200) {
-        let response_json2 = await response2.json();
-        return response_json2;
-      } else {
-        return null;
-      }
-    } else {
-      return null;
-    }
-  } catch (error) {
-    console.log("Error getting recipe", error.message);
-  }
+				let response2 = await fetch(queryString, { method: "GET" });
+				if (response2.status === 200) {
+					let response_json = await response2.json();
+					return response_json;
+				}
+			}
+
+			return null;
+		} else {
+			return null;
+		}
+	} catch (error) {
+		console.log("Error getting recipe", error.message);
+	}
 };
 
 // Searches recipe in spoonacular
@@ -49,106 +48,110 @@ export const getRecipeById = async (id) => {
 //  }
 // Returns: Array of objects width id, title, image, and imageType field or null if there was an error with search
 export const searchRecipe = async (searchQuery, filters) => {
-  try {
-    let query = searchQuery.split(" ");
-    query = query.join("%20");
+	try {
+		let query = searchQuery.split(" ");
+		query = query.join("%20");
 
-    let queryString = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${SPOONACULAR_API_KEY1}&query=${query}&number=30`;
-    if ("intolerances" in filters) {
-      queryString += `&intolerances=${filters["intolerances"]}`;
-    }
+		let randomNum = Math.floor(Math.random() * SPOONACULAR_API_KEYS.length);
+		let apiKey = SPOONACULAR_API_KEYS[randomNum];
 
-    if ("diet" in filters) {
-      queryString += `&diet=${filters["diet"]}`;
-    }
+		let queryString = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&query=${query}&number=30`;
+		if ("intolerances" in filters) {
+			filters.intolerances.forEach((el) => {
+				queryString += `&intolerances=${el.name}`;
+			});
+		}
 
-    if ("maxCarbs" in filters) {
-      queryString += `&maxCarbs=${filters["maxCarbs"]}`;
-    }
+		if ("diet" in filters) {
+			queryString += `&diet=${filters["diet"]}`;
+		}
 
-    if ("mealType" in filters) {
-      // let type = filters["mealType"].split(" ");
-      // type = type.join("%20");
+		if ("maxCarbs" in filters) {
+			queryString += `&maxCarbs=${filters["maxCarbs"]}`;
+		}
 
-      let type = "";
+		if ("mealType" in filters) {
+			// let type = filters["mealType"].split(" ");
+			// type = type.join("%20");
 
-      if (filters["mealType"] === "breakfast") {
-        type = "breakfast";
-      } else if (filters["mealType"] === "brunch") {
-        type = "salad,bread,soup,fingerfood,appetizer";
-      } else if (
-        filters["mealType"] === "lunch" ||
+			let type = "";
+
+			if (filters["mealType"] === "breakfast") {
+				type = "breakfast";
+			} else if (filters["mealType"] === "brunch") {
+				type = "salad,bread,soup,fingerfood,appetizer";
+			} else if (
+				filters["mealType"] === "lunch" ||
         filters["mealType"] === "dinner"
-      ) {
-        type = "main%20course,soup,salad";
-      }
+			) {
+				type = "main%20course,soup,salad";
+			}
 
-      queryString += `&type=${type}`;
-    }
+			queryString += `&type=${type}`;
+		}
 
-    if ("cuisine" in filters) {
-      queryString += `&cuisine=${filters["cuisine"]}`;
-    }
+		if ("cuisine" in filters) {
+			queryString += `&cuisine=${filters["cuisine"]}`;
+		}
 
-    if ("prepTime" in filters) {
-      queryString += `&maxReadyTime=${filters["prepTime"]}`;
-    }
+		if ("prepTime" in filters) {
+			queryString += `&maxReadyTime=${filters["prepTime"]}`;
+		}
 
-    let response = await fetch(queryString, { method: "GET" });
+		let response = await fetch(queryString, { method: "GET" });
 
-    if (response.status === 200) {
-      let response_json = await response.json();
-      return response_json;
-    } else if (response.status === 402) {
-      queryString = queryString.replace(
-        SPOONACULAR_API_KEY1,
-        SPOONACULAR_API_KEY2
-      );
-      let response2 = await fetch(queryString, { method: "GET" });
+		if (response.status === 200) {
+			let response_json = await response.json();
+			return response_json;
+		} else if (response.status === 402) { // If first chose api key is at its point limit try every single api key until one works
+			for (const key of SPOONACULAR_API_KEYS) {
+				queryString = queryString.replace(SPOONACULAR_API_KEYS[randomNum], key);
 
-      if (response2 === 200) {
-        let response_json2 = await response2.json();
-        return response_json2;
-      } else {
-        return null;
-      }
-    } else {
-      return null;
-    }
-  } catch (error) {
-    console.log("Error with search :(", error.message);
-  }
+				let response2 = await fetch(queryString, { method: "GET" });
+				if (response2.status === 200) {
+					let response_json = await response2.json();
+					return response_json;
+				}
+			}
+
+			return null;
+		} else {
+			return null;
+		}
+	} catch (error) {
+		console.log("Error with search :(", error.message);
+	}
 };
 
 // Searches recipes only by cuisine
 // Takes: cuisine string, check spoonacular site for supported cuisines
 // Returns: Array of objects width id, title, image, and imageType field or null if there was an error with api
 export const searchRecipeByCuisine = async (cuisine) => {
-  try {
-    let queryString = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${SPOONACULAR_API_KEY1}&cuisine=${cuisine}&number=30`;
-    let response = await fetch(queryString, { method: "GET" });
+	try {
+		let randomNum = Math.floor(Math.random() * SPOONACULAR_API_KEYS.length);
+		let apiKey = SPOONACULAR_API_KEYS[randomNum];
+		let queryString = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&cuisine=${cuisine}&number=30`;
+		let response = await fetch(queryString, { method: "GET" });
 
-    if (response.status === 200) {
-      let response_json = await response.json();
-      return response_json;
-    } else if (response.status === 402) {
-      // If api limit is reached, use 2nd api key
-      queryString = queryString.replace(
-        SPOONACULAR_API_KEY1,
-        SPOONACULAR_API_KEY2
-      );
-      let response2 = await fetch(queryString, { method: "GET" });
+		if (response.status === 200) {
+			let response_json = await response.json();
+			return response_json;
+		} else if (response.status === 402) { // If first chose api key is at its point limit try every single api key until one works
+			for (const key of SPOONACULAR_API_KEYS) {
+				queryString = queryString.replace(SPOONACULAR_API_KEYS[randomNum], key);
 
-      if (response2 === 200) {
-        let response_json2 = await response2.json();
-        return response_json2;
-      } else {
-        return null;
-      }
-    } else {
-      return null;
-    }
-  } catch (error) {
-    console.log("Error with cuisine search :(", error.message);
-  }
+				let response2 = await fetch(queryString, { method: "GET" });
+				if (response2.status === 200) {
+					let response_json = await response2.json();
+					return response_json;
+				}
+			}
+
+			return null;
+		} else {
+			return null;
+		}
+	} catch (error) {
+		console.log("Error with cuisine search :(", error.message);
+	}
 };

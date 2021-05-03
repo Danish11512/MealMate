@@ -3,128 +3,128 @@ import Collapsible from 'react-collapsible';
 import "./Survey.css";
 
 function handleSubmit(e) {
-     alert('Submitted Survey Response');
-     e.preventDefault();
-   }
+	alert('Submitted Survey Response');
+	e.preventDefault();
+}
 
 function SurveyForm ()
 {
-     return (
-          <Collapsible trigger = "Review Survey Information" classParentString = "survey_info" >
+	return (
+		<Collapsible trigger = "Review Survey Information" classParentString = "survey_info" >
 
-               <br/>
-               <form onSubmit={handleSubmit}>
+			<br/>
+			<form onSubmit={handleSubmit}>
                     
-                    <div className = "survey_diet">
+				<div className = "survey_diet">
                          
-                         <h1>Diet Types</h1>
-                         <br/>
-                         <label for = "gluten_free"> 
-                              <input type="checkbox" name = "gluten_free" />
+					<h1>Diet Types</h1>
+					<br/>
+					<label for = "gluten_free"> 
+						<input type="checkbox" name = "gluten_free" />
                               Gluten Free 
-                         </label>
+					</label>
 
-                         <label for = "ketogenic"> 
-                              <input type="checkbox" name = "ketogenic"/>
+					<label for = "ketogenic"> 
+						<input type="checkbox" name = "ketogenic"/>
                               Ketogenic 
-                         </label>
+					</label>
                          
-                         <label for = "vegetarian"> 
-                              <input type="checkbox" name = "vegetarian" />
+					<label for = "vegetarian"> 
+						<input type="checkbox" name = "vegetarian" />
                               Vegetarian 
-                         </label>
+					</label>
 
-                         <label for = "vegan"> 
-                              <input type="checkbox" name = "vegan"/>
+					<label for = "vegan"> 
+						<input type="checkbox" name = "vegan"/>
                               Vegan 
-                         </label>
+					</label>
                          
-                         <label for = "pescetarian"> 
-                              <input type="checkbox" name = "pescetarian"/>
+					<label for = "pescetarian"> 
+						<input type="checkbox" name = "pescetarian"/>
                               Pescetarian 
-                         </label>
+					</label>
 
-                         <label for = "paleo"> 
-                              <input type="checkbox" name = "paleo" />
+					<label for = "paleo"> 
+						<input type="checkbox" name = "paleo" />
                               Paleo 
-                         </label>
-                    </div>
+					</label>
+				</div>
                     
-                    <div className = "survey_intolerances">
+				<div className = "survey_intolerances">
 
-                         <br/>
-                         <h1>Intolerances</h1>
-                         <br/>
+					<br/>
+					<h1>Intolerances</h1>
+					<br/>
 
-                         <label for = "dairy"> 
-                              <input type="checkbox" name = "dairy" />
+					<label for = "dairy"> 
+						<input type="checkbox" name = "dairy" />
                               Dairy
-                         </label>
+					</label>
                          
-                         <label for = "egg"> 
-                              <input type="checkbox" name = "egg"/>
+					<label for = "egg"> 
+						<input type="checkbox" name = "egg"/>
                               Egg
-                         </label>
+					</label>
 
-                         <label for = "gluten"> 
-                              <input type="checkbox" name = "gluten" />
+					<label for = "gluten"> 
+						<input type="checkbox" name = "gluten" />
                               Gluten
-                         </label>
+					</label>
                          
-                         <label for = "grain"> 
-                              <input type="checkbox" name = "grain"/>
+					<label for = "grain"> 
+						<input type="checkbox" name = "grain"/>
                               Grain 
-                         </label>
+					</label>
                          
-                         <label for = "peanut"> 
-                              <input type="checkbox" name = "peanut"/>
+					<label for = "peanut"> 
+						<input type="checkbox" name = "peanut"/>
                               Peanut
-                         </label>
+					</label>
                          
-                         <label for = "seafood"> 
-                              <input type="checkbox" name = "seafood" />
+					<label for = "seafood"> 
+						<input type="checkbox" name = "seafood" />
                               Seafood
-                         </label>
+					</label>
 
-                         <label for = "sesame"> 
-                              <input type="checkbox" name = "Sesame" />
+					<label for = "sesame"> 
+						<input type="checkbox" name = "Sesame" />
                               Sesame
-                         </label>
+					</label>
                          
-                         <label for = "shellfish"> 
-                              <input type="checkbox" name = "shellfish"/>
+					<label for = "shellfish"> 
+						<input type="checkbox" name = "shellfish"/>
                               Shellfish
-                         </label>
+					</label>
                          
-                         <label for = "soy"> 
-                              <input type="checkbox" name = "soy" />
+					<label for = "soy"> 
+						<input type="checkbox" name = "soy" />
                               Soy
-                         </label>
+					</label>
                          
-                         <label for = "sulfite"> 
-                              <input type="checkbox" name = "sulfite"/>
+					<label for = "sulfite"> 
+						<input type="checkbox" name = "sulfite"/>
                               Sulfite 
-                         </label>
+					</label>
                          
-                         <label for = "Tree Nut"> 
-                              <input type="checkbox" name = "Tree Nut"/>
+					<label for = "Tree Nut"> 
+						<input type="checkbox" name = "Tree Nut"/>
                               Tree Nut
-                         </label>
+					</label>
                          
-                         <label for = "wheat"> 
-                              <input type="checkbox" name = "wheat" />
+					<label for = "wheat"> 
+						<input type="checkbox" name = "wheat" />
                               Wheat
-                         </label>
+					</label>
 
-                    </div>
+				</div>
                     
-                    <br/>
-                    <input type = "submit" value = "Save"/>
+				<br/>
+				<input type = "submit" value = "Save"/>
                     
-               </form>
+			</form>
                                    
-          </Collapsible>
-     );
+		</Collapsible>
+	);
 }
 
 export default SurveyForm;
