@@ -38,6 +38,7 @@
 .recipe-details-right-panel
 {
     width: 50%;
+    height: 100%;
     flex: 1 1 auto;
     text-align: center;
     align-items: center;
@@ -54,19 +55,47 @@
     font-family: Sacramento;
 }
 
-.recipe-details-right-panel p
+.recipe-details-right-panel .recipe-link
+{
+    margin-bottom: 1rem;
+}
+
+.recipe-details-right-panel .button-container
+{
+    display: inline-block;
+    height: max-content;
+    width: 100%;
+    align-items: center;
+    align-content: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.recipe-details-right-panel .button-container i
+{
+    color: #FFAB73;
+    font-size: 3rem;
+    margin-left: 1rem;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.recipe-details-right-panel .recipe-summary
 {
     color: black;
     line-height: 2;
+    max-height: 50%;
+    overflow-y: scroll;
 }
 
-.recipe-details-right-panel button
+.recipe-details-right-panel .add-button
 {
     width: 80%;
-    margin-top: 2rem;
+    margin-top: auto;
     border-radius: 12px;
     height: 3rem;
-    margin-bottom: 2rem;
+    margin-bottom: auto;
+    vertical-align: middle;
 }
 
 .recipe-details input

@@ -9,7 +9,7 @@
   height: 3rem;
 }
 
-p {
+.navbar__brand {
   margin-left: 10px;
   color: white;
 }
