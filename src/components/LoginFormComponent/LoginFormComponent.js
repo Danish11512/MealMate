@@ -44,7 +44,7 @@ const LoginFormComponent = () => {
                     />
                 </div>
 
-                <button className="form-input-btn submit" type="submit">
+                <button className="button is-primary is-large submit" type="submit">
                     Login
                 </button>
             </form>

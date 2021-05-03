@@ -57,7 +57,7 @@ const SignupFormComponent = () => {
                     value={values.password} onChange={handleChange} />
                 </div>
 
-                <button className="form-input-btn submit" type="submit">
+                <button className="button is-primary is-large submit" type="submit">
                     Sign up
                 </button>
             </form>

@@ -3,16 +3,49 @@
 
 .welcome {
   font-family: Sacramento;
+  display: inline;
 }
 
 html {
    background-color: whitesmoke; 
 }
 
+.form-content-right {
+  padding-left: 5rem;
+  padding-top: 8rem;
+
+
+  flex:1;
+  order:2;
+}
+
+@media screen and (min-width:750px) {
+  
+  .form-container {
+    display: flex;
+  }
+  
+}
+
+@media screen and (max-width:750px) {
+  
+  .form-content-right {
+    
+    padding-top: 1rem;
+    padding-left:0px;
+    margin:auto;
+    width: 50%;
+    
+
+    flex:1;
+    order:2;
+  }
+
+  
+}
+
 .form h1 {
-    font-size: 3rem;
-    /* text-align: start; */
-    /* width: 80%; */
+    font-size: 4rem;
     margin-bottom: 1rem;
     color: orange;
     text-align: left;
@@ -23,32 +56,22 @@ html {
     font-size: 12px;
   }
 
-  .form-container {
-    display: flex;
-    flex-direction: 'row';
-  }
-
   .form-content-left {
-    width: 100%;
-  }
-
-  .form-content-right {
-    width:60%;
-    padding-top: 10rem;
-    padding-left: 10rem;
+    flex:2.25;
+    order:1;
   }
 
   .form-img {
-    width: 60%;
+    width: 100%;
     height: 100%;
-    position: absolute;
+    object-fit: fill;
   }
 
   #email, #password {
       border-radius: 10rem;
       border-color: orange;
       padding: 0.5rem;
-      width: 60%;
+      width: 18rem;
   }
 
   .form-inputs {
@@ -56,14 +79,14 @@ html {
   }
 
   .submit {
-    color: orange;
-    text-decoration: underline;
-    padding-left: 6rem;
-    margin-bottom: 10px;
+    margin-left: 6rem;
+    background-color:coral !important;
   }
 
   .signup {
       color: orange;
       text-decoration: underline;
       padding-top: 1rem;
+      font-size: 1.1rem;
+      padding-left:1rem;
   }
