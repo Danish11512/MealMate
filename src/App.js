@@ -12,7 +12,7 @@ import RecipeDetailsPage from "./pages/RecipeDetailsPage/RecipeDetailsPage";
 import LandingPage from './pages/LandingPage/LandingPage';
 
 const App = () => {
-	const [currentUser, setCurrentUser] = useState(null);
+	const [currentUser, setCurrentUser] = useState("wait");
 	const unsubscribeFromAuth = useRef(null);
 	const unsubscribeFromUser = useRef(null);
 
@@ -22,7 +22,6 @@ const App = () => {
 				async (userAuth) => {
 					if (unsubscribeFromUser.current !== null)
 						unsubscribeFromUser.current();
-
 					if (userAuth) {
 						const userRef = firestore.doc(`users/${userAuth.uid}`);
 						const snapShot = await userRef.get();
@@ -46,6 +45,9 @@ const App = () => {
 		};
 	}, []);
 
+	if(currentUser === "wait")
+		return null;
+		
 	return (
 		<div className="App">
 			<Navbar currentUser={currentUser} />
