@@ -14,9 +14,10 @@
 }
 
 .card__image {
-  object-fit: contain;
   cursor: pointer;
   border-radius: 20px;
+  width: 312px;
+  height: 231px;
 }
 
 .card__image:hover {
