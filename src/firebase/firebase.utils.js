@@ -11,7 +11,7 @@ const firebaseConfig = {
 	messagingSenderId: "432171471215",
 	appId: "1:432171471215:web:2339487e26433ad62e589a",
 	measurementId: "G-FXYLT3YYJY"
-  };
+};
 
 firebase.initializeApp(firebaseConfig);
 
@@ -354,9 +354,9 @@ export const getCalendarDateRange = async (calendarId, startDate, endDate, calen
 
 export const addRecipeToDatabase = async (id) =>
 {
-    try
-    {
-        let recipe = await getRecipeById(id);
+	try
+	{
+		let recipe = await getRecipeById(id);
 
 		/*
         await firestore.collection("recipes").doc(id).set({
@@ -375,31 +375,31 @@ export const addRecipeToDatabase = async (id) =>
 		
 		await firestore.collection("recipes").doc(id).set(recipe);
 
-        console.log("Saved recipe successfully :)")
+		console.log("Saved recipe successfully :)")
 		return recipe;
-    }
-    catch(error)
-    {
-        console.log("Error saving recipe :(", error.message);
-    }
+	}
+	catch(error)
+	{
+		console.log("Error saving recipe :(", error.message);
+	}
 }
 
 
 export const getRecipeFromDatabase = async (id) =>
 {
-    try
-    {
-        let recipeRef = firestore.collection("recipes").doc(id);
-        let recipe = await recipeRef.get();
+	try
+	{
+		let recipeRef = firestore.collection("recipes").doc(id);
+		let recipe = await recipeRef.get();
 		if(!recipe.exists)
 			return null;
 			
-        return recipe.data();
-    }
-    catch(error)
-    {
-        console.log("Error getting recipe :(", error.message);
-    }
+		return recipe.data();
+	}
+	catch(error)
+	{
+		console.log("Error getting recipe :(", error.message);
+	}
 
 	return null;
 }
@@ -407,17 +407,17 @@ export const getRecipeFromDatabase = async (id) =>
 export const getRecipe = async (id) =>
 {
 	try
-    {
-        let recipeRef = firestore.collection("recipes").doc(id);
-        let recipe = await recipeRef.get();
+	{
+		let recipeRef = firestore.collection("recipes").doc(id);
+		let recipe = await recipeRef.get();
 		if(!recipe.exists)
 			return addRecipeToDatabase(id);
 			
-        return recipe.data();
-    }
-    catch(error)
-    {
-        console.log("Error getting recipe :(", error.message);
-    }
+		return recipe.data();
+	}
+	catch(error)
+	{
+		console.log("Error getting recipe :(", error.message);
+	}
 
 }
