@@ -37,4 +37,4 @@ jobs:
         uses: borales/actions-yarn@v2.3.0
       
       - name: Build Code
-        run: npm run build
+        run: sudo npm run build
