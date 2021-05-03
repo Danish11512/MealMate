@@ -9,6 +9,7 @@ import SignUpPage from "./pages/SignupPage/SignupPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import ResultsPage from "./pages/ResultPage/SearchResultPage";
 import RecipeDetailsPage from "./pages/RecipeDetailsPage/RecipeDetailsPage";
+import CalendarPage from './pages/CalendarPage/CalendarPage';
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(null);
@@ -87,6 +88,12 @@ const App = () => {
           render={() => (currentUser ? <ResultsPage /> : <Redirect to="/" />)}
         />
         <Route path="/" render={() => null} />
+        <Route path="/login" render={() => currentUser ? (<Redirect to="/"/>) :(<LoginPage/>)}/>
+        <Route path="/signup" render={() => currentUser ? (<Redirect to="/"/>) :(<SignUpPage/>)}/>
+        <Route path="/profile" render={() => currentUser ? (<ProfilePage currentUser={currentUser}/>): (<Redirect to="/"/>) }/>
+        <Route path="/search" render={() => currentUser ? (<SearchPage currentUser={currentUser}/>) : (<Redirect to="/"/>)}/>
+        <Route path="/calendar" render={() => currentUser ? (<CalendarPage currentUser={currentUser}/>): (<Redirect to="/calendar"/>) }/>
+        <Route path="/" render={() => null}/>
       </Switch>
     </div>
   );
