@@ -55,7 +55,9 @@ export const searchRecipe = async (searchQuery, filters) => {
 
     let queryString = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${SPOONACULAR_API_KEY1}&query=${query}&number=30`;
     if ("intolerances" in filters) {
-      queryString += `&intolerances=${filters["intolerances"]}`;
+      filters.intolerances.forEach((el) => {
+        queryString += `&intolerances=${el.name}`;
+      });
     }
 
     if ("diet" in filters) {
