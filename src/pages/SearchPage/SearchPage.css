@@ -97,6 +97,12 @@
   padding: 10px;
 }
 
+#error {
+  margin-top: 10px;
+  color: red;
+  font-weight: bold;
+}
+
 /* Circle Page Styles */
 
 .circle__view {

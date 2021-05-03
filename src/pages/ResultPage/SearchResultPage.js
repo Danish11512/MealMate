@@ -19,6 +19,7 @@ function SearchResultPage() {
   const functionType = location.state.searchQuery;
   const searchValue = useSelector((state) => state.search.search);
   const filters = useSelector((state) => state.filter.filter);
+  const cuisineType = location.state.cuisineType;
 
   useEffect(() => {
     setTimeout(() => {
@@ -38,7 +39,7 @@ function SearchResultPage() {
               );
             }
           })
-        : searchRecipeByCuisine(location.state.cuisineType).then((resp) => {
+        : searchRecipeByCuisine(cuisineType).then((resp) => {
             try {
               if (resp.results.length === 0 || resp === null) {
                 setEmptySet(
@@ -59,10 +60,10 @@ function SearchResultPage() {
         myobj.remove();
       } catch {}
     }, 1000);
-  }, []);
+  }, [functionType, searchValue, filters, cuisineType]);
 
   return (
-    <div>
+    <div className="result__body">
       <div id="load__chef">
         <Chef className="svg__load" />
         <div className="svg__text">

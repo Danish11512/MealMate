@@ -15,7 +15,7 @@ function Filter() {
 
   useEffect(() => {
     dispatch(FilterActions(Filters));
-  }, [Filters]);
+  }, [Filters, dispatch]);
 
   //This function handles changes
   //for any of the filters
