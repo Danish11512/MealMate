@@ -14,8 +14,16 @@ function Filter() {
   //updated data to the global store
 
   useEffect(() => {
-    dispatch(FilterActions(Filters));
-  }, [Filters, dispatch]);
+    if (toggle) {
+      dispatch(FilterActions(Filters));
+    } else {
+      dispatch(FilterActions(Filter));
+    }
+  }, [Filters, toggle, dispatch]);
+
+  useEffect(() => {
+    setFilters({});
+  }, [toggle]);
 
   //This function handles changes
   //for any of the filters
