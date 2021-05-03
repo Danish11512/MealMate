@@ -56,8 +56,7 @@ const SignupFormComponent = () => {
 					<input id="password" type="password" name="password" className="form-input" placeholder="Password" autoComplete="on" required
 						value={values.password} onChange={handleChange} />
 				</div>
-
-				<button className="form-input-btn submit" type="submit">
+                <button className="button is-primary is-large submit" type="submit">
                     Sign up
 				</button>
 			</form>
