@@ -1,7 +1,7 @@
 //import axios from 'axios';
 
 const fetch = require("node-fetch");
-const SPOONACULAR_API_KEY1 = "6a37f4e32e674edf86796454ce8dc8b7";
+const SPOONACULAR_API_KEY1 = "c596eb18f99d49ea8d8895ef5f10840d";
 const SPOONACULAR_API_KEY2 = "46aecb3dc8b54eedaa242d3ca5a6b33d";
 
 // Gets recipe from spoonacular using id
