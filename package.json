@@ -35,8 +35,11 @@
       "react-app",
       "react-app/jest"
     ],
-    "rules":{
-      "indent":["warn", "tab"]
+    "rules": {
+      "indent": [
+        "warn",
+        "tab"
+      ]
     }
   },
   "browserslist": {
