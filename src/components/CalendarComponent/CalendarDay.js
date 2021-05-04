@@ -28,13 +28,11 @@ const CalendarDay = (props) =>{
             setMealContainer([{
                 id:1, 
                 content: <div>
-                            <br></br>
-                            <br></br>
+                            <div className="p-5"></div>
                                 <p className="has-text-black has-text-centered">
                                     No Meals for this day &#129368;
                                 </p>
-                            <br></br>
-                            <br></br>
+                                <div className="p-6"></div>
                         </div>
             }])
         }else{
@@ -67,11 +65,12 @@ const CalendarDay = (props) =>{
                     ))} */}
                     
                 {/* </ul> */}
+                    <div className="p-5"></div>
                     <ReactScrollableList
                         listItems={mealContainer}
                         heightOfItem={1}
-                        // maxItemsToRender={1}
-                    />
+                        maxItemsToRender={2}/>
+                    <div className="p-5"></div>
                 </div>
               
             </div>
