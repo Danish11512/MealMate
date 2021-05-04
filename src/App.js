@@ -90,7 +90,12 @@ const App = () => {
 					path="/results"
 					render={() => (currentUser ? <ResultsPage /> : <Redirect to="/" />)}
 				/>
-            
+
+        <Route
+					path="/calendar"
+					render={() => (currentUser ? <CalendarPage currentUser={currentUser} /> : <Redirect to="/" />)}
+				/>
+
 				<Route path="/" render={() => currentUser ? <SearchPage currentUser={currentUser}/> : <LandingPage currentUser={currentUser}/>} />
 			</Switch>
 		</div>
