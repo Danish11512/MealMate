@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from "react"
 import "../../pages/CalendarPage/CalendarPage.css"
 
-const CalendarMeal = async (props) =>{
-	let mealId = null
-	let date = null
-	let recipeId = null
-	let recipeName = null
-	let time = null
+const CalendarMeal = (props) =>{
+    // let mealId = props.mealId | null
+    // let date = props.date | null
+    // let recipeId = props.recipeId | null
+    // let recipeName = props.recipeId | null
+    // let time = props.time | null
 
-	useEffect(() => {
-		// mealId = key.mealId
-		// date = props.date
-		// recipeId = props.recipeId
-		// recipeName = props.recipeName
-		// time = props.time
+    // useEffect(() => {
+        // mealId = key.mealId
+        // date = props.date
+        // recipeId = props.recipeId
+        // recipeName = props.recipeName
+        // time = props.time
         
-	}, [props.meal])
+    // }, [])
     
 
 	return(

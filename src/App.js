@@ -91,18 +91,14 @@ const App = () => {
 				/>
 
         <Route
-          path="/results"
-          render={() => (currentUser ? <ResultsPage /> : <Redirect to="/" />)}
-        />
+					path="/calendar"
+					render={() => (currentUser ? <CalendarPage currentUser={currentUser} /> : <Redirect to="/" />)}
+				/>
 
-        <Route 
-          path="/calendar"
-          render={() => currentUser ? (<CalendarPage currentUser={currentUser}/>): (<Redirect to="/calendar"/>) }/>
-
-        <Route path="/" render={() => null} />
-      </Switch>
-    </div>
-  );
+				<Route path="/" render={() => currentUser ? <SearchPage currentUser={currentUser}/> : <LandingPage currentUser={currentUser}/>} />
+			</Switch>
+		</div>
+	);
 };
 
 export default App;
