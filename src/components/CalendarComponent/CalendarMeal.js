@@ -3,81 +3,21 @@ import "../../pages/CalendarPage/CalendarPage.css"
 import * as firebase from "../../firebase/firebase.utils"
 
 const CalendarMeal = (props) =>{
-	// const [mealId, setMealId] = useState(props.meal.mealId)
-	// const [date, setDate] = useState(props.meal.date)
-	const [recipeId, setRecipeId] = useState(props.meal.recipeId)
-	const [recipeName, setRecipeName] = useState(props.meal.recipeName)
-	const [time, setTime] = useState(props.meal.time)
-    const [modal, setModal] = useState("")
-    const [recipe, setRecipe] = useState([])
+    // let mealId = props.mealId | null
+    // let date = props.date | null
+    // let recipeId = props.recipeId | null
+    // let recipeName = props.recipeId | null
+    // let time = props.time | null
 
-    const formatTime = (dateString) => {
-        let date = new Date("1970-01-01 " + dateString)
-
-        let hh = date.getHours();
-        let mm = date.getMinutes();
-        let dd = "AM";
-
-        if (hh >= 12) {
-            hh -= 12;
-            dd = "PM";
-        }
-        if (hh == 0) {
-            hh = 12;
-        }
-
-        mm = mm < 10 ? "0" + mm : mm;
-        hh = hh < 10 ? "0" + hh : hh; 
-
-        return hh + ":" + mm + dd;
-    }
-    useEffect(() => {
-        // setMealId(props.meal.mealId)
-        // setDate(props.meal.date)
-		setRecipeId(props.meal.recipeId)
-        setRecipeName(props.meal.recipeName)
-        setTime(formatTime(props.meal.time))
-
-        const getRecipeData = async () =>{
-            let recipeData = await firebase.getRecipe(`${recipeId}`)
-            setRecipe(recipeData)
-            console.log(recipe)
-        }
-        getRecipeData()
-
-        // getRecipeData().then(console.log(recipe))
-        // const initialize = async () =>
-		// {
-		// 	setRecipe(await firebase.getRecipe(recipeId));
-		// }
-
-		// initialize()
-        // console.log(recipe)
+    // useEffect(() => {
+        // mealId = key.mealId
+        // date = props.date
+        // recipeId = props.recipeId
+        // recipeName = props.recipeName
+        // time = props.time
         
-		
-		
-        
-    }, [props.meal])
-
-    const openModal = () =>{
-        if(modal === "")
-			setModal("is-active")
-		else
-			setModal("")
-    }
-
-    const closeModal = () =>{
-        if(modal === "is-active")
-            setModal("")
-    }
-
-    const recipeDefault = (element) =>{
-        if (recipe == null){
-            return ""
-        }else{
-            return recipe.element
-        }
-    }
+    // }, [])
+    
 
     return(
         <div>

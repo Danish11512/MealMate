@@ -1,14 +1,15 @@
 import React, { Fragment, useEffect, useState } from "react"
 import "../../pages/CalendarPage/CalendarPage.css"
 import CalendarMeal from './CalendarMeal'
+import ReactScrollableList from 'react-scrollable-list'
 
 const CalendarDay = (props) =>{
     let dayInfo = null
-    let meals = []
-    const [mealContainer, setMealContainer] = useState(<div></div>)
+    // let meals = []
+    const [meals, setMeals] = useState([])
+    const [mealContainer, setMealContainer] = useState([])
     const [totalCalories, setTotalCalories] = useState(0)
     const [date, setDate] = useState("")
-
 
     useEffect(() => {
         dayInfo = props.dayInfo
@@ -17,15 +18,20 @@ const CalendarDay = (props) =>{
         if (dayInfo == null){
             setDate("")
             setTotalCalories(0)
-            meals = []
+            setMeals([])
         }else{
             setDate(dayInfo[0])
             setTotalCalories(dayInfo[1].totalCalories)
-            dayInfo[1].meals.forEach(i => meals.push({"recipeName":i.recipeName, 
-                                                        "time": i.time, 
-                                                        "recipeId": i.recipeId,
-                                                        "mealId": i.mealId,
-                                                        "date": i.date}))
+            dayInfo[1].meals.forEach(i => meals.push( <CalendarMeal recipeName = {i.recipeName} 
+                                                                    time = {i.time} 
+                                                                    recipeId = {i.recipeId} 
+                                                                    mealId = {i.mealId}
+                                                                    date = {i.date}/>))
+                                                        // {"recipeName": i.recipeName, 
+                                                        // "time": i.time, 
+                                                        // "recipeId": i.recipeId,
+                                                        // "mealId": i.mealId,
+                                                        // "date": i.date}))
             // Object.keys(i).map(k => [k, i[k]])
             // meals = dayInfo[1].meals
             console.log(meals)
@@ -57,20 +63,30 @@ const CalendarDay = (props) =>{
         // ]
 
         if(meals.length == 0){
-            setMealContainer(
-                <div>
-                    <br></br>
-                    <br></br>
-                    <p className="has-text-black ">
-                        No Meals for this day &#129368;
-                    </p>
-                    <br></br>
-                    <br></br>
-                </div>
-            )
+            setMealContainer([{
+                id:1, 
+                content: <div>
+                            <br></br>
+                            <br></br>
+                                <p className="has-text-black ">
+                                    No Meals for this day &#129368;
+                                </p>
+                            <br></br>
+                            <br></br>
+                        </div>
+            }])
         }else{
+            let tempMealsContainer = []
 
-            meals.forEach(i => setMealContainer(mealContainer + <CalendarMeal meal={i}></CalendarMeal>))}
+            for(let i = 0; i <meals.length; i++){
+                tempMealsContainer.push({
+                    id: i, 
+                    content: meals[i]
+                })
+            }
+
+            setMealContainer(tempMealsContainer)
+            // meals.forEach(i => setMealContainer(mealContainer + <CalendarMeal meal={i}></CalendarMeal>))}
             // setMealContainer(
                 // <div>
                 // <Fragment>
@@ -94,7 +110,7 @@ const CalendarDay = (props) =>{
         //             })}
         //         </div>
         //     )
-        // }
+        }
         
     }, [props.dayInfo])
 
@@ -109,13 +125,18 @@ const CalendarDay = (props) =>{
 
             <div className="card-content">
                 <div className="content">
-                <ul>
-                    {mealContainer}
+                {/* <ul> */}
+                    {/* {mealContainer} */}
                 {/* {meals.map(meal => (
                         <li><CalendarMeal meal={meal}></CalendarMeal></li>
                     ))} */}
-                </ul>
                     
+                {/* </ul> */}
+                    <ReactScrollableList
+                        listItems={mealContainer}
+                        heightOfItem={5}
+                        maxItemsToRender={5}
+                    />
                 </div>
               
             </div>
