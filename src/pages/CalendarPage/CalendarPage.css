@@ -37,3 +37,10 @@ h1{
     border-color: black;
     border-width: 100ch;
 }
+
+.has-text-left {
+	float: left;
+}
+.has-text-right {
+	
+}
