@@ -1,0 +1,44 @@
+.survey-page
+{
+    height: max-content;
+    width: 100%;
+}
+
+.survey-page-title
+{
+    font-family: "Sacramento", cursive;
+    font-size: 5rem;
+    margin-top: 2rem;
+    text-align: center;
+    color: #ffab73;
+}
+
+.survey-page-diet-section
+{
+    height: 50%;
+    width: 100%;
+    margin: 2rem 2rem 2rem 2rem;
+}
+
+.survey-page-diet-section > h2
+{
+    font-family: "Sacramento", cursive;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: #ffab73;
+}
+
+.survey-page-diet-choices
+{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content:space-evenly;
+}
+
+.survey-page-diet-choices > span
+{
+    min-width: 10rem;
+    margin-bottom: .5rem;
+}
