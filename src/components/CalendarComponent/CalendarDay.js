@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react"
 import "../../pages/CalendarPage/CalendarPage.css"
 import CalendarMeal from './CalendarMeal'
-import { FixedSizeList as List } from 'react-window';
 
 const CalendarDay = (props) =>{
     let dayInfo = null
