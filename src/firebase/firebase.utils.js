@@ -87,7 +87,14 @@ export const changeSurveyAnswers = async (uid, allergies, diet, preferredCuisine
 	if(preferredCuisineType !== undefined && preferredCuisineType !== null)
 		updateObject.preferredCuisineType = preferredCuisineType;
 
-	await firestore.doc(`users/${uid}`).update(updateObject);
+	try
+	{
+		await firestore.doc(`users/${uid}`).update(updateObject);
+	}
+	catch(error)
+	{
+		console.log("Error changing survey choices");
+	}
 }
 
 
