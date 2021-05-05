@@ -17,3 +17,13 @@
 .navbar-end > a {
   color: white;
 }
+
+.navbar-burger
+{
+  color:white;
+}
+
+#navbarBasicExample
+{
+  background-color: #ffab73;
+}

@@ -6,7 +6,23 @@ import { Link } from 'react-router-dom';
 import "./Navbar.css";
 
 
-const Navbar = (props) => {
+const Navbar = (props) => 
+{
+	let navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0)
+	if(navbarBurgers.length > 0)
+	{
+		navbarBurgers.forEach(burger => 
+		{
+			burger.addEventListener('click', () =>{
+				const target = burger.dataset.target
+				const targetElement = document.getElementById(target)
+
+				burger.classList.toggle('is-active');
+				targetElement.classList.toggle('is-active');
+			});
+		});
+	}
+
 	return (
 		<nav className="navbar" role="navigation" aria-label="main navigation">
 			<div className="navbar-brand">
@@ -14,6 +30,11 @@ const Navbar = (props) => {
 					<img src={logo} alt="logo" />
 					<p className="navbar__brand">Meal Mate</p>
 				</Link>
+				<div className="navbar-burger burger" data-target="navbarBasicExample">
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
 			</div>
 
 			<div id="navbarBasicExample" className="navbar-menu">
