@@ -13,52 +13,55 @@ const CalendarDay = (props) =>{
     const [mealContainer, setMealContainer] = useState()
     const [totalCalories, setTotalCalories] = useState(0)
     const [date, setDate] = useState("")
-    const [row, setRow] = useState([<p className="has-text-black has-text-centered py-6">No Meals for this day &#129368;</p>])
+    const [row, setRow] = useState([[null],[<p className="has-text-black has-text-centered py-6">No Meals for this day &#129368;</p>]])
+    const [dayNumber, setDayNumber] = useState(props.dayNumber)
 
     useEffect(() => {
         dayInfo = props.dayInfo
 
         if (dayInfo == null || dayInfo[1].meals.length == 0){
-            setDate("")
+
+            if(dayInfo != null){
+                setDate(dayInfo[0])    
+            }else{
+                setDate("")
+            }
+            
             setTotalCalories(0)
             setItemSize(100)
             setItemCount(1)
-            setRow([<p className="has-text-black has-text-centered py-5">No Meals for this day &#129368;</p>])
+            setRow([[null,<div><div className="p-5"></div><p className="has-text-black has-text-centered py-5">No Meals for this day &#129368;</p><div className="p-5"></div></div>]])
+            console.log(row)
             
         }else{
             setDate(dayInfo[0])
             setTotalCalories(dayInfo[1].totalCalories)
-            dayInfo[1].meals.forEach(i => meals.push( <CalendarMeal meal = {i}/>))
+            dayInfo[1].meals.forEach(i => meals.push([i,<CalendarMeal meal = {i}/>]))
             setItemSize(50)
             setItemCount(meals.length)
             setRow(meals)
 
         }
-
-        // if(meals.length == 0){
-        //     setMealContainer([{
-        //         id:1, 
-                // content: <div>
-                            // <div className="p-5"></div>
-                            //     <p className="has-text-black has-text-centered">
-                            //         No Meals for this day &#129368;
-                            //     </p>
-                            //     <div className="p-6"></div>
-                //         </div>
-        //     }])
-        // }else{
-        //     let tempMealsContainer = []
-        //     for(let i = 0; i <meals.length; i++){
-        //         tempMealsContainer.push({
-        //             id: i, 
-        //             content: meals[i]
-        //         })
-        //     }
-        //     setMealContainer(tempMealsContainer)
-        // }
-
-
     }, [props.dayInfo])
+
+    function openModal(event, meal, index){
+        if(meal != null){
+        const mealBox = document.querySelector(".box")
+        // `.box${index}`
+		const modal = document.querySelector(".modal")
+		const modalBg = document.querySelector(".modal-background")
+
+		mealBox.addEventListener("click", () => {
+			modal.classList.add("is-active")
+		})
+
+		modalBg.addEventListener("click", () => {
+			modal.classList.remove("is-active")
+		})
+        }
+        
+
+    }
 
     return(
         <div>
@@ -71,27 +74,13 @@ const CalendarDay = (props) =>{
 
             <div className="card-content">
                 <div className="content">
-                {/* <ul> */}
-                    {/* {mealContainer} */}
-                {/* {meals.map(meal => (
-                        <li><CalendarMeal meal={meal}></CalendarMeal></li>
-                    ))} */}
-                    
-                {/* </ul> */}
-                    {/* <div className="p-5"></div>
-                    <ReactScrollableList
-                        listItems={mealContainer}
-                        heightOfItem={1}
-                        maxItemsToRender={2}/>
-                    <div className="p-5"></div> */}
-
                     <List
                         height={height}
                         itemCount={itemCount}
                         itemSize={itemSize}
                         width={width}>
                             {({ index, style }) => (
-                            <div style={style}>{row[index]}</div>)}
+                            <a onClick={e=> openModal(e, row[index][0], index)} style={style}>{row[index][1]}</a>)}
                     </List>
                 </div>
               
@@ -101,6 +90,30 @@ const CalendarDay = (props) =>{
                 Total Calories: {totalCalories}
             </footer>
         </div>
+
+        <div className="modal">
+				<div className="modal-background"></div>
+				<div className="modal-content has-background-white">
+					<div className="box">
+  						<article className="media">
+							<div className="media-left">
+								<figure className="image is-256x256">
+									<img src="https://bulma.io/images/placeholders/256x256.png" alt="Image"></img>
+								</figure>
+							</div>
+							<div className="media-content">
+								<div className="content">
+									{/* <h3>{recipeName}</h3>
+									<h5>{time}</h5> */}
+									<p>	
+									Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis.
+									</p>
+								</div>
+    						</div>
+  						</article>
+					</div>
+				</div>
+			</div>
         </div>
     )
 }
