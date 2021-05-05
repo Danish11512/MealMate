@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
 import "../../pages/SignupPage/SignupPage.css";
 import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
+import { useHistory } from 'react-router-dom';
 
 const SignupFormComponent = () => {
 
+	const history = useHistory();
 	const signUpObject = {
 		nickname: '',
 		email: '',
@@ -29,6 +31,8 @@ const SignupFormComponent = () => {
 			setValues({...signUpObject});
 			const { user } = await auth.createUserWithEmailAndPassword(tempValues.email, tempValues.password);
 			await createUserProfileDocument(user, { displayName: tempValues.nickname });
+			history.push("/survey");
+
 		}
 		catch(error)
 		{
