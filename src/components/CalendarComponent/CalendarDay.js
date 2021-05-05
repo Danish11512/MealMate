@@ -13,7 +13,7 @@ const CalendarDay = (props) =>{
     const [mealContainer, setMealContainer] = useState()
     const [totalCalories, setTotalCalories] = useState(0)
     const [date, setDate] = useState("")
-    const [row, setRow] = useState([[null],[<p className="has-text-black has-text-centered py-6">No Meals for this day &#129368;</p>]])
+    const [row, setRow] = useState([<p className="has-text-black has-text-centered py-6">No Meals for this day &#129368;</p>])
     const [dayNumber, setDayNumber] = useState(props.dayNumber)
 
     useEffect(() => {
@@ -30,13 +30,13 @@ const CalendarDay = (props) =>{
             setTotalCalories(0)
             setItemSize(100)
             setItemCount(1)
-            setRow([[null,<div><div className="p-5"></div><p className="has-text-black has-text-centered py-5">No Meals for this day &#129368;</p><div className="p-5"></div></div>]])
+            setRow([<div><div className="p-5"></div><p className="has-text-black has-text-centered py-5">No Meals for this day &#129368;</p><div className="p-5"></div></div>])
             console.log(row)
             
         }else{
             setDate(dayInfo[0])
             setTotalCalories(dayInfo[1].totalCalories)
-            dayInfo[1].meals.forEach(i => meals.push([i,<CalendarMeal meal = {i}/>]))
+            dayInfo[1].meals.forEach(i => meals.push(<CalendarMeal meal = {i}/>))
             setItemSize(50)
             setItemCount(meals.length)
             setRow(meals)
@@ -44,24 +44,24 @@ const CalendarDay = (props) =>{
         }
     }, [props.dayInfo])
 
-    function openModal(event, meal, index){
-        if(meal != null){
-        const mealBox = document.querySelector(".box")
-        // `.box${index}`
-		const modal = document.querySelector(".modal")
-		const modalBg = document.querySelector(".modal-background")
+    // function openModal(event, meal, index){
+    //     if(meal != null){
+    //     const mealBox = document.querySelector(".box")
+    //     // `.box${index}`
+	// 	const modal = document.querySelector(".modal")
+	// 	const modalBg = document.querySelector(".modal-background")
 
-		mealBox.addEventListener("click", () => {
-			modal.classList.add("is-active")
-		})
+	// 	mealBox.addEventListener("click", () => {
+	// 		modal.classList.add("is-active")
+	// 	})
 
-		modalBg.addEventListener("click", () => {
-			modal.classList.remove("is-active")
-		})
-        }
+	// 	modalBg.addEventListener("click", () => {
+	// 		modal.classList.remove("is-active")
+	// 	})
+    //     }
         
 
-    }
+    // }
 
     return(
         <div>
@@ -74,14 +74,19 @@ const CalendarDay = (props) =>{
 
             <div className="card-content">
                 <div className="content">
-                    <List
+                    {/* <List
                         height={height}
                         itemCount={itemCount}
                         itemSize={itemSize}
                         width={width}>
                             {({ index, style }) => (
-                            <a onClick={e=> openModal(e, row[index][0], index)} style={style}>{row[index][1]}</a>)}
-                    </List>
+                            <a style={style}>{row[index]}</a>)}
+                    </List> */}
+                    <nav>
+                        <ul>
+                            {row.map(item => <li>{item}</li>)}
+                        </ul>
+                    </nav>
                 </div>
               
             </div>
@@ -90,7 +95,7 @@ const CalendarDay = (props) =>{
                 Total Calories: {totalCalories}
             </footer>
         </div>
-
+{/* 
         <div className="modal">
 				<div className="modal-background"></div>
 				<div className="modal-content has-background-white">
@@ -103,8 +108,8 @@ const CalendarDay = (props) =>{
 							</div>
 							<div className="media-content">
 								<div className="content">
-									{/* <h3>{recipeName}</h3>
-									<h5>{time}</h5> */}
+									<h3>{recipeName}</h3>
+									<h5>{time}</h5>
 									<p>	
 									Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis.
 									</p>
@@ -113,7 +118,7 @@ const CalendarDay = (props) =>{
   						</article>
 					</div>
 				</div>
-			</div>
+			</div> */}
         </div>
     )
 }
