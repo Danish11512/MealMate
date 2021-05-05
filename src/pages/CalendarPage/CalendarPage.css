@@ -41,3 +41,7 @@ h1{
 .has-text-left {
 	float: left;
 }
+
+.list{
+    list-style-type: none;
+}

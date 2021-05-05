@@ -23,17 +23,17 @@ const CalendarMeal = (props) =>{
 
 		getRecipeData()
 		
-		const mealBox = document.querySelector(".box")
-		const modal = document.querySelector(".modal")
-		const modalBg = document.querySelector(".modal-background")
+		// const mealBox = document.querySelector(".box")
+		// const modal = document.querySelector(".modal")
+		// const modalBg = document.querySelector(".modal-background")
 
-		mealBox.addEventListener("click", () => {
-			modal.classList.add("is-active")
-		})
+		// mealBox.addEventListener("click", () => {
+		// 	modal.classList.add("is-active")
+		// })
 
-		modalBg.addEventListener("click", () => {
-			modal.classList.remove("is-active")
-		})
+		// modalBg.addEventListener("click", () => {
+		// 	modal.classList.remove("is-active")
+		// })
         
     }, [props.meal])
 
@@ -45,7 +45,7 @@ const CalendarMeal = (props) =>{
                     <div className="has-text-right">{time}</div>
                 </div>
 			</div>
-			<div className="modal">
+			{/* <div className="modal">
 				<div className="modal-background"></div>
 				<div className="modal-content has-background-white">
 					<div className="box">
@@ -67,7 +67,7 @@ const CalendarMeal = (props) =>{
   						</article>
 					</div>
 				</div>
-			</div>
+			</div> */}
         </div>  
     )
 
