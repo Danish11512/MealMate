@@ -307,7 +307,7 @@ export const addDays = (date, days) =>
 
 export const convertDateToString = (date) =>
 {
-	return `${date.getFullYear()}-${("0" + (date.getMonth()+1)).slice(-2)}-${("0" + date.getDate()).slice(-2)}`
+	return `${date.getFullYear()}-${("0" + (date.getMonth() + 1)).slice(-2)}-${("0" + (date.getDate() + 1)).slice(-2)}`
 }
 
 export const getCalendarCurrentWeek = async (calendarId, date, calendar=null) =>
