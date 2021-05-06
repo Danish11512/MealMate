@@ -10,6 +10,7 @@ import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import ResultsPage from "./pages/ResultPage/SearchResultPage";
 import RecipeDetailsPage from "./pages/RecipeDetailsPage/RecipeDetailsPage";
 import CalendarPage from "./pages/CalendarPage/CalendarPage";
+import LandingPage from "./pages/LandingPage/LandingPage";
 
 const App = () => {
 	const [currentUser, setCurrentUser] = useState("wait");
