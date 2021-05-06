@@ -39,6 +39,14 @@ const RecipeDetailsPage = (props) =>
 		await toggleFavorite(props.currentUser, recipe.id);
 	}
 
+	const handleAdd = async (e) =>
+	{
+		e.preventDefault()
+		let date = new Date(dateValue.replace('-', '/')).toDateString()
+		await addMealToDay(props.currentUser, recipe.id, recipe.title, date, timeValue); 
+		toggleModal()
+	}
+
 	console.log(recipe);
 	if(!recipe || !props.currentUser)
 		return null;
@@ -67,14 +75,16 @@ const RecipeDetailsPage = (props) =>
 						<p className="modal-card-title">Add to Calendar</p>
 						<button className="delete" aria-label="close" onClick={toggleModal}></button>
 					</header>
-					<section className="modal-card-body">
-                        Date: <input type="date" id="date" name="date" value={dateValue} onChange={(e) => setDateValue(e.target.value)} required/> <br/> <br />
-                        Time: <input type="time" id="time" name="time" value={timeValue} onChange={(e) => setTimeValue(e.target.value)} required/>
-					</section>
-					<footer className="modal-card-foot">
-						<button className="button is-success" onClick = {() => {addMealToDay(props.currentUser, recipe.id, recipe.title, dateValue, timeValue); toggleModal()}}>Add</button>
-						<button className="button" onClick={toggleModal}>Cancel</button>
-					</footer>
+					<form onSubmit={(e) => handleAdd(e)}>
+						<section className="modal-card-body">
+							Date: <input type="date" id="date" name="date" value={dateValue} onChange={(e) => setDateValue(e.target.value)} required/> <br/> <br />
+							Time: <input type="time" id="time" name="time" value={timeValue} onChange={(e) => setTimeValue(e.target.value)} required/>
+						</section>
+						<footer className="modal-card-foot">
+							<button type="submit" className="button is-success">Add</button>
+							<button className="button" onClick={toggleModal}>Cancel</button>
+						</footer>
+					</form>
 				</div>
 			</div>
 		</div>

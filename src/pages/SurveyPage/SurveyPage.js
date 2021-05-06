@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { changeSurveyAnswers } from '../../firebase/firebase.utils';
 
 import './SurveyPage.css';
@@ -7,8 +7,8 @@ const SurveyPage = (props) =>
 {
 	const diets = ["None", "Gluten Free", "Ketogenic", "Vegetarian", "Vegan", "Pescetarian", "Paleo"];
 	const intolerances = ["Dairy", "Egg", "Gluten", "Grain", "Peanut", "Seafood", "Sesame", "Shellfish", "Soy", "Sulfite", "Tree Nut", "Wheat"];
-	const [intolerancesChoices, setIntolerancesChoices] = useState([])
-	const [dietChoice, setDietChoice] = useState("")
+	const [intolerancesChoices, setIntolerancesChoices] = useState(props.currentUser.intolerances)
+	const [dietChoice, setDietChoice] = useState(props.currentUser.diet)
 
 	const generateDiets = () =>
 	{
@@ -57,7 +57,7 @@ const SurveyPage = (props) =>
 	{
 		e.preventDefault();
 		await changeSurveyAnswers(props.currentUser.uid, intolerancesChoices, dietChoice)
-		alert("Diet Updated")
+		alert("Preferences Updated")
 	}
 	
 	return(

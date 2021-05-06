@@ -32,7 +32,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) =>
 	if(!snapShot.exists)
 	{
 		const { displayName, email, uid } = userAuth;
-		const allergies = [];
+		const intolerances = [];
 		const diet = "";
 		const preferredCuisineType = "";
 		const previousRecipes = [];
@@ -48,7 +48,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) =>
 				uid,
 				displayName,
 				email,
-				allergies,
+				intolerances,
 				diet,
 				preferredCuisineType,
 				previousRecipes,
@@ -74,12 +74,12 @@ export const getUserDetails = async (uid) =>
 	return snapShot.data();
 }
 
-export const changeSurveyAnswers = async (uid, allergies, diet, preferredCuisineType) =>
+export const changeSurveyAnswers = async (uid, intolerances, diet, preferredCuisineType) =>
 {
 	let updateObject = {};
 
-	if(allergies !== undefined && allergies !== null)
-		updateObject.allergies = allergies;
+	if(intolerances !== undefined && intolerances !== null)
+		updateObject.intolerances = intolerances;
 
 	if(diet !== undefined && diet !== null)
 		updateObject.diet = diet;
@@ -161,13 +161,16 @@ export const addMealToDay = async (user, recipeId, recipeName, date, time, calen
 		console.log("Could not add Meal to Day");
 	}
 
-	try{
-		previousRecipes.push(recipeId);
-		await userRef.update({previousRecipes});
-	}
-	catch(error)
+	if(!previousRecipes.includes(recipeId))
 	{
-		console.log("Could not add to previous recipes")
+		try{
+			previousRecipes.push(recipeId);
+			await userRef.update({previousRecipes});
+		}
+		catch(error)
+		{
+			console.log("Could not add to previous recipes")
+		}
 	}
 
 	return [calendarData, mealId];
