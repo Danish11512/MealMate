@@ -3,26 +3,36 @@ import "../../pages/CalendarPage/CalendarPage.css"
 import * as firebase from "../../firebase/firebase.utils"
 
 const CalendarMeal = (props) =>{
-	const [mealId, setMealId] = useState(props.meal.mealId)
-	const [date, setDate] = useState(props.meal.date)
+	// const [mealId, setMealId] = useState(props.meal.mealId)
+	// const [date, setDate] = useState(props.meal.date)
 	const [recipeId, setRecipeId] = useState(props.meal.recipeId)
 	const [recipeName, setRecipeName] = useState(props.meal.recipeName)
 	const [time, setTime] = useState(props.meal.time)
-	let recipeData = null
     const [modal, setModal] = useState("")
+    const [recipe, setRecipe] = useState(null)
 
     useEffect(() => {
-        setMealId(props.meal.mealId)
-        setDate(props.meal.date)
+        // setMealId(props.meal.mealId)
+        // setDate(props.meal.date)
 		setRecipeId(props.meal.recipeId)
         setRecipeName(props.meal.recipeName)
         setTime(props.meal.time)
 
-		const getRecipeData = async () =>{
-			recipeData = await firebase.getRecipeFromDatabase(recipeId).then(console.log(recipeData))
-		}
+        // const getRecipeData = async () =>{
+        //     setRecipe(await firebase.getRecipe(recipeId))
+            
+        // }
 
-		getRecipeData()
+        // getRecipeData().then(console.log(recipe))
+        // const initialize = async () =>
+		// {
+		// 	setRecipe(await firebase.getRecipe(recipeId));
+		// }
+
+		// initialize()
+        // console.log(recipe)
+        
+		
 		
         
     }, [props.meal])

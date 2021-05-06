@@ -30,7 +30,6 @@ const CalendarDay = (props) =>{
             setItemSize(100)
             setItemCount(1)
             setRow([<div><div className="p-5"></div><p className="has-text-black has-text-centered py-5">No Meals for this day &#129368;</p><div className="p-5"></div></div>])
-            console.log(row)
             
         }else{
             setDate(dayInfo[0])
@@ -40,27 +39,9 @@ const CalendarDay = (props) =>{
             setItemCount(meals.length)
             setRow(meals)
 
+
         }
     }, [props.dayInfo])
-
-    // function openModal(event, meal, index){
-    //     if(meal != null){
-    //     const mealBox = document.querySelector(".box")
-    //     // `.box${index}`
-	// 	const modal = document.querySelector(".modal")
-	// 	const modalBg = document.querySelector(".modal-background")
-
-	// 	mealBox.addEventListener("click", () => {
-	// 		modal.classList.add("is-active")
-	// 	})
-
-	// 	modalBg.addEventListener("click", () => {
-	// 		modal.classList.remove("is-active")
-	// 	})
-    //     }
-        
-
-    // }
 
     return(
         <div>
@@ -73,14 +54,6 @@ const CalendarDay = (props) =>{
 
             <div className="card-content">
                 <div className="content">
-                    {/* <List
-                        height={height}
-                        itemCount={itemCount}
-                        itemSize={itemSize}
-                        width={width}>
-                            {({ index, style }) => (
-                            <a style={style}>{row[index]}</a>)}
-                    </List> */}
                     <nav>
                         <ul>
                             {row.map(item => <li>{item}</li>)}
@@ -94,30 +67,6 @@ const CalendarDay = (props) =>{
                 Total Calories: {totalCalories}
             </footer>
         </div>
-{/* 
-        <div className="modal">
-				<div className="modal-background"></div>
-				<div className="modal-content has-background-white">
-					<div className="box">
-  						<article className="media">
-							<div className="media-left">
-								<figure className="image is-256x256">
-									<img src="https://bulma.io/images/placeholders/256x256.png" alt="Image"></img>
-								</figure>
-							</div>
-							<div className="media-content">
-								<div className="content">
-									<h3>{recipeName}</h3>
-									<h5>{time}</h5>
-									<p>	
-									Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis.
-									</p>
-								</div>
-    						</div>
-  						</article>
-					</div>
-				</div>
-			</div> */}
         </div>
     )
 }
