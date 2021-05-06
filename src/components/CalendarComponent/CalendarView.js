@@ -12,7 +12,8 @@ const CalenderView = (props) =>{
         
         const getCalenderInfo = async () => {
             let calendarInfo = await firebase.getCalendarDateRange(props.calendarId, props.startDate, endDate)
-             setCalendarDays(Object.keys(calendarInfo).map(k=> [k, calendarInfo[k]]))
+            console.log(calendarInfo)
+            setCalendarDays(Object.keys(calendarInfo).map(k=> [k, calendarInfo[k]]))
         }
         
         getCalenderInfo()

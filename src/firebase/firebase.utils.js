@@ -295,6 +295,11 @@ export const addDays = (date, days) =>
 	return result;
 }
 
+export const convertDateToString = (date) =>
+{
+	return `${date.getFullYear()}-${("0" + (date.getMonth() + 1)).slice(-2)}-${("0" + (date.getDate() + 1)).slice(-2)}`
+}
+
 export const getCalendarCurrentWeek = async (calendarId, date, calendar=null) =>
 {
 	if(typeof date === 'string')
@@ -341,10 +346,11 @@ export const getCalendarDateRange = async (calendarId, startDate, endDate, calen
 		calendarData = snapShot.data();
 	}
 
-	let newDate = startDate.toDateString()
-	for(let i=0; newDate !== endDate.toDateString();i++)
+	let newDate = convertDateToString(startDate);
+	let newEndDate = convertDateToString(endDate);
+	for(let i=0; newDate !== newEndDate; i++)
 	{
-		newDate = addDays(startDate, i).toDateString();
+		newDate = convertDateToString(addDays(startDate, i));
 		rangeObject[newDate] = calendarData.schedule[newDate] || {date:newDate, totalCalories:0, totalFat:0, meals:[]}
 	}
 
