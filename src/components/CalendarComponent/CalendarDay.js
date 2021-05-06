@@ -5,19 +5,9 @@ import CalendarMeal from './CalendarMeal'
 const CalendarDay = (props) =>{
     let dayInfo = null
     let meals = []
-    let height = 150
-    let width = 350
-    const [itemSize, setItemSize] = useState(100)
-    const [itemCount, setItemCount] = useState(1)
-    const [mealContainer, setMealContainer] = useState()
     const [totalCalories, setTotalCalories] = useState(0)
     const [date, setDate] = useState("")
     const [row, setRow] = useState([<p className="has-text-black has-text-centered py-6">No Meals for this day &#129368;</p>])
-
-    const convertDate = (date) =>{
-        let tempDate = new Date(date)
-        return new Date(tempDate.getFullYear(), tempDate.getMonth(), tempDate.getDate()+1).toDateString()
-    }
 
     useEffect(() => {
         dayInfo = props.dayInfo
@@ -25,7 +15,7 @@ const CalendarDay = (props) =>{
         if (dayInfo == null || dayInfo[1].meals.length == 0){
 
             if(dayInfo != null){
-                setDate(convertDate(dayInfo[0]))
+                setDate(dayInfo[0])
             }else{
                 setDate("")
             }
@@ -36,7 +26,7 @@ const CalendarDay = (props) =>{
             setRow([<div><div className="p-5"></div><p className="has-text-black has-text-centered py-5">No Meals for this day &#129368;</p><div className="p-5"></div></div>])
             
         }else{
-            setDate(convertDate(dayInfo[0]))
+            setDate(dayInfo[0])
             setTotalCalories(dayInfo[1].totalCalories)
             dayInfo[1].meals.forEach(i => meals.push(<CalendarMeal meal = {i}/>))
             setItemSize(50)

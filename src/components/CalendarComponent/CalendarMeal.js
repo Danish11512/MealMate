@@ -3,8 +3,6 @@ import "../../pages/CalendarPage/CalendarPage.css"
 import * as firebase from "../../firebase/firebase.utils"
 
 const CalendarMeal = (props) =>{
-	// const [mealId, setMealId] = useState(props.meal.mealId)
-	// const [date, setDate] = useState(props.meal.date)
 	const [recipeId, setRecipeId] = useState(props.meal.recipeId)
 	const [recipeName, setRecipeName] = useState(props.meal.recipeName)
 	const [time, setTime] = useState(props.meal.time)
@@ -32,8 +30,6 @@ const CalendarMeal = (props) =>{
         return hh + ":" + mm + dd;
     }
     useEffect(() => {
-        // setMealId(props.meal.mealId)
-        // setDate(props.meal.date)
 		setRecipeId(props.meal.recipeId)
         setRecipeName(props.meal.recipeName)
         setTime(formatTime(props.meal.time))
@@ -44,18 +40,6 @@ const CalendarMeal = (props) =>{
             console.log(recipe)
         }
         getRecipeData()
-
-        // getRecipeData().then(console.log(recipe))
-        // const initialize = async () =>
-		// {
-		// 	setRecipe(await firebase.getRecipe(recipeId));
-		// }
-
-		// initialize()
-        // console.log(recipe)
-        
-		
-		
         
     }, [props.meal])
 
