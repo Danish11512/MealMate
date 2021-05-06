@@ -9,19 +9,41 @@ const CalendarMeal = (props) =>{
 	const [recipeName, setRecipeName] = useState(props.meal.recipeName)
 	const [time, setTime] = useState(props.meal.time)
     const [modal, setModal] = useState("")
-    const [recipe, setRecipe] = useState(null)
+    const [recipe, setRecipe] = useState([])
 
+    const formatTime = (dateString) => {
+        let date = new Date("1970-01-01 " + dateString)
+
+        let hh = date.getHours();
+        let mm = date.getMinutes();
+        let dd = "AM";
+
+        if (hh >= 12) {
+            hh -= 12;
+            dd = "PM";
+        }
+        if (hh == 0) {
+            hh = 12;
+        }
+
+        mm = mm < 10 ? "0" + mm : mm;
+        hh = hh < 10 ? "0" + hh : hh; 
+
+        return hh + ":" + mm + dd;
+    }
     useEffect(() => {
         // setMealId(props.meal.mealId)
         // setDate(props.meal.date)
 		setRecipeId(props.meal.recipeId)
         setRecipeName(props.meal.recipeName)
-        setTime(props.meal.time)
+        setTime(formatTime(props.meal.time))
 
-        // const getRecipeData = async () =>{
-        //     setRecipe(await firebase.getRecipe(recipeId))
-            
-        // }
+        const getRecipeData = async () =>{
+            let recipeData = await firebase.getRecipe(`${recipeId}`)
+            setRecipe(recipeData)
+            console.log(recipe)
+        }
+        getRecipeData()
 
         // getRecipeData().then(console.log(recipe))
         // const initialize = async () =>
@@ -49,6 +71,14 @@ const CalendarMeal = (props) =>{
             setModal("")
     }
 
+    const recipeDefault = (element) =>{
+        if (recipe == null){
+            return ""
+        }else{
+            return recipe.element
+        }
+    }
+
     return(
         <div>
             <div onClick={openModal} className="box">
@@ -64,8 +94,8 @@ const CalendarMeal = (props) =>{
                     <div className="box">
                         <article className="media">
                             <div className="media-left">
-                                <figure className="image is-256x256">
-                                    <img src="https://bulma.io/images/placeholders/256x256.png" alt="Image"></img>
+                                <figure className="image is-128x128">
+                                    <img src={recipe.image} alt="Image"></img>
                                 </figure>
                             </div>
                             <div className="media-content">
@@ -73,7 +103,7 @@ const CalendarMeal = (props) =>{
                                     <h3>{recipeName}</h3>
                                     <h5>{time}</h5>
                                     <p>	
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis.
+                                        <a>{recipe.sourceUrl}</a>
                                     </p>
                                 </div>
                             </div>
