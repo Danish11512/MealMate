@@ -3,6 +3,7 @@ import "../../pages/CalendarPage/CalendarPage.css"
 import * as firebase from "../../firebase/firebase.utils"
 
 const CalendarMeal = (props) =>{
+	const [mealId, setMealId] = useState(props.meal.mealId)
 	const [recipeId, setRecipeId] = useState(props.meal.recipeId)
 	const [recipeName, setRecipeName] = useState(props.meal.recipeName)
 	const [time, setTime] = useState(props.meal.time)
@@ -37,7 +38,6 @@ const CalendarMeal = (props) =>{
         const getRecipeData = async () =>{
             let recipeData = await firebase.getRecipe(`${recipeId}`)
             setRecipe(recipeData)
-            console.log(recipe)
         }
         getRecipeData()
         
@@ -55,13 +55,6 @@ const CalendarMeal = (props) =>{
             setModal("")
     }
 
-    const recipeDefault = (element) =>{
-        if (recipe == null){
-            return ""
-        }else{
-            return recipe.element
-        }
-    }
 
     return(
         <div>
@@ -75,23 +68,22 @@ const CalendarMeal = (props) =>{
             <div className={`modal ${modal}`}>
                 <div onClick={closeModal} className="modal-background"></div>
                 <div className="modal-content has-background-white">
-                    <div className="box">
-                        <article className="media">
-                            <div className="media-left">
-                                <figure className="image is-128x128">
+                    <div className="modal-card">
+                        <section className="modal-card-body">
+                            <div className="columns">
+                                <div className="column">
                                     <img src={recipe.image} alt="Image"></img>
-                                </figure>
-                            </div>
-                            <div className="media-content">
-                                <div className="content">
+                                </div>
+                                <div className="column is-6">
                                     <h3>{recipeName}</h3>
                                     <h5>{time}</h5>
-                                    <p>	
-                                        <a>{recipe.sourceUrl}</a>
+                                    <p id="modal-text">	
+                                        <a href={recipe.sourceUrl}>{recipe.sourceUrl}</a>
                                     </p>
+                                    <button onClick={e => props.removeRecipe(e, mealId)} className="button is-danger">Remove</button>
                                 </div>
                             </div>
-                        </article>
+                        </section>
                     </div>
                 </div>
             </div>

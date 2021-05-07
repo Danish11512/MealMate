@@ -22,16 +22,16 @@ const CalenderView = (props) =>{
     return(
         <div className="columns">
             <div className="column is-4">
-                <CalendarDay dayInfo={calendarDays[0]}></CalendarDay>
-                <CalendarDay dayInfo={calendarDays[1]}></CalendarDay>
+                <CalendarDay calendarId={props.calendarId} dayInfo={calendarDays[0]}></CalendarDay>
+                <CalendarDay calendarId={props.calendarId} dayInfo={calendarDays[1]}></CalendarDay>
             </div>
             <div className="column is-4">
-                <CalendarDay dayInfo={calendarDays[2]}></CalendarDay>
-                <CalendarDay dayInfo={calendarDays[3]}></CalendarDay>
+                <CalendarDay calendarId={props.calendarId} dayInfo={calendarDays[2]}></CalendarDay>
+                <CalendarDay calendarId={props.calendarId} dayInfo={calendarDays[3]}></CalendarDay>
             </div>
             <div className="column is-4">
-                <CalendarDay dayInfo={calendarDays[4]}></CalendarDay>
-                <CalendarDay dayInfo={calendarDays[5]}></CalendarDay>
+                <CalendarDay calendarId={props.calendarId} dayInfo={calendarDays[4]}></CalendarDay>
+                <CalendarDay calendarId={props.calendarId} dayInfo={calendarDays[5]}></CalendarDay>
             </div>
         </div>
     )

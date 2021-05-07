@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import "../../pages/CalendarPage/CalendarPage.css"
 import CalendarMeal from './CalendarMeal'
+import * as firebase from "../../firebase/firebase.utils"
 
 const CalendarDay = (props) =>{
     let dayInfo = null
@@ -21,21 +22,26 @@ const CalendarDay = (props) =>{
             }
             
             setTotalCalories(0)
-            setItemSize(100)
-            setItemCount(1)
             setRow([<div><div className="p-5"></div><p className="has-text-black has-text-centered py-5">No Meals for this day &#129368;</p><div className="p-5"></div></div>])
             
         }else{
             setDate(dayInfo[0])
             setTotalCalories(dayInfo[1].totalCalories)
-            dayInfo[1].meals.forEach(i => meals.push(<CalendarMeal meal = {i}/>))
-            setItemSize(50)
-            setItemCount(meals.length)
+            dayInfo[1].meals.forEach(i => meals.push(<CalendarMeal removeRecipe={removeRecipe} date={date} meal = {i}/>))
             setRow(meals)
 
 
         }
     }, [props.dayInfo])
+
+    const removeRecipe = (event, mealId) =>{
+
+		if(mealId != null && props.calendarId != null ){
+            firebase.removeMealFromDay(props.calendarId, mealId, date)
+            console.log("done")
+        }
+		    
+    }
 
     return(
         <div>
@@ -50,7 +56,7 @@ const CalendarDay = (props) =>{
                 <div className="content">
                     <nav>
                         <ul>
-                            {row.map(item => <li>{item}</li>)}
+                            {row.map(item => <li key={row.indexOf(item)}>{item}</li>)}
                         </ul>
                     </nav>
                 </div>
