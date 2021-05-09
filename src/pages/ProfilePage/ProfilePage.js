@@ -92,7 +92,7 @@ const ProfilePage = (props) =>{
 					<br/>
 					<br/>
 
-					<SurveyForm user = {props} />
+					<SurveyForm props = {props} />
 				</div>
 
 			</div>
