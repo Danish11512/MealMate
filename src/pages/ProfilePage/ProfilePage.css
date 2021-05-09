@@ -39,6 +39,13 @@ pre{
     padding: 0px;
 }
 
+/*
+button{
+    background-color: #F5F5F5;
+    text-decoration: none;
+    border: none;
+}
+*/
 .survey_info p{
     color:black;
 }
@@ -54,6 +61,54 @@ pre{
     margin-right: 20px;
 }
 
-.previous_recipes{
-    display:flex;
+.favorite_recipes{
+    display: flex;
+    /*flex-wrap: wrap; */
+    flex-direction: row;
+    justify-content: space-evenly;
+    word-wrap: break-word;
+    border-color: #E0E0E0;
 }
+
+.favorite_recipes img{
+    vertical-align: middle;
+    justify-content: center;
+}
+
+.favorite_recipes .card{
+    min-width: 400px;
+    width: 300px;
+    text-align: center;
+    object-fit: contain;
+    border-color: #E0E0E0;
+    flex: .3;
+}
+
+
+.previous_recipes{
+    display: flex;
+    /*flex-wrap: wrap; */
+    flex-direction: row;
+    justify-content: space-evenly;
+    word-wrap: break-word;
+    border-color: #E0E0E0;
+}
+
+.previous_recipes img{
+    vertical-align: middle;
+    justify-content: center;
+}
+
+.previous_recipes .card{
+    min-width: 400px;
+    width: 300px;
+    text-align: center;
+    object-fit: contain;
+    border-color: #E0E0E0;
+    flex: .3;
+}
+/*
+.none{
+    color:black;
+}
+*/
