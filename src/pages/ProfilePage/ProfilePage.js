@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactRoundedImage from "react-rounded-image";
+import Carousel from 'react-elastic-carousel';
+
 import "./ProfilePage.css";
 import logo from "../../assets/mealLogo.png";
 import { getRecipe } from "../../firebase/firebase.utils";
@@ -9,38 +11,48 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 
-// These imports arent needed
-import demonslayer from "../../assets/demonslayer.jpg";
-import random from "../../assets/random.jpg";
-import unlimitedbladeworks from "../../assets/unlimitedbladeworks.jpg";
+
 
 const ProfilePage = (props) =>{
-	const [recipes, setRecipes] = useState([]);
 
-	// Random Data to display
-	const recipeId = [
-		"659463",
-		"638626",
-		"634873"
-	]
+	const [prevRecipes, setprevRecipes] = useState([]);
+	const [favRecipes, setfavRecipes] = useState([]);
 
-	const recipeObject = []
+	const breakPoints = [
+		{width: 1, itemsToShow: 1 },
+		{width: 500, itemsToShow: 2 },
+		{width: 750, itemsToShow: 3 },
+		{width: 1200, itemsToShow: 4 }
+	];
 
-	const fetchData = async () => {
-		for(const [index, value] of recipeId.entries()){
-			console.log(value)
-			let queryString = `https://api.spoonacular.com/recipes/${value}/information?apiKey=baa7a2e369eb42599d83a5e79692bb15`;
-			let response = await fetch(queryString, { method: "GET" });
-
-			let response_json = await response.json(); // Doesn't return json object, returns js object
-
-			console.log("this is the id of recipe",response_json.id)
-			console.log("this is the image url  of recipe",response_json.image)
-			recipeObject.push(response_json)
-			setRecipes(recipes => [...recipes,response_json]);
+	// Read from firebase props.currentUser.favorites
+	const fetchFavoriteRecipes = async () => {
+		for(const [index, value] of props.currentUser.favorites.entries()){
+			let response = await getRecipe(value)
+			setfavRecipes(favRecipes => [...favRecipes,response]);
 		}
-		console.log(recipeObject)
+		console.log(favRecipes)
+		// I get the array of values properly
+		console.log("Here are the values in favorites from firebase:", props.currentUser.favorites)
 	};
+
+	// Read from firebase props.currentUser.previousRecipes
+	const fetchPreviousRecipes = async () => {
+		for(const [index, value] of props.currentUser.previousRecipes.entries()){
+			let response = await getRecipe(value.toString())
+			setprevRecipes(prevRecipes => [...prevRecipes,response]);
+		}
+		console.log(prevRecipes)
+		console.log("Here are the values in previousRecipes from firebase:", props.currentUser.previousRecipes)
+	};
+
+	
+	
+	useEffect(() => {
+		fetchFavoriteRecipes();
+		fetchPreviousRecipes();
+	  }, []);
+	 
 
 	function ChangePassword(e){
 		e.preventDefault();
@@ -49,7 +61,6 @@ const ProfilePage = (props) =>{
 
 		auth.sendPasswordResetEmail(emailAddress).then(function() {
 			// Email sent.
-			// console.log("Email has been sent")
 			alert("Password reset link has been sent to your email!")
 		}).catch(function(error) {
 			// An error happened.
@@ -75,67 +86,75 @@ const ProfilePage = (props) =>{
 					<br/>
 					<pre><strong>Email:</strong>   { props.currentUser.email }</pre>
 					<br/>
-					{/* <a href=""> Change Password</a> */}
+
 					<button onClick={ChangePassword}>Change Password</button>
-					{/* 
-                    var auth = firebase.auth();
-                    var emailAddress = "user@example.com";
-
-                    auth.sendPasswordResetEmail(emailAddress).then(function() {
-                    // Email sent.
-                    }).catch(function(error) {
-                    // An error happened.
-                    });
-
-                    */}
 
 					<br/>
 					<br/>
 
-					<SurveyForm/>
+					<SurveyForm user = {props} />
 				</div>
 
 			</div>
 
 			<div className="bottom_row">
-				<h1><strong>Previous Recipes</strong></h1>
-				<button onClick={fetchData}>Get Recipes</button>
+				
+				<h1><strong>Favorite Recipes</strong></h1>
 				<br/>
-				<div className="previous_recipes">
-					{/* 
-                    <img src={demonslayer} alt='random awdwae'></img>
-                    <img src={random} alt='random adwa'></img>
-                    <img src={unlimitedbladeworks} alt='random adw'></img>
-                    
 
-                    {recipeId.length > 0 ? (
-                        recipeId.map((Id) => {
-                            
-                            return(
-                                <div>
-                                    <h1> {Id} </h1>
-                                    <img src ={ recipeId.image }></img>
-                                </div>
-                            );
-                        })
-                        ) : (
-                        <p>"No previous recipes"</p>
-                        )}
-                    */}
+				<div className = 'favorite_recipes'>
+					
+					<Carousel breakPoints = {breakPoints}>
 
-                    
+						{favRecipes.length > 0 ? (
+							favRecipes.map((el) => {
+								
+								return(
+									
+									<div className = 'card'>
+										<h1> { el.title } </h1>
+										<img src ={ el.image } alt = 'Favorite Food Item'></img>
+									</div>
+									
+								);
+							})
+						) : (
+							<h1>No favorite recipes</h1>
+						)}
+					</Carousel>		
 
-					{recipes.map((el) => {
-						return(
-							<div>
-								<h1> {el.id} </h1>
-								<img src = { el.image } ></img>
-							</div>
-						);
-					})}
 				</div>
-			</div>
+				
+				<br/>
+				<h1><strong>Previous Recipes</strong></h1>
+				<br/>
 
+				<div className= 'previous_recipes'>
+
+					<Carousel breakPoints = {breakPoints}>
+
+						{prevRecipes.length > 0 ? (
+							prevRecipes.map((el) => {
+								
+								return(
+									
+									<div className = 'card'>
+										<h1> { el.title } </h1>
+										<img src ={ el.image } alt = 'Previous Food Item'></img>
+									</div>
+									
+								);
+							})
+						) : (
+							<h1>No previous recipes</h1>
+						)}
+
+					</Carousel>
+
+				</div>
+
+			</div>
+			
 		</div>
 	)
 

@@ -7,6 +7,7 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
+    "bulma-carousel": "^4.0.24",
     "cosmiconfig": "^6.0.0",
     "firebase": "^8.3.1",
     "mime": "^1.4.0",
@@ -15,12 +16,14 @@
     "react": "^17.0.2",
     "react-collapsible": "^2.8.3",
     "react-dom": "^17.0.2",
+    "react-elastic-carousel": "^0.11.5",
     "react-html-parser": "^2.0.2",
     "react-redux": "^7.2.4",
     "react-rounded-image": "^2.0.13",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.3",
     "redux": "^4.1.0",
+    "styled-components": "^5.3.0",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
