@@ -1,16 +1,6 @@
 import React, { useState } from "react";
 import "./Survey.css";
-import Modal from './Modal';
-import SurveyPage  from '../../pages/SurveyPage/SurveyPage.js';
 import { changeSurveyAnswers } from '../../firebase/firebase.utils';
-
-
-function handleSubmit(e) {
-	alert('Submitted Survey Response');
-	e.preventDefault();
-}
-
-
 
 function SurveyForm ({props}) {
 
@@ -80,7 +70,6 @@ function SurveyForm ({props}) {
 	return (
 		<div className="App">
     
-    
 			<div className={`modal ${active}`}>
 				<div className="modal-background" onClick={handleClick}/>
 				<div className="modal-card">
@@ -93,7 +82,6 @@ function SurveyForm ({props}) {
 							aria-label="close"
 						/>
 					</header>
-
 
 					<section className="modal-card-body">
 
@@ -121,25 +109,19 @@ function SurveyForm ({props}) {
 
 					<footer className="modal-card-foot">
 						<button onClick={handleSubmit} className="button is-success">Save changes</button>
-						<button onClick={handleClick} className="button">
-                    Cancel
-						</button>
+						<button onClick={handleClick} className="button">Cancel</button>
 					</footer>
 
 				</div>
+
 			</div>
     
 			<button onClick={handleClick} className="button is-small is-info">
-              Show Modal
+				Review Survey Information
 			</button>
 
 		</div>
 	);
 }
-
-
-
-
-
 
 export default SurveyForm;

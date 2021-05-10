@@ -11,8 +11,6 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 
-
-
 const ProfilePage = (props) =>{
 
 	const [prevRecipes, setprevRecipes] = useState([]);
@@ -25,50 +23,37 @@ const ProfilePage = (props) =>{
 		{width: 1200, itemsToShow: 4 }
 	];
 
-	// Read from firebase props.currentUser.favorites
 	const fetchFavoriteRecipes = async () => {
 		for(const [index, value] of props.currentUser.favorites.entries()){
 			let response = await getRecipe(value)
 			setfavRecipes(favRecipes => [...favRecipes,response]);
 		}
-		console.log(favRecipes)
-		// I get the array of values properly
-		console.log("Here are the values in favorites from firebase:", props.currentUser.favorites)
 	};
 
-	// Read from firebase props.currentUser.previousRecipes
 	const fetchPreviousRecipes = async () => {
 		for(const [index, value] of props.currentUser.previousRecipes.entries()){
 			let response = await getRecipe(value.toString())
 			setprevRecipes(prevRecipes => [...prevRecipes,response]);
 		}
-		console.log(prevRecipes)
-		console.log("Here are the values in previousRecipes from firebase:", props.currentUser.previousRecipes)
 	};
 
-	
-	
 	useEffect(() => {
 		fetchFavoriteRecipes();
 		fetchPreviousRecipes();
 	  }, []);
 	 
-
 	function ChangePassword(e){
 		e.preventDefault();
 		var auth = firebase.auth();
 		var emailAddress = props.currentUser.email;
 
 		auth.sendPasswordResetEmail(emailAddress).then(function() {
-			// Email sent.
 			alert("Password reset link has been sent to your email!")
 		}).catch(function(error) {
-			// An error happened.
 			alert("Here is the error that occured:" + error)
 		});
 	}
    
-
 	return (
 		<div>
 

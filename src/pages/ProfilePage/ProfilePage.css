@@ -19,16 +19,6 @@
     margin-top: 20px;
 }
 
-/*
-.vertical_line{
-    border-left: 6px black;
-    height: 500px;
-    position: absolute;
-    left: 50%;
-    margin-left:20px
-}
-*/
-
 .user_info{
     margin-top: 40px;
     margin-left: 400px;
@@ -39,13 +29,6 @@ pre{
     padding: 0px;
 }
 
-/*
-button{
-    background-color: #F5F5F5;
-    text-decoration: none;
-    border: none;
-}
-*/
 .survey_info p{
     color:black;
 }
@@ -63,7 +46,6 @@ button{
 
 .favorite_recipes{
     display: flex;
-    /*flex-wrap: wrap; */
     flex-direction: row;
     justify-content: space-evenly;
     word-wrap: break-word;
@@ -84,10 +66,8 @@ button{
     flex: .3;
 }
 
-
 .previous_recipes{
     display: flex;
-    /*flex-wrap: wrap; */
     flex-direction: row;
     justify-content: space-evenly;
     word-wrap: break-word;
@@ -107,8 +87,3 @@ button{
     border-color: #E0E0E0;
     flex: .3;
 }
-/*
-.none{
-    color:black;
-}
-*/
