@@ -177,7 +177,10 @@ export const addMealToDay = async (user, recipeId, recipeName, date, time, calen
 }
 
 export const removeMealFromDay = async (calendarId, mealId, date, calendar=null) =>
-{
+{	
+	console.log(calendarId)
+	console.log(mealId)
+	console.log(date)
 	if(date instanceof Date)
 		date = date.toDateString();
 

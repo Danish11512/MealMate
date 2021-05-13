@@ -33,12 +33,12 @@ const CalendarDay = (props) =>{
 
         }
     }, [props.dayInfo])
-
+    
     const removeRecipe = (event, mealId) =>{
-
 		if(mealId != null && props.calendarId != null ){
-            firebase.removeMealFromDay(props.calendarId, mealId, date)
-            console.log("done")
+            firebase.removeMealFromDay(props.calendarId, mealId, dayInfo[0]).then(
+            )
+           
         }
 		    
     }
@@ -54,8 +54,8 @@ const CalendarDay = (props) =>{
 
             <div className="card-content">
                 <div className="content">
-                    <nav>
-                        <ul>
+                    <nav id="meal-view">
+                        <ul id="meal-list">
                             {row.map(item => <li key={row.indexOf(item)}>{item}</li>)}
                         </ul>
                     </nav>

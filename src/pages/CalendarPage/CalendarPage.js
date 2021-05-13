@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from "react";
 import "./CalendarPage.css";
+import CalendarRecentRecipe from '../../components/CalendarComponent/CalendarRecentRecipe'
 import CalendarView from '../../components/CalendarComponent/CalendarView'
 
 const CalendarPage = (props) =>{
     const [startDate, setStartDate] = useState(new Date())
     const calendarId = props.currentUser.calendarId
-    const previousRecipesArray = props.currentUser.previousRecipes
-    const [previousRecipes, setPreviousRecipes] = useState(null)
+    let previousRecipesArray = props.currentUser.previousRecipes
+    const [previousRecipes, setPreviousRecipes] = useState([<div>
+        <p className="has-text-black">
+            <br></br><br></br><br></br><br></br><br></br>
+            Looks like you dont have any recent meals &#129370;
+            <br></br><br></br><br></br><br></br><br></br>
+        </p>
+    </div>])
 
     useEffect(() => {
         setStartDate(startDate)
@@ -23,7 +30,10 @@ const CalendarPage = (props) =>{
             )
             
         }else{
-            setPreviousRecipes()
+            let tempRecipeHolder = []
+            previousRecipesArray = previousRecipesArray.slice(1).slice(-5)
+            previousRecipesArray.forEach(i => tempRecipeHolder.push(<CalendarRecentRecipe recipeId={i}/>))
+            setPreviousRecipes(tempRecipeHolder)
         }
 
 
@@ -56,8 +66,12 @@ const CalendarPage = (props) =>{
                 <br></br>
                 <div className="title is-5 has-text-centered"> Your Recent Recipes</div>
                 <div className="card has-background-info">
-                    <div className="card-content">
-                        {previousRecipes}
+                    <div id="recipe-list" className="card-content">
+                    <nav>
+                        <ul>
+                            {previousRecipes.map(item => <li key={previousRecipes.indexOf(item)}>{item}</li>)}
+                        </ul>
+                    </nav>
                     </div>
                 </div>
             </div>
