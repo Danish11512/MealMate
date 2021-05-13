@@ -56,6 +56,10 @@ const CalendarMeal = (props) =>{
             setModal("")
     }
 
+    const removeAndClose = (e) =>{
+        closeModal()
+        props.removeRecipe(e, mealId, props.meal)
+    }
 
     return(
         <div>
@@ -81,7 +85,7 @@ const CalendarMeal = (props) =>{
                                     <p id="modal-text">	
                                         <a href={recipe.sourceUrl}>{recipe.sourceUrl}</a>
                                     </p>
-                                    <button onClick={e => props.removeRecipe(e, mealId)} className="button is-danger">Remove</button>
+                                    <button onClick={e => removeAndClose(e)} className="button is-danger">Remove</button>
                                 </div>
                             </div>
                         </section>

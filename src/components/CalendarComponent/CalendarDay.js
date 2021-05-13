@@ -6,6 +6,7 @@ import * as firebase from "../../firebase/firebase.utils"
 const CalendarDay = (props) =>{
     let dayInfo = null
     let meals = []
+    const mealsCopy = Object.assign([], meals)
     const [totalCalories, setTotalCalories] = useState(0)
     const [date, setDate] = useState("")
     const [row, setRow] = useState([<p className="has-text-black has-text-centered py-6">No Meals for this day &#129368;</p>])
@@ -28,20 +29,23 @@ const CalendarDay = (props) =>{
             setDate(dayInfo[0])
             setTotalCalories(dayInfo[1].totalCalories)
             dayInfo[1].meals.forEach(i => meals.push(<CalendarMeal removeRecipe={removeRecipe} date={date} meal={i}/>))
+            meals.forEach(i => mealsCopy.push(i))
             setRow(meals)
         }
     }, [props.dayInfo])
     
     const removeRecipe  = async (event, mealId, meal) =>{
 		if(mealId != null && props.calendarId != null ){
-            let index = meals.map(function(e) { return e.props.meal.mealId }).indexOf(mealId);
+            let index = 0
+            index = meals.map(function(e) { return e.props.meal.mealId }).indexOf(meal.mealId)
+            
             // meals.indexOf([meal,<CalendarMeal removeRecipe={removeRecipe} date={date} meal={meal}/>])
             // console.log(meals)
-            meals.splice(index, 1)
-            console.log(meals)
-            setRow(meals)
+            mealsCopy.splice(index, 1)
+            firebase.removeMealFromDay(props.calendarId, mealId, dayInfo[0]).then(setRow(mealsCopy))
             
-            // firebase.removeMealFromDay(props.calendarId, mealId, dayInfo[0]).then()
+            
+            
             
             // console.log(dayInfo[1].meals.indexOf(meal))
 
@@ -62,7 +66,7 @@ const CalendarDay = (props) =>{
                 <div className="content">
                     <nav id="meal-view">
                         <ul id="meal-list">
-                            {row.map(item => <li key={row.indexOf(item)}>{item}</li>)}
+                            {row.map((item) => <li key={row.indexOf(item)}>{item}</li>)}
                         </ul>
                     </nav>
                 </div>

@@ -32,13 +32,17 @@ const CalendarPage = (props) =>{
         }else{
             let tempRecipeHolder = []
             previousRecipesArray = previousRecipesArray.slice(1).slice(-5)
-            previousRecipesArray.forEach(i => tempRecipeHolder.push(<CalendarRecentRecipe currentUser={props.currentUser} recipeId={i}/>))
+            previousRecipesArray.forEach(i => tempRecipeHolder.push(<CalendarRecentRecipe addRecipeRefresh={addRecipeRefresh} currentUser={props.currentUser} recipeId={i}/>))
             setPreviousRecipes(tempRecipeHolder)
         }
 
 
     }, [startDate])
 
+    const addRecipeRefresh = () =>{
+        const noChangeStartDate = Object.assign(new Date(), startDate)
+        setStartDate(noChangeStartDate)
+    }
 
     function decreaseDate(event){
         setStartDate(new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()-6))

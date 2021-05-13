@@ -39,7 +39,9 @@ const CalendarRecentRecipe = (props) =>{
 	{
 		e.preventDefault()
 		let date = new Date(dateValue.replace('-', '/')).toDateString()
-		await firebase.addMealToDay(props.currentUser, recipeId, recipe.title, date, timeValue); 
+		await firebase.addMealToDay(props.currentUser, recipeId, recipe.title, date, timeValue)
+        props.addRecipeRefresh()
+        closeModal()
 	}
 
     return(
