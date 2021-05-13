@@ -48,6 +48,7 @@ const CalendarPage = (props) =>{
         setStartDate(new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()+6))
     }
 
+
     return (
         <div className="columns">
             <div id="list" className="column is-2">
@@ -65,7 +66,7 @@ const CalendarPage = (props) =>{
                 </div>
                 <br></br>
                 <div className="title is-5 has-text-centered"> Your Recent Recipes</div>
-                <div className="card has-background-info">
+                <div className="card has-background-grey-lighter">
                     <div id="recipe-list" className="card-content">
                     <nav>
                         <ul>

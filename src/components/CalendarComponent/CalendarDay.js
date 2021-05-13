@@ -27,18 +27,24 @@ const CalendarDay = (props) =>{
         }else{
             setDate(dayInfo[0])
             setTotalCalories(dayInfo[1].totalCalories)
-            dayInfo[1].meals.forEach(i => meals.push(<CalendarMeal removeRecipe={removeRecipe} date={date} meal = {i}/>))
+            dayInfo[1].meals.forEach(i => meals.push(<CalendarMeal removeRecipe={removeRecipe} date={date} meal={i}/>))
             setRow(meals)
-
-
         }
     }, [props.dayInfo])
     
-    const removeRecipe = (event, mealId) =>{
+    const removeRecipe  = async (event, mealId, meal) =>{
 		if(mealId != null && props.calendarId != null ){
-            firebase.removeMealFromDay(props.calendarId, mealId, dayInfo[0]).then(
-            )
-           
+            let index = meals.map(function(e) { return e.props.meal.mealId }).indexOf(mealId);
+            // meals.indexOf([meal,<CalendarMeal removeRecipe={removeRecipe} date={date} meal={meal}/>])
+            // console.log(meals)
+            meals.splice(index, 1)
+            console.log(meals)
+            setRow(meals)
+            
+            // firebase.removeMealFromDay(props.calendarId, mealId, dayInfo[0]).then()
+            
+            // console.log(dayInfo[1].meals.indexOf(meal))
+
         }
 		    
     }

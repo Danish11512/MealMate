@@ -18,7 +18,6 @@ const CalendarRecentRecipe = (props) =>{
             setRecipe(recipeData)
         }
         getRecipeData()
-        console.log(recipe)
 
     }, [props.recipeId])
 
@@ -41,12 +40,11 @@ const CalendarRecentRecipe = (props) =>{
 		e.preventDefault()
 		let date = new Date(dateValue.replace('-', '/')).toDateString()
 		await firebase.addMealToDay(props.currentUser, recipeId, recipe.title, date, timeValue); 
-		closeModal()
 	}
 
     return(
         <div>
-            <div onClick={openModal} className="box has-background-info-light">
+            <div onClick={openModal} className="box has-background-light">
                 <div className="">{recipe.title}</div>
 			</div>
 
