@@ -32,7 +32,7 @@ const CalendarPage = (props) =>{
         }else{
             let tempRecipeHolder = []
             previousRecipesArray = previousRecipesArray.slice(1).slice(-5)
-            previousRecipesArray.forEach(i => tempRecipeHolder.push(<CalendarRecentRecipe recipeId={i}/>))
+            previousRecipesArray.forEach(i => tempRecipeHolder.push(<CalendarRecentRecipe currentUser={props.currentUser} recipeId={i}/>))
             setPreviousRecipes(tempRecipeHolder)
         }
 

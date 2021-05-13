@@ -6,6 +6,8 @@ const CalendarRecentRecipe = (props) =>{
     const [recipeId, setRecipeId] = useState(props.recipeId)
     const [recipe, setRecipe] = useState([])
     const [modal, setModal] = useState("")
+    const [dateValue, setDateValue] = useState(new Date().toISOString().slice(0, 10));
+	const [timeValue, setTimeValue] = useState("");
 
     useEffect(() => {
         setRecipeId(props.recipeId)
@@ -34,6 +36,13 @@ const CalendarRecentRecipe = (props) =>{
             setModal("")
     }
 
+    const handleAdd = async (e) =>
+	{
+		e.preventDefault()
+		let date = new Date(dateValue.replace('-', '/')).toDateString()
+		await firebase.addMealToDay(props.currentUser, recipeId, recipe.title, date, timeValue); 
+		closeModal()
+	}
 
     return(
         <div>
@@ -56,7 +65,13 @@ const CalendarRecentRecipe = (props) =>{
                                         <a href={recipe.sourceUrl}>{recipe.sourceUrl}</a>
                                     </p>
                                     <br></br>
-                                    <button className="button is-primary">Add</button>
+
+                                    <form onSubmit={(e) => handleAdd(e)}>
+                                            Date: <input className="input is-warning" type="date" name="date" value={dateValue} onChange={(e) => setDateValue(e.target.value)} required/> <br/> <br />
+                                            Time: <input className="input is-warning" type="time" name="time" value={timeValue} onChange={(e) => setTimeValue(e.target.value)} required/> <br/> <br />
+                                            <button type="submit" className="button is-success">Add</button>
+                                    </form>
+                                    
                                 </div>
                             </div>
                         </section>
