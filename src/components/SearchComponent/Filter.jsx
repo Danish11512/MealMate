@@ -7,7 +7,7 @@ import { Multiselect } from "multiselect-react-dropdown";
 function Filter({intolerance, diet}) {
 
 	let intoleranceArr = [];
-
+    
 	intolerance.forEach(el => {
 		let obj = {name: el};
 		intoleranceArr.push(obj); 
@@ -15,7 +15,7 @@ function Filter({intolerance, diet}) {
 
 	const [toggle, setToggle] = useState(false);
 	const [Filters, setFilters] = useState({});
-    const [dietDropdown, setDietDropDown] = useState(diet);
+	const [dietDropdown, setDietDropDown] = useState(diet);
 	const [selected, setSelected] = useState({
 		values: intoleranceArr,
 	});
@@ -38,21 +38,42 @@ function Filter({intolerance, diet}) {
 
 	//Dispatch adds updated data to the store
 	const dispatch = useDispatch();
-
+   
 	//this useEffect calls this dispatch function to add
 	//updated data to the global store
+
 
 	useEffect(() => {
 		if (toggle) {
 			dispatch(FilterActions(Filters));
 		} else {
-			dispatch(FilterActions(Filter));
+			dispatch(FilterActions({}));
 		}
 	}, [Filters, toggle, dispatch]);
-
 	useEffect(() => {
 		setFilters({});
 	}, [toggle]);
+
+	useEffect(() => {
+		setFilters(prev =>{
+			if(toggle){
+				if(intolerance.length !== 0 && diet === "None"){
+					return ({...prev, intolerances: intoleranceArr})
+				} 
+				else if(intolerance.length === 0 && diet !== "None"){
+					return ({...prev, diet: diet})
+				} else if(intolerance.length !== 0 && diet !== "None"){
+					return ({...prev,intolerances: intoleranceArr, diet: diet})
+				}else{
+					return ({...prev});
+				} 
+			}else{
+				return ({});
+			}
+		
+		});
+        
+	}, [diet, intolerance, toggle])
 
 	function onSelect(selectedList, selectedItem) {
 		intoleranceChange("intolerances", [...selectedList]);
