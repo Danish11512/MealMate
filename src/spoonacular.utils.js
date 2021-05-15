@@ -60,8 +60,12 @@ export const searchRecipe = async (searchQuery, filters) => {
 
 		let queryString = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&query=${query}&number=30`;
 		if ("intolerances" in filters) {
-			filters.intolerances.forEach((el) => {
-				queryString += `&intolerances=${el.name}`;
+			queryString += `&intolerances=`;
+			filters.intolerances.forEach((el, index) => {
+				queryString += `${el.name}`;
+				if(index !== filters.intolerances.length-1){
+					queryString +=",";
+				}
 			});
 		}
 
