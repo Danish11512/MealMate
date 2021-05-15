@@ -102,7 +102,6 @@ export const searchRecipe = async (searchQuery, filters) => {
 		}
 
 		let response = await fetch(queryString, { method: "GET" });
-
 		if (response.status === 200) {
 			let response_json = await response.json();
 			return response_json;
