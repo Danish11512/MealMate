@@ -4,11 +4,20 @@ import { useDispatch } from "react-redux";
 import FilterActions from "../../redux/actions/FilterActions";
 import { Multiselect } from "multiselect-react-dropdown";
 
-function Filter() {
+function Filter({intolerance, diet}) {
+
+	let intoleranceArr = [];
+
+	intolerance.forEach(el => {
+		let obj = {name: el};
+		intoleranceArr.push(obj); 
+	});
+
 	const [toggle, setToggle] = useState(false);
 	const [Filters, setFilters] = useState({});
+    const [dietDropdown, setDietDropDown] = useState(diet);
 	const [selected, setSelected] = useState({
-		values: [],
+		values: intoleranceArr,
 	});
 	const intolerances = {
 		values: [
@@ -62,7 +71,10 @@ function Filter() {
 	function onChange(event) {
 		let id = event.target.id;
 		let value = event.target.value;
-
+        
+		if(id === "diet"){
+			setDietDropDown(value);
+		}
 		//This is validation if user deletes a filter
 		//It will remove the key from the useState object
 		if (value.trim() === "") {
@@ -115,8 +127,8 @@ function Filter() {
 					<div className="filter__alignment">
 						<p className="filter__micros">Diet: </p>
 						<div className="select">
-							<select id="diet" onChange={onChange}>
-								<option value=""></option>
+							<select id="diet" onChange={onChange} value={dietDropdown}>
+								<option value="" ></option>
 								<option value="Gluten Free">Gluten Free</option>
 								<option value="Ketogenic">Ketogenic</option>
 								<option value="Vegetarian">Vegetarian</option>
