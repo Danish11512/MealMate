@@ -4,11 +4,11 @@ import Search from "../../components/SearchComponent/Search";
 import Recommendation from "../../components/SearchComponent/Recommendation";
 import "./SearchPage.css";
 
-function SearchPage() {
+function SearchPage({currentUser}) {
 	return (
 		<div className="search__page">
 			<div className="page__left__filter">
-				<Filter />
+				<Filter intolerance = {currentUser.intolerances} diet = {currentUser.diet}/>
 			</div>
 			<div className="page__right__search">
 				<Search />

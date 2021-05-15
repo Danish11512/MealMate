@@ -49,6 +49,12 @@
   right: 5px;
 }
 
+.highlight:not(:last-child) {
+  margin: 0px;
+  background: #ffffff;
+  color: black;
+}
+
 .filter__micros {
   font-size: 1.5rem;
   margin-top: 20px;
@@ -100,7 +106,31 @@
 }
 
 .is-right {
-  left: 64%;
+  left: 41.5vw;
+}
+
+@media (max-width: 900px) {
+    .is-right {
+        left: 40vw;
+      }
+}
+
+@media(max-width: 630px){
+    .is-right {
+        left: 38vw;
+      }
+}
+
+@media(max-width: 450px){
+    .is-right {
+        left: 35vw;
+      }
+}
+
+@media(min-width: 1300px){
+    .is-right {
+        left: 42.5vw;
+      }
 }
 
 .below__search__text {
