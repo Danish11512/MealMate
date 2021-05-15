@@ -1,5 +1,6 @@
 .result__body {
   background: #eef2f7;
+  height: 100vh;
 }
 
 .search___result {
@@ -14,7 +15,7 @@
   font-family: "Sacramento";
   text-align: center;
   color: #ffab73;
-  margin-top: 50px;
+  padding-top: 50px;
 }
 
 #watch_tick {
