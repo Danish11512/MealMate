@@ -10,8 +10,7 @@ import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import ResultsPage from "./pages/ResultPage/SearchResultPage";
 import RecipeDetailsPage from "./pages/RecipeDetailsPage/RecipeDetailsPage";
 import CalendarPage from "./pages/CalendarPage/CalendarPage";
-import LandingPage from './pages/LandingPage/LandingPage';
-import SurveyPage from "./pages/SurveyPage/SurveyPage";
+import LandingPage from "./pages/LandingPage/LandingPage";
 
 const App = () => {
 	const [currentUser, setCurrentUser] = useState("wait");
@@ -92,16 +91,11 @@ const App = () => {
 					render={() => (currentUser ? <ResultsPage /> : <Redirect to="/" />)}
 				/>
 
-				<Route
+        <Route
 					path="/calendar"
 					render={() => (currentUser ? <CalendarPage currentUser={currentUser} /> : <Redirect to="/" />)}
 				/>
 
-				<Route
-					path="/survey"
-					render={() => (currentUser ? <SurveyPage currentUser={currentUser} /> : <Redirect to="/" />)}
-				/>
-            
 				<Route path="/" render={() => currentUser ? <SearchPage currentUser={currentUser}/> : <LandingPage currentUser={currentUser}/>} />
 			</Switch>
 		</div>

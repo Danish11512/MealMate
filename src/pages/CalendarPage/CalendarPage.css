@@ -33,7 +33,32 @@
     padding-top: 20%;
 }
 
-.test{
-    border-color: black;
-    border-width: 100ch;
+.has-text-left {
+	float: left;
+}
+
+.list{
+    list-style-type: none;
+}
+
+#meal-view ul{
+    height:200px;
+    overflow:hidden;
+    overflow-y:scroll;
+}
+
+#meal-list{
+    padding-left: 0px ;
+    margin-left: 0px ;
+    text-indent: 0px ;
+}
+
+#modal-text{
+    word-wrap: break-word;
+}
+
+#recipe-list{
+    height:400px;
+    overflow:hidden;
+    overflow-y:scroll;
 }
