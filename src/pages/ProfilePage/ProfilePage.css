@@ -1,89 +1,84 @@
-.top_row{
-    display:flex;
+.profile-page
+{
+    height: 80%;
+    width: 100%;
+    position: relative;
 }
 
-.greeting {
-    display:flex;
-    margin-top: 40px;
-    margin-left: 40px;
-
+.profile-container
+{
+    margin-top: 2rem;
+    margin-left: auto;
+    margin-right: auto;
+    width: 95%;
+    height: 100%;
 }
 
-.img-valign {
-    vertical-align: middle;
-}
-
-.username {
-    font-size: 44px;
-    margin-left: 40px;
-    margin-top: 20px;
-}
-
-.user_info{
-    margin-top: 40px;
-    margin-left: 400px;
-    display:block;
-}
-
-pre{
-    padding: 0px;
-}
-
-.survey_info p{
-    color:black;
-}
-
-.bottom_row{
-    font-size: 30px;
-    margin-left: 40px;
-}
-
-.bottom_row img{
-    height: 300px;
-    width: 350px;
-    margin-right: 20px;
-}
-
-.favorite_recipes{
+.top_row
+{
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
-    word-wrap: break-word;
-    border-color: #E0E0E0;
+    justify-content:space-around;
+    flex-wrap: wrap;
+    align-items: center;
+    padding-top: 1rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
 }
 
-.favorite_recipes img{
-    vertical-align: middle;
-    justify-content: center;
-}
-
-.favorite_recipes .card{
-    min-width: 400px;
-    width: 300px;
-    text-align: center;
-    object-fit: contain;
-    border-color: #E0E0E0;
-    flex: .3;
-}
-
-.previous_recipes{
+.greeting
+{
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
-    word-wrap: break-word;
-    border-color: #E0E0E0;
-}
-
-.previous_recipes img{
+    font-size: 4rem;
+    margin-left: 5rem;
+    font-family: "Sacramento", cursive;
+    color: #ffab73;
+    align-items: center;
     vertical-align: middle;
-    justify-content: center;
+    margin-bottom: 1rem;
 }
 
-.previous_recipes .card{
-    min-width: 400px;
-    width: 300px;
-    text-align: center;
-    object-fit: contain;
-    border-color: #E0E0E0;
-    flex: .3;
+.username
+{
+    margin-left: 1rem;
+    align-self: center;
+    vertical-align: middle;
+}
+
+.user_info
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: baseline;
+    border-left: 2px solid #ffab73;
+    padding-left: 2rem;
+}
+
+.user_info > *
+{
+    margin-bottom: 1rem;
+}
+
+.bottom_row
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.favorites-container, .previous-container
+{
+    min-height: 450px;
+    max-height: 450px;
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+    margin-bottom: 2rem;
+}
+
+.previous-recipes-title, .favorite-recipes-title
+{
+    font-size: 2rem;
+    margin-bottom: 1rem;
 }

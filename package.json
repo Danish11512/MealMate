@@ -11,6 +11,7 @@
     "cosmiconfig": "^6.0.0",
     "firebase": "^8.3.1",
     "mime": "^1.4.0",
+    "multiselect-react-dropdown": "^1.6.11",
     "node-fetch": "^2.6.1",
     "react": "^17.0.2",
     "react-collapsible": "^2.8.3",

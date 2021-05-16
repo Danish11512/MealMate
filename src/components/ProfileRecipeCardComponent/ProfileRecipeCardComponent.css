@@ -1,0 +1,33 @@
+.profile-recipe-card
+{
+    min-width: 400px;
+    max-width: 400px;
+    min-height: 400px;
+    max-height: 400px;
+    margin-left: 1rem;
+    border: 1px solid black;
+    border-radius: 5%;
+    background-color: #ffab73;
+    text-align: center;
+    cursor: pointer;
+}
+
+.profile-recipe-card .profile-recipe-card-image-container
+{
+    height: 80%;
+    margin-bottom: 1rem;
+}
+
+.profile-recipe-card > h1
+{
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-weight: bolder;
+}
+.profile-recipe-card-image-container > img
+{
+    width: 100%;
+    height: 100%;
+    border-top-left-radius: 5%;
+    border-top-right-radius: 5%;
+}

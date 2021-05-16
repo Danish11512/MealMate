@@ -18,8 +18,7 @@ function Search() {
 	}, [searchVal, dispatch]);
 
 	const validStringFunction = (val) => {
-		var regex = new RegExp("^[a-zA-Z]+$");
-		if (typeof val === "undefined" || val === "" || !regex.test(val)) {
+		if (typeof val === "undefined" || val === "") {
 			return false;
 		}
 		return true;

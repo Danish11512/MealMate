@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import ReactRoundedImage from "react-rounded-image";
-import Carousel from 'react-elastic-carousel';
 
 import "./ProfilePage.css";
 import logo from "../../assets/mealLogo.png";
 import { getRecipe } from "../../firebase/firebase.utils";
 import SurveyForm  from "../../components/ProfileComponent/Survey";
+import ProfileRecipeCardComponent from '../../components/ProfileRecipeCardComponent/ProfileRecipeCardComponent';
 
 import firebase from 'firebase/app';
 import 'firebase/firestore';
@@ -15,13 +15,6 @@ const ProfilePage = (props) =>{
 
 	const [prevRecipes, setprevRecipes] = useState([]);
 	const [favRecipes, setfavRecipes] = useState([]);
-
-	const breakPoints = [
-		{width: 1, itemsToShow: 1 },
-		{width: 500, itemsToShow: 2 },
-		{width: 750, itemsToShow: 3 },
-		{width: 1200, itemsToShow: 4 }
-	];
 
 	const fetchFavoriteRecipes = async () => {
 		for(const [index, value] of props.currentUser.favorites.entries()){
@@ -55,89 +48,57 @@ const ProfilePage = (props) =>{
 	}
    
 	return (
-		<div>
+		<div className="profile-page">
+			<div className="profile-container">
+				<div className="top_row" >
 
-			<div className="top_row" >
+					<div className="greeting">
+						<ReactRoundedImage className="img-valign" image= {logo} roundedSize="0" imageWidth="110" imageHeight="110" />
+						<h1 className="username"> Hi, { props.currentUser.displayName }</h1>
+					</div>
 
-				<div className="greeting">
-					<ReactRoundedImage className="img-valign" image= {logo} roundedSize="0" imageWidth="110" imageHeight="110" />
-					<h1 className="username"> Hi, { props.currentUser.displayName }</h1>
+					<div className="vertical_line"></div>
+
+					<div className="user_info">
+						<span><strong>Nickname:</strong>   { props.currentUser.displayName }</span>
+						<span><strong>Email:</strong>   { props.currentUser.email }</span>
+						<button onClick={ChangePassword}>Change Password</button>
+						<SurveyForm props = {props} />
+					</div>
+
 				</div>
 
-				<div className="vertical_line"></div>
-
-				<div className="user_info">
-					<pre><strong>Nickname:</strong>   { props.currentUser.displayName }</pre>
-					<br/>
-					<pre><strong>Email:</strong>   { props.currentUser.email }</pre>
-					<br/>
-
-					<button onClick={ChangePassword}>Change Password</button>
-
-					<br/>
-					<br/>
-
-					<SurveyForm props = {props} />
-				</div>
-
-			</div>
-
-			<div className="bottom_row">
-				
-				<h1><strong>Favorite Recipes</strong></h1>
-				<br/>
-
-				<div className = 'favorite_recipes'>
+				<div className="bottom_row">
 					
-					<Carousel breakPoints = {breakPoints}>
+					<div className="favorite-recipes">
+						<h1 className="favorite-recipes-title">Favorite Recipes</h1>
 
-						{favRecipes.length > 0 ? (
-							favRecipes.map((el) => {
-								
-								return(
-									
-									<div className = 'card'>
-										<h1> { el.title } </h1>
-										<img src ={ el.image } alt = 'Favorite Food Item'></img>
-									</div>
-									
-								);
-							})
-						) : (
-							<h1>No favorite recipes</h1>
-						)}
-					</Carousel>		
+						<div className="favorites-container">
+							{favRecipes.length > 0 ?
+								favRecipes.map((recipe, index) =>{
+									return <ProfileRecipeCardComponent recipe={recipe} key={index} />
+								})
+								:
+								<div>No Favorited Recipes</div>
+							}
+						</div>
+					</div>
+					
+					<div className="previous-recipes">
+						<h1 className="previous-recipes-title">Previous Recipes</h1>
 
-				</div>
-				
-				<br/>
-				<h1><strong>Previous Recipes</strong></h1>
-				<br/>
-
-				<div className= 'previous_recipes'>
-
-					<Carousel breakPoints = {breakPoints}>
-
-						{prevRecipes.length > 0 ? (
-							prevRecipes.map((el) => {
-								
-								return(
-									
-									<div className = 'card'>
-										<h1> { el.title } </h1>
-										<img src ={ el.image } alt = 'Previous Food Item'></img>
-									</div>
-									
-								);
-							})
-						) : (
-							<h1>No previous recipes</h1>
-						)}
-
-					</Carousel>
+						<div className="previous-container">
+							{prevRecipes.length > 0 ?
+								prevRecipes.map((recipe, index) =>{
+									return <ProfileRecipeCardComponent recipe={recipe} key={index} />
+								})
+								:
+								<div>No Previous Recipes</div>
+							}
+						</div>
+					</div>
 
 				</div>
-
 			</div>
 			
 		</div>
