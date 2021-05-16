@@ -1,12 +1,15 @@
 .result__body {
   background: #eef2f7;
   height: 100vh;
+  padding-right: 2rem;
+  padding-left: 2rem;
 }
 
 .search___result {
   display: flex;
   flex-wrap: wrap;
-  margin-left: 100px;
+  align-items: center;
+  justify-content: center;
 }
 
 .your__results {

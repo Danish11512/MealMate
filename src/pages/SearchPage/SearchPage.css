@@ -70,6 +70,7 @@
 
 .filter__alignment {
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
 }
 .filter__alignment > p {
