@@ -26,10 +26,14 @@ const CalendarDay = (props) =>{
             setRow([<div><div className="p-5"></div><p className="has-text-black has-text-centered py-5">No Meals for this day &#129368;</p><div className="p-5"></div></div>])
             
         }else{
+            let sortedDayMeals = dayInfo[1].meals
+            sortedDayMeals.sort((a,b) => (a.time > b.time) ? 1 : -1)
+
             setDate(dayInfo[0])
             setTotalCalories(dayInfo[1].totalCalories)
             getCalories(dayInfo[1].meals)
-            dayInfo[1].meals.forEach(i => meals.push(<CalendarMeal removeRecipe={removeRecipe} date={date} meal={i}/>))
+            // console.log(dayInfo[1].meals)
+            sortedDayMeals.forEach(i => meals.push(<CalendarMeal removeRecipe={removeRecipe} date={date} meal={i}/>))
             meals.forEach(i => mealsCopy.push(i))
             setRow(meals)
         }
