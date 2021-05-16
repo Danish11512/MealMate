@@ -91,7 +91,7 @@ const App = () => {
 					render={() => (currentUser ? <ResultsPage /> : <Redirect to="/" />)}
 				/>
 
-        <Route
+				<Route
 					path="/calendar"
 					render={() => (currentUser ? <CalendarPage currentUser={currentUser} /> : <Redirect to="/" />)}
 				/>

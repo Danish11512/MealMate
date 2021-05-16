@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import { changeSurveyAnswers } from '../../firebase/firebase.utils';
 
 import './SurveyPage.css';
