@@ -65,8 +65,8 @@ removeMealFromDay(calendarId, mealId, date, calendar=null)
 	- It is recommended to provide the calendar parameter if previously retrieved to limit firestore calls
 	- This function will issue its own call to the firestore if the calendar parameter is not provided 
 
-editMealInDay(calendarId, mealId, date, newTime, calendar=null)
-	- Updates the time of a meal given the calendarId, mealId, date, and newTime
+editMealInDay(calendarId, mealId, date, newDate, newTime, calendar=null)
+	- Updates the time and date of a meal given the calendarId, mealId, date, and newTime
 	- calendar is an optional parameter that is the calendar data
 	- It is recommended to provide the calendar parameter if previously retrieved to limit firestore calls
 	- This function will issue its own call to the firestore if the calendar parameter is not provided 

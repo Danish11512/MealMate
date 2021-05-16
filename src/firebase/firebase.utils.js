@@ -126,7 +126,7 @@ export const getCalendarFull = async (calendarId) =>
 	return snapShot.data();
 }
 
-export const addMealToDay = async (user, recipeId, recipeName, date, time, calendar=null) =>
+export const addMealToDay = async (user, recipeId, recipeName, calories, date, time, calendar=null) =>
 {
 	if(date instanceof Date)
 		date = date.toDateString();
@@ -145,11 +145,12 @@ export const addMealToDay = async (user, recipeId, recipeName, date, time, calen
 
 	if(date in calendarData.schedule)
 	{
-		calendarData.schedule[date].meals.push({date, mealId, recipeId, recipeName, time});
+		calendarData.schedule[date].meals.push({date, mealId, recipeId, recipeName, time, calories});
+		calendarData.schedule[date].totalCalories += calories
 	}
 	else
 	{
-		let dateObject = {totalCalories:0, totalFat:0, meals:[{date, mealId, recipeId, recipeName, time}]};
+		let dateObject = {totalCalories:calories, totalFat:0, meals:[{date, mealId, recipeId, recipeName, time, calories}]};
 		calendarData.schedule[date] = dateObject;
 	}
 
@@ -198,6 +199,7 @@ export const removeMealFromDay = async (calendarId, mealId, date, calendar=null)
 		for(let i =0; i < calendarData.schedule[date].meals.length;i ++)
 			if(calendarData.schedule[date].meals[i].mealId === mealId)
 			{
+				calendarData.schedule[date].totalCalories -= calendarData.schedule[date].meals[i].calories;
 				calendarData.schedule[date].meals.splice(i, 1);
 				break;
 			}
@@ -216,11 +218,14 @@ export const removeMealFromDay = async (calendarId, mealId, date, calendar=null)
 	return null;
 }
 
-export const editMealInDay = async (calendarId, mealId, date, newTime, calendar=null) =>
+export const editMealInDay = async (calendarId, mealId, date, newDate, newTime, calendar=null) =>
 {
 	if(date instanceof Date)
 		date = date.toDateString();
 
+	if(newDate instanceof Date)
+		newDate = newDate.toDateString();
+		
 	const calendarRef = firestore.doc(`calendars/${calendarId}`);
 	let calendarData = calendar
 
@@ -233,11 +238,27 @@ export const editMealInDay = async (calendarId, mealId, date, newTime, calendar=
 	if(date in calendarData.schedule)
 	{
 		for(let i =0; i < calendarData.schedule[date].meals.length;i ++)
+		{
 			if(calendarData.schedule[date].meals[i].mealId === mealId)
 			{
-				calendarData.schedule[date].meals[i].time = newTime;
+				let copy = calendarData.schedule[date].meals[i];
+				copy.date = newDate
+				copy.time = newTime
+				calendarData.schedule[date].totalCalories -= copy.calories
+				calendarData.schedule[date].meals.splice(i, 1);
+				if(newDate in calendarData.schedule)
+				{
+					calendarData.schedule[newDate].meals.push(copy);
+					calendarData.schedule[newDate].totalCalories += copy.calories
+				}
+				else
+				{
+					let dateObject = {totalCalories:copy.calories, totalFat:0, meals:[copy]};
+					calendarData.schedule[newDate] = dateObject;
+				}
 				break;
 			}
+		}
 
 		try{
 			await calendarRef.set(calendarData);
@@ -370,7 +391,18 @@ export const addRecipeToDatabase = async (id) =>
 	try
 	{
 		let recipe = await getRecipeById(id);
+		let calories = 0
 
+		let caloriesIndex = recipe.summary.indexOf("calorie")
+		for(let i = caloriesIndex; i >= 0; i--)
+		{
+			if(recipe.summary[i] === ">")
+			{
+				calories = recipe.summary.substring(i+1, caloriesIndex - 1)
+				break;
+			}
+		}
+		recipe.calories = parseInt(calories)
 		/*
         await firestore.collection("recipes").doc(id).set({
 			id: recipe["id"],

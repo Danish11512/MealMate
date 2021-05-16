@@ -43,7 +43,7 @@ const RecipeDetailsPage = (props) =>
 	{
 		e.preventDefault()
 		let date = new Date(dateValue.replace('-', '/')).toDateString()
-		await addMealToDay(props.currentUser, recipe.id, recipe.title, date, timeValue); 
+		await addMealToDay(props.currentUser, recipe.id, recipe.title, recipe.calories, date, timeValue); 
 		toggleModal()
 	}
 
