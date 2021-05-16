@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import hamburger from "../../assets/hamburgericon.jpg";
 import { useDispatch } from "react-redux";
 import FilterActions from "../../redux/actions/FilterActions";
 import { Multiselect } from "multiselect-react-dropdown";
 
 function Filter({intolerance, diet}) {
 
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	let intoleranceArr = [];
     
 	intolerance.forEach(el => {
@@ -13,7 +13,6 @@ function Filter({intolerance, diet}) {
 		intoleranceArr.push(obj); 
 	});
 
-	const [toggle, setToggle] = useState(false);
 	const [Filters, setFilters] = useState({});
 	const [dietDropdown, setDietDropDown] = useState(diet);
 	const [selected, setSelected] = useState({
@@ -44,36 +43,26 @@ function Filter({intolerance, diet}) {
 
 
 	useEffect(() => {
-		if (toggle) {
-			dispatch(FilterActions(Filters));
-		} else {
-			dispatch(FilterActions({}));
-		}
-	}, [Filters, toggle, dispatch]);
-	useEffect(() => {
-		setFilters({});
-	}, [toggle]);
+		dispatch(FilterActions(Filters));
+	}, [Filters, dispatch]);
+
 
 	useEffect(() => {
 		setFilters(prev =>{
-			if(toggle){
-				if(intolerance.length !== 0 && diet === "None"){
-					return ({...prev, intolerances: intoleranceArr})
-				} 
-				else if(intolerance.length === 0 && diet !== "None"){
-					return ({...prev, diet: diet})
-				} else if(intolerance.length !== 0 && diet !== "None"){
-					return ({...prev,intolerances: intoleranceArr, diet: diet})
-				}else{
-					return ({...prev});
-				} 
+		    if(intolerance.length !== 0 && diet === "None"){
+				return ({...prev, intolerances: intoleranceArr})
+			} 
+			else if(intolerance.length === 0 && diet !== "None"){
+				return ({...prev, diet: diet})
+			} else if(intolerance.length !== 0 && diet !== "None"){
+				return ({...prev,intolerances: intoleranceArr, diet: diet})
 			}else{
-				return ({});
-			}
-		
+				return ({...prev});
+			} 
 		});
         
-	}, [diet, intolerance, toggle])
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [diet, intolerance])
 
 	function onSelect(selectedList, selectedItem) {
 		intoleranceChange("intolerances", [...selectedList]);
@@ -132,133 +121,115 @@ function Filter({intolerance, diet}) {
 	};
 
 	return (
-		<div className="hamburger">
-			{!toggle ? (
-				<img
-					src={hamburger}
-					onClick={() => setToggle(true)}
-					alt="hamburger__img"
-				></img>
-			) : (
-				<div className="filters">
-					<button
-						className="delete is-medium delete__postion"
-						onClick={() => setToggle(false)}
-					></button>
-					<div className="filter__alignment">
-						<p className="filter__micros">Diet: </p>
-						<div className="select">
-							<select id="diet" onChange={onChange} value={dietDropdown}>
-								<option value="" ></option>
-								<option value="Gluten Free">Gluten Free</option>
-								<option value="Ketogenic">Ketogenic</option>
-								<option value="Vegetarian">Vegetarian</option>
-								<option value="Lacto-Vegetarian">Lacto-Vegetarian</option>
-								<option value="Ovo-Vegetarian">Ovo-Vegetarian</option>
-								<option value="Vegan">Vegan</option>
-								<option value="Paleo">Paleo</option>
-								<option value="Primal">Primal</option>
-								<option value="Whole30">Whole30</option>
-							</select>
-						</div>
-					</div>
-					<div className="filter__alignment">
-						<p className="filter__micros">Meal type:</p>
-						<div className="select">
-							<select id="mealType" onChange={onChange}>
-								<option value=""></option>
-								<option value="breakfast">Breakfast</option>
-								<option value="brunch"> Brunch</option>
-								<option value="lunch">Lunch</option>
-								<option value="dinner">Dinner</option>
-							</select>
-						</div>
-					</div>
-					<div className="filter__alignment">
-						<p className="filter__micros">Intolerances:</p>
-						{/* <input
-              id="intolerances"
-              className="input input__intolerances"
-              type="text"
-              onChange={onChange}
-            /> */}
-						<Multiselect
-							//className="filterTweak"
-							id="intolerances"
-							options={intolerances.values} // Options to display in the dropdown
-							selectedValues={selected.values} // Preselected value to persist in dropdown
-							onSelect={onSelect} // Function will trigger on select event
-							onRemove={onRemove} // Function will trigger on remove event
-							displayValue="name" // Property name to display in the dropdown options
-						/>
-					</div>
-
-					<div className="filter__alignment">
-						<p className="filter__micros">Max Carbs:</p>
-						<input
-							id="max_carbs"
-							className="input input__intolerances"
-							type="text"
-							onChange={onChange}
-						/>
-						<p className="filter__unit">grams</p>
-					</div>
-
-					<div className="filter__alignment">
-						<p className="filter__micros">Cuisine Type:</p>
-						<div className="select is-multiple">
-							<select
-								id="cuisine"
-								size="4"
-								multiple
-								onChange={onChange}
-								style={{ marginTop: "20px" }}
-							>
-								<option value=""></option>
-								<option value="African">African</option>
-								<option value="American"> American</option>
-								<option value="British">British</option>
-								<option value="dinner">Dinner</option>
-								<option value="Cajun">Cajun</option>
-								<option value="Caribbean"> Caribbean</option>
-								<option value="Chinese">Chinese</option>
-								<option value="Eastern European">Eastern European</option>
-								<option value="European">European</option>
-								<option value="French"> French</option>
-								<option value="German">German</option>
-								<option value="Greek">Greek</option>
-								<option value="Indian">Indian</option>
-								<option value="brunch"> Brunch</option>
-								<option value="Irish">Irish</option>
-								<option value="Italian">Italian</option>
-								<option value="Japanese">Japanese</option>
-								<option value="Jewish"> Jewish</option>
-								<option value="Korean">Korean</option>
-								<option value="Latin American">Latin American</option>
-								<option value="Mediterranean">Mediterranean</option>
-								<option value="Mexican"> Mexican</option>
-								<option value="Middle Eastern">Middle Eastern</option>
-								<option value="Nordic">Nordic</option>
-								<option value="Southern">Southern</option>
-								<option value="Spanish"> Spanish</option>
-								<option value="Thai">Thai</option>
-								<option value="Vietnamese">Vietnamese</option>
-							</select>
-						</div>
-					</div>
-
-					<div className="filter__alignment">
-						<p className="filter__micros">Prep Time:</p>
-						<input
-							id="prepTime"
-							className="input input__intolerances"
-							type="text"
-							onChange={onChange}
-						/>
-						<p className="filter__unit">Min</p>
+		<div className="hamburger">	
+			<div className="filters">
+				<div className="filter__alignment">
+					<p className="filter__micros">Diet: </p>
+					<div className="select">
+				 <select id="diet" onChange={onChange} value={dietDropdown}>
+						 <option value="" ></option>
+						 <option value="Gluten Free">Gluten Free</option>
+						 <option value="Ketogenic">Ketogenic</option>
+						 <option value="Vegetarian">Vegetarian</option>
+							<option value="Lacto-Vegetarian">Lacto-Vegetarian</option>
+							<option value="Ovo-Vegetarian">Ovo-Vegetarian</option>
+							<option value="Vegan">Vegan</option>
+							<option value="Paleo">Paleo</option>
+							<option value="Primal">Primal</option>
+							<option value="Whole30">Whole30</option>
+						</select>
 					</div>
 				</div>
-			)}
+				<div className="filter__alignment">
+					<p className="filter__micros">Meal type:</p>
+					<div className="select">
+						<select id="mealType" onChange={onChange}>
+							<option value=""></option>
+							<option value="breakfast">Breakfast</option>
+							<option value="brunch"> Brunch</option>
+							<option value="lunch">Lunch</option>
+							<option value="dinner">Dinner</option>
+						</select>
+					</div>
+				</div>
+				<div className="filter__alignment">
+					<p className="filter__micros">Intolerances:</p>
+					<Multiselect
+						//className="filterTweak"
+						id="intolerances"
+						options={intolerances.values} // Options to display in the dropdown
+						selectedValues={selected.values} // Preselected value to persist in dropdown
+						onSelect={onSelect} // Function will trigger on select event
+						onRemove={onRemove} // Function will trigger on remove event
+						displayValue="name" // Property name to display in the dropdown options
+					/>
+				</div>
+
+				<div className="filter__alignment">
+					<p className="filter__micros">Max Carbs:</p>
+					<input
+						id="max_carbs"
+						className="input input__intolerances"
+						type="text"
+						onChange={onChange}
+					/>
+					<p className="filter__unit">grams</p>
+				</div>
+
+				<div className="filter__alignment">
+					<p className="filter__micros">Cuisine Type:</p>
+					<div className="select is-multiple">
+						<select
+							id="cuisine"
+							size="4"
+							multiple
+							onChange={onChange}
+							style={{ marginTop: "20px" }}
+						>
+							<option value=""></option>
+							<option value="African">African</option>
+							<option value="American"> American</option>
+							<option value="British">British</option>
+							<option value="dinner">Dinner</option>
+							<option value="Cajun">Cajun</option>
+							<option value="Caribbean"> Caribbean</option>
+							<option value="Chinese">Chinese</option>
+							<option value="Eastern European">Eastern European</option>
+							<option value="European">European</option>
+							<option value="French"> French</option>
+							<option value="German">German</option>
+							<option value="Greek">Greek</option>
+							<option value="Indian">Indian</option>
+							<option value="brunch"> Brunch</option>
+							<option value="Irish">Irish</option>
+							<option value="Italian">Italian</option>
+							<option value="Japanese">Japanese</option>
+							<option value="Jewish"> Jewish</option>
+							<option value="Korean">Korean</option>
+							<option value="Latin American">Latin American</option>
+							<option value="Mediterranean">Mediterranean</option>
+							<option value="Mexican"> Mexican</option>
+							<option value="Middle Eastern">Middle Eastern</option>
+							<option value="Nordic">Nordic</option>
+							<option value="Southern">Southern</option>
+							<option value="Spanish"> Spanish</option>
+							<option value="Thai">Thai</option>
+							<option value="Vietnamese">Vietnamese</option>
+						</select>
+					</div>
+				</div>
+
+				<div className="filter__alignment">
+					<p className="filter__micros">Prep Time:</p>
+					<input
+						id="prepTime"
+						className="input input__intolerances"
+						type="text"
+						onChange={onChange}
+					/>
+					<p className="filter__unit">Min</p>
+				</div>
+			</div>
 		</div>
 	);
 }

@@ -12,7 +12,7 @@ function SearchPage({currentUser}) {
 			</div>
 			<div className="page__right__search">
 				<Search />
-				<Recommendation />
+				<Recommendation className="circle__alignments"/>
 			</div>
 		</div>
 	);

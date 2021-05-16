@@ -11,6 +11,7 @@
 
 .page__right__search {
   flex: 0.65;
+  text-align: center;
 }
 
 /* Left Filters styles */
@@ -106,30 +107,30 @@
 }
 
 .is-right {
-  left: 41.5vw;
+  left: 50.5vw;
 }
 
 @media (max-width: 900px) {
     .is-right {
-        left: 40vw;
+        left: 50vw;
       }
 }
 
 @media(max-width: 630px){
     .is-right {
-        left: 38vw;
+        left: 48vw;
       }
 }
 
 @media(max-width: 450px){
     .is-right {
-        left: 35vw;
+        left: 45vw;
       }
 }
 
 @media(min-width: 1300px){
     .is-right {
-        left: 42.5vw;
+        left: 52.5vw;
       }
 }
 
@@ -159,6 +160,8 @@
   justify-content: center;
 }
 
+
+
 .circle__view__img {
   width: 150px;
   height: 150px;
@@ -175,6 +178,7 @@
 .circle__position {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .circle__view__text {
