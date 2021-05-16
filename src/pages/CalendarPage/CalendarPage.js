@@ -10,7 +10,15 @@ const CalendarPage = (props) =>{
     const [previousRecipes, setPreviousRecipes] = useState([<div>
         <p className="has-text-black">
             <br></br><br></br><br></br><br></br><br></br>
-            Looks like you dont have any recent meals &#129370;
+            Looks like you don't have any recent meals &#129370;
+            <br></br><br></br><br></br><br></br><br></br>
+        </p>
+    </div>])
+    let favoritesArray = props.currentUser.favorites
+    const [favoriteRecipes, setFavoriteRecipes] = useState([<div>
+        <p className="has-text-black">
+            <br></br><br></br><br></br><br></br><br></br>
+            Looks like you don't have any recent meals &#127815;
             <br></br><br></br><br></br><br></br><br></br>
         </p>
     </div>])
@@ -30,11 +38,30 @@ const CalendarPage = (props) =>{
             )
             
         }else{
-            let tempRecipeHolder = []
-            previousRecipesArray = previousRecipesArray.slice(1).slice(-5)
-            previousRecipesArray.forEach(i => tempRecipeHolder.push(<CalendarRecentRecipe addRecipeRefresh={addRecipeRefresh} currentUser={props.currentUser} recipeId={i}/>))
-            setPreviousRecipes(tempRecipeHolder)
+            let tempHolder = []
+            previousRecipesArray = Array.from( new Set(previousRecipesArray.slice(1).slice(-8)))
+            previousRecipesArray.forEach(i => tempHolder.push(<CalendarRecentRecipe addRecipeRefresh={addRecipeRefresh} currentUser={props.currentUser} recipeId={i}/>))
+            setPreviousRecipes(tempHolder)
         }
+
+        if(favoritesArray.length < 1){
+            setFavoriteRecipes([
+                <div>
+                    <p className="has-text-black">
+                        <br></br><br></br><br></br><br></br><br></br>
+                        Looks like you don't have any recent meals &#127815;
+                        <br></br><br></br><br></br><br></br><br></br>
+                    </p>
+                </div>      
+            ])
+        }else{
+            let tempHolder = []
+            favoritesArray = Array.from( new Set(favoritesArray.slice(1).slice(-5)))
+            favoritesArray.forEach(i => tempHolder.push(<CalendarRecentRecipe addRecipeRefresh={addRecipeRefresh} currentUser={props.currentUser} recipeId={i}/>))
+            setFavoriteRecipes(tempHolder)
+        }
+            
+        
 
 
     }, [startDate])
@@ -56,16 +83,14 @@ const CalendarPage = (props) =>{
     return (
         <div className="columns">
             <div id="list" className="column is-2">
-            <div className="title is-5 has-text-centered"> Add to Calendar</div>
+            <div className="title is-5 has-text-centered"> Your Favorite Recipes</div>
                 <div className="card has-background-warning">
-                    <div className="card-content has-text-centered">
-                        <div className="field">
-                            <div className="control">
-                                <input className="input" type="text" placeholder="Recipe"></input>
-                            </div>
-                        </div>
-                    <div className="subtitle is-6 has-text-centered"> Satisfy your cravings</div>
-                    <br></br><br></br><br></br><br></br><br></br><br></br><br></br>
+                    <div id="recipe-list" className="card-content">
+                        <nav>
+                            <ul>
+                                {favoriteRecipes.map(item => <li key={favoriteRecipes.indexOf(item)}>{item}</li>)}
+                            </ul>
+                        </nav>
                     </div>
                 </div>
                 <br></br>
