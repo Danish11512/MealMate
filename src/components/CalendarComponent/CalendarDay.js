@@ -28,29 +28,64 @@ const CalendarDay = (props) =>{
         }else{
             setDate(dayInfo[0])
             setTotalCalories(dayInfo[1].totalCalories)
+            getCalories(dayInfo[1].meals)
             dayInfo[1].meals.forEach(i => meals.push(<CalendarMeal removeRecipe={removeRecipe} date={date} meal={i}/>))
             meals.forEach(i => mealsCopy.push(i))
             setRow(meals)
         }
     }, [props.dayInfo])
     
-    const removeRecipe  = async (event, mealId, meal) =>{
+    const removeRecipe  = async (e, mealId, meal) =>{
 		if(mealId != null && props.calendarId != null ){
             let index = 0
             index = meals.map(function(e) { return e.props.meal.mealId }).indexOf(meal.mealId)
-            
+             
             // meals.indexOf([meal,<CalendarMeal removeRecipe={removeRecipe} date={date} meal={meal}/>])
             // console.log(meals)
             mealsCopy.splice(index, 1)
             firebase.removeMealFromDay(props.calendarId, mealId, dayInfo[0]).then(setRow(mealsCopy))
-            
-            
-            
-            
             // console.log(dayInfo[1].meals.indexOf(meal))
-
         }
 		    
+    }
+
+    const getCalories = async (meals) => {
+        let recipeIds = []
+        let recipeSummary = []
+        let tempString = ""
+        let recipeCalorie = []
+        let tempCalorie = 0
+        meals.forEach(i => recipeIds.push(i.recipeId))
+
+        for(let i = 0; i< recipeIds.length; i++)
+            recipeSummary.push((await firebase.getRecipe(`${recipeIds[i]}`)).summary) 
+
+        try{
+            for(let summary = 0; summary < recipeSummary.length; summary ++){
+                for(let i = 0; i< recipeSummary[summary].length; i++){
+                    if(!isNaN(recipeSummary[summary][i])){
+                        tempString += recipeSummary[summary][i]
+                        
+                    }else if(isNaN(recipeSummary[summary][i])){
+                        if(recipeSummary[summary].substring(i, i+8) == "calories"){
+                            break
+                        }else{
+                            tempString = ""
+                        }
+                    }else{
+                        tempString = ""
+                    }
+                }
+                recipeCalorie.push(parseInt(tempString))
+            }
+        }
+        catch(error){
+            console.log("Error while parsing summary: ", error.message)
+        }
+        
+        recipeCalorie.forEach(i => tempCalorie += i)
+        setTotalCalories(tempCalorie)
+        
     }
 
     return(
