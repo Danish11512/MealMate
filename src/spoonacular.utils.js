@@ -1,7 +1,7 @@
 //import axios from 'axios';
 
 const fetch = require("node-fetch");
-const SPOONACULAR_API_KEYS = ["c596eb18f99d49ea8d8895ef5f10840d", "46aecb3dc8b54eedaa242d3ca5a6b33d", "6a37f4e32e674edf86796454ce8dc8b7", "baa7a2e369eb42599d83a5e79692bb15"];
+const SPOONACULAR_API_KEYS = ["c596eb18f99d49ea8d8895ef5f10840d", "46aecb3dc8b54eedaa242d3ca5a6b33d", "6a37f4e32e674edf86796454ce8dc8b7", "baa7a2e369eb42599d83a5e79692bb15", "a38743746d8f48c4b362495ad6ade84d"];
 
 // Gets recipe from spoonacular using id
 // Takes: Id as string or numeric type, up to you bb <3

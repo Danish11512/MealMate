@@ -11,6 +11,7 @@ import ResultsPage from "./pages/ResultPage/SearchResultPage";
 import RecipeDetailsPage from "./pages/RecipeDetailsPage/RecipeDetailsPage";
 import CalendarPage from "./pages/CalendarPage/CalendarPage";
 import LandingPage from "./pages/LandingPage/LandingPage";
+import SurveyPage from './pages/SurveyPage/SurveyPage';
 
 const App = () => {
 	const [currentUser, setCurrentUser] = useState("wait");
@@ -66,6 +67,10 @@ const App = () => {
 					render={() => (currentUser ? <Redirect to="/" /> : <SignUpPage />)}
 				/>
 				<Route
+					path="/survey"
+					render={() => (currentUser ? <SurveyPage currentUser={currentUser} /> : <Redirect to="/" />)}
+				/>
+				<Route
 					path="/profile"
 					render={() =>
 						currentUser ? (
@@ -88,7 +93,7 @@ const App = () => {
 
 				<Route
 					path="/results"
-					render={() => (currentUser ? <ResultsPage /> : <Redirect to="/" />)}
+					render={() => (currentUser ? <ResultsPage currentUser={currentUser} /> : <Redirect to="/" />)}
 				/>
 
 				<Route

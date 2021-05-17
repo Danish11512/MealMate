@@ -47,7 +47,9 @@ const Navbar = (props) =>
 							<Link className="navbar-item" to="/" onClick={() => auth.signOut()}>Logout</Link>
 						</React.Fragment>
 						:
-						<Link className="navbar-item" to="/login">Login</Link>
+						<React.Fragment>
+							<Link className="navbar-item" to="/login">Login</Link>
+						</React.Fragment>
 					}
 				</div>
 			</div>
