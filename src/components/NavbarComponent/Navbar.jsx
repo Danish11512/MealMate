@@ -42,7 +42,6 @@ const Navbar = (props) =>
 					{props.currentUser ?
 						<React.Fragment>
 							<Link className="navbar-item" to="/search">Search</Link>
-							<Link className="navbar-item" to="/grocery">Grocery</Link>
 							<Link className="navbar-item" to="/calendar">Calendar</Link>
 							<Link className="navbar-item" to="/profile">Profile</Link>
 							<Link className="navbar-item" to="/" onClick={() => auth.signOut()}>Logout</Link>

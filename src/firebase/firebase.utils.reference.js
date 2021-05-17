@@ -53,8 +53,8 @@ getCalendarFull(calendarId)
 			}
 		}
 
-addMealToDay(user, recipeId, recipeName, date, time, calendar=null)
-	- Adds a meal to a day given the user object, recipeId, recipeName, date, and time
+addMealToDay(user, recipeId, recipeName, calories, date, time, calendar=null)
+	- Adds a meal to a day given the user object, recipeId, recipeName,calories, date, and time
 	- calendar is an optional parameter that is the calendar data
 	- It is recommended to provide the calendar parameter if previously retrieved to limit firestore calls
 	- This function will issue its own call to the firestore if the calendar parameter is not provided 

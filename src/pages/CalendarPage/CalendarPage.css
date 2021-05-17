@@ -10,27 +10,37 @@
     padding-top: 2%;
 }
 
-.columns h1{
+.column h1{
     font-family: "Sacramento", cursive;
     font-size: 50px;
-    margin-top: 50px;
-    margin-left: 10px;
     color: #ffab73;
 }
 
 #calendar{
-    padding-left: 0%;
-    padding-right: 0%;
-    padding-top: 0%;
-    padding-bottom: 0%;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+    vertical-align: middle;
 }
 
 #button-left{
-    padding-top: 20%;
+    width: 5%;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-width: 40px;
 }
 
 #button-right{
-    padding-top: 20%;
+    width: 5%;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-width: 40px;
 }
 
 .has-text-left {
@@ -70,7 +80,22 @@
 
 .calendar-days
 {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-column-gap: 1rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.calendar-view-container
+{
+    width: 80%;
+    align-items: center;
+}
+
+.calendar-days > *
+{
+    width: 30%;
+    flex: 1 1 auto;
+    min-width: 250px;
+    margin-left: .5rem;
+    margin-right: .5rem;
 }

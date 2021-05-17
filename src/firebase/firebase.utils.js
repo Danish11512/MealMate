@@ -176,7 +176,136 @@ export const addMealToDay = async (user, recipeId, recipeName, calories, date, t
 
 	return [calendarData, mealId];
 }
+/*
+export const randomAddToDay = async (user, startDate, endDate, calendar=null) =>
+{
+	try
+	{
+		let intolerances = user.intolerances
+		let diet = user.diet
+		let filters = {}
+		if(intolerances.length !== 0 && diet === "None")
+			filters = {intolerances}
+		else if(intolerances.length === 0 && diet !== "None")
+			filters = {diet}
+		else if(intolerances.length !== 0 && diet !== "None")
+			filters = {intolerances, diet}
 
+		console.log(filters)
+		filters.mealType = "breakfast"
+		let breakfast = await searchRecipeBlank(filters);
+		let breakfastArr = []
+
+		filters.mealType = "lunch"
+		let lunch = await searchRecipeBlank(filters);
+		let lunchArr = []
+
+		filters.mealType = "dinner"
+		let dinner = await searchRecipeBlank(filters);
+		let dinnerArr = []
+		console.log(dinner)
+		for(let i = 0; i <6; i++)
+		{
+			lunchArr.push(lunch.results[Math.floor(Math.random() * 30)])
+			breakfastArr.push(breakfast.results[Math.floor(Math.random() * 30)])
+			dinnerArr.push(dinner.results[Math.floor(Math.random() * 30)])
+		}
+		console.log(breakfastArr)
+		console.log(dinnerArr)
+		console.log(dinnerArr)
+		const userRef = firestore.doc(`users/${user.uid}`);
+		const previousRecipes = user.previousRecipes;
+		const calendarRef = firestore.doc(`calendars/${user.calendarId}`);
+		let calendarData = calendar
+
+		if(!calendarData)
+		{
+			const snapShot = await calendarRef.get();
+			calendarData = snapShot.data();
+		}
+		calendarData.schedule = await getCalendarDateRange(user.calendarId, startDate, endDate, calendar)
+		console.log(calendarData)
+	
+		let mealId = null
+		let currentMeal = null
+		let currentRecipe = null
+		let dates = Object.keys(calendarData.schedule)
+		console.log(dates)
+		let index = 0
+		for(let date of dates)
+		{
+			for(let i = 0;i< 3;i++)
+			{
+				mealId = generateId()
+				currentMeal = {date, mealId}
+				console.log(currentMeal)
+				if(i === 0)
+				{
+					console.log(breakfastArr[index].id)
+					currentRecipe = await getRecipe(breakfastArr[index].id)
+					currentMeal.time = "9:00"
+				}
+				else if(i === 1)
+				{
+					currentRecipe = await getRecipe(lunchArr[index].id)
+					currentMeal.time = "13:00"
+				}
+				else
+				{
+					currentRecipe = await getRecipe(dinnerArr[index].id)
+					currentMeal.time = "19:00"
+				}
+				console.log(currentRecipe)
+				currentMeal.recipeId = currentRecipe.id;
+				currentMeal.recipeName = currentRecipe.title
+				currentMeal.calories = currentRecipe.calories
+				console.log(currentMeal)
+				if(date in calendarData.schedule)
+				{
+					calendarData.schedule[date].meals.push(currentMeal);
+					calendarData.schedule[date].totalCalories += currentMeal.calories
+				}
+				else
+				{
+					let dateObject = {totalCalories:currentMeal.calories, totalFat:0, meals:[currentMeal]};
+					calendarData.schedule[date] = dateObject;
+				}
+	
+				if(!previousRecipes.includes(currentMeal.recipeId))
+				{
+					previousRecipes.push(currentMeal.recipeId);
+				}
+				console.log(calendarData)
+			}
+			index += 1
+		}
+	
+	
+		try{
+			await calendarRef.set(calendarData);
+		}
+		catch(error)
+		{
+			console.log("Could not add random add to Day");
+		}
+	
+		try{
+			await userRef.update({previousRecipes});
+		}
+		catch(error)
+		{
+			console.log("Could not add to previous recipes")
+		}
+	
+		return calendarData;
+	}
+	catch (e)
+	{
+		alert("Failed to randomize")
+	}
+		
+}
+*/
 export const removeMealFromDay = async (calendarId, mealId, date, calendar=null) =>
 {	
 	console.log(calendarId)
@@ -217,6 +346,8 @@ export const removeMealFromDay = async (calendarId, mealId, date, calendar=null)
 
 	return null;
 }
+
+
 
 export const editMealInDay = async (calendarId, mealId, date, newDate, newTime, calendar=null) =>
 {

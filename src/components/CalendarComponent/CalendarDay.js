@@ -16,7 +16,7 @@ const CalendarDay = (props) =>{
 			sortedDayMeals.sort((a,b) => (a.time > b.time) ? 1 : -1)
             
 			sortedDayMeals.forEach(i => meals.push(<CalendarMeal removeRecipe={removeRecipe} editMeal={editMeal} date={dayInfo[0]} meal = {i}/>))
-			setRow(sortedDayMeals)
+			setRow(meals)
 		}
 	}, [])
 
@@ -48,8 +48,8 @@ const CalendarDay = (props) =>{
 					</p>
 				</header>
 
-				<div className="card-content">
-					<div className="content">
+				<div className="card-content" style={{height:"250px", overflowY:"auto"}}>
+					<div className="content" >
 						{row.map(item => <span key={row.indexOf(item)}>{item}</span>)}
 					</div>
 				</div>
