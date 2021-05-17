@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 
 import logo from "../../assets/mealLogo.png";
 import { auth } from "../../firebase/firebase.utils";
@@ -8,19 +8,10 @@ import "./Navbar.css";
 
 const Navbar = (props) => 
 {
-	let navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0)
-	if(navbarBurgers.length > 0)
+	const [isActive, setIsActive] = useState(false)
+	const toggleMenu = () =>
 	{
-		navbarBurgers.forEach(burger => 
-		{
-			burger.addEventListener('click', () =>{
-				const target = burger.dataset.target
-				const targetElement = document.getElementById(target)
-
-				burger.classList.toggle('is-active');
-				targetElement.classList.toggle('is-active');
-			});
-		});
+		setIsActive(isActive => !isActive);
 	}
 
 	return (
@@ -30,25 +21,25 @@ const Navbar = (props) =>
 					<img src={logo} alt="logo" />
 					<p className="navbar__brand">Meal Mate</p>
 				</Link>
-				<div className="navbar-burger burger" data-target="navbarBasicExample">
+				<div onClick={toggleMenu} className={`navbar-burger burger ${isActive ? 'is-active' : ''}`} data-target="navbarBasicExample">
 					<span></span>
 					<span></span>
 					<span></span>
 				</div>
 			</div>
 
-			<div id="navbarBasicExample" className="navbar-menu">
+			<div id="navbarBasicExample" className={`navbar-menu ${isActive ? 'is-active': ''}`}>
 				<div className="navbar-end">
 					{props.currentUser ?
 						<React.Fragment>
-							<Link className="navbar-item" to="/search">Search</Link>
-							<Link className="navbar-item" to="/calendar">Calendar</Link>
-							<Link className="navbar-item" to="/profile">Profile</Link>
-							<Link className="navbar-item" to="/" onClick={() => auth.signOut()}>Logout</Link>
+							<Link onClick={toggleMenu} className="navbar-item" to="/search">Search</Link>
+							<Link onClick={toggleMenu} className="navbar-item" to="/calendar">Calendar</Link>
+							<Link onClick={toggleMenu} className="navbar-item" to="/profile">Profile</Link>
+							<Link onClick={toggleMenu} className="navbar-item" to="/" onClick={() => auth.signOut()}>Logout</Link>
 						</React.Fragment>
 						:
 						<React.Fragment>
-							<Link className="navbar-item" to="/login">Login</Link>
+							<Link onClick={toggleMenu} className="navbar-item" to="/login">Login</Link>
 						</React.Fragment>
 					}
 				</div>
