@@ -308,9 +308,6 @@ export const randomAddToDay = async (user, startDate, endDate, calendar=null) =>
 */
 export const removeMealFromDay = async (calendarId, mealId, date, calendar=null) =>
 {	
-	console.log(calendarId)
-	console.log(mealId)
-	console.log(date)
 	if(date instanceof Date)
 		date = date.toDateString();
 
@@ -408,11 +405,7 @@ export const editMealInDay = async (calendarId, mealId, date, newDate, newTime, 
 export const toggleFavorite = async (user, recipeId) =>
 {
 	const userRef = firestore.doc(`users/${user.uid}`);
-	console.log("inside utils")
-	console.log("recipeid: "+recipeId)
-	console.log(user)
 	let favorites = user.favorites;
-	console.log(favorites)
 
 	const index = favorites.indexOf(String(recipeId))
 	try

@@ -20,7 +20,7 @@ const CalenderView = (props) =>{
 
 	if(!calendarDays)
 		return null;
-	console.log(calendarDays)
+
 	return(
 		<div className="calendar-days">
 			<CalendarDay calendarId={props.calendarId} dayInfo={calendarDays[0]} updateCalendar = {getCalenderInfo}></CalendarDay>

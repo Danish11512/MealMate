@@ -13,7 +13,6 @@ const RecipeDetailsPage = (props) =>
 	const [timeValue, setTimeValue] = useState("");
 	let isFavorited = (props.currentUser && recipe) ? props.currentUser.favorites.includes(String(recipe.id)) : false;
 
-	console.log(isFavorited)
 	useEffect(() =>{
 		const initialize = async () =>
 		{
@@ -34,8 +33,6 @@ const RecipeDetailsPage = (props) =>
 
 	const toggleFavoriteLocal = async () =>
 	{
-		console.log("Inside Component")
-		console.log(props.currentUser)
 		await toggleFavorite(props.currentUser, recipe.id);
 	}
 
@@ -47,7 +44,6 @@ const RecipeDetailsPage = (props) =>
 		toggleModal()
 	}
 
-	console.log(recipe);
 	if(!recipe || !props.currentUser)
 		return null;
     
